@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/janic/Documents/NetBeansProjects/IP2020/Darks/src/java/bean/Products.java</file>
+            <file>file:/C:/Users/Anderson/Documents/NetBeansProjects/Darks/src/java/controller/ViewProductsServlet.java</file>
+            <file>file:/C:/Users/Anderson/Documents/NetBeansProjects/Darks/web/adminIndex.jsp</file>
+            <file>file:/C:/Users/Anderson/Documents/NetBeansProjects/Darks/web/userIndex.jsp</file>
+            <file>file:/C:/Users/Anderson/Documents/NetBeansProjects/Darks/web/adminViewProducts.jsp</file>
+            <file>file:/C:/Users/Anderson/Documents/NetBeansProjects/Darks/src/java/controller/activationServlet.java</file>
+            <file>file:/C:/Users/Anderson/Documents/NetBeansProjects/Darks/src/java/bean/Products.java</file>
         </group>
     </open-files>
 </project-private>

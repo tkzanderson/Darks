@@ -174,16 +174,16 @@
                                         <td>
                                              <form name="activateForm" action="activationServlet" method="POST">
                                                  <input type="submit" value="Activate" class="btn btn-primary">
-                                                 <input type="hidden" name="aclindex" value="<%= prod.getId() %>">
-                                                 <input type="hidden" name="action" value="1">
+                                                 <input type="hidden" name="index" value="<%= prod.getId() %>">
+                                                 <input type="hidden" name="action" value=1>
                                             </form>
                                         </td>
                                         
                                         <td>
                                              <form name="deactivateForm" action="activationServlet" method="POST">
                                                  <input type="submit" value="Deactivate" class="btn btn-danger">
-                                                 <input type="hidden" name="deaclindex" value="<%= prod.getId() %>">
-                                                 <input type="hidden" name="action" value="0">
+                                                 <input type="hidden" name="index" value="<%= prod.getId() %>">
+                                                 <input type="hidden" name="action" value=0>
                                             </form>
                                         </td>
                                     </tr>

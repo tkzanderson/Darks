@@ -44,6 +44,7 @@ public class ViewProductsServlet extends HttpServlet {
         
         HttpSession session = request.getSession(true);
         String action = request.getParameter("action");
+        //String action2 = (String)request.getAttribute("action2");
         ArrayList<Products> products = new ArrayList<Products>();
         
         String prodTitle, prodDescription, prodType;
@@ -57,14 +58,18 @@ public class ViewProductsServlet extends HttpServlet {
         String userName = "root";
         String password = "";
         String query="SELECT * FROM products";
+        String query2="SELECT * FROM products WHERE active=1";
         
         
         Class.forName(driver); 
         Connection con = DriverManager.getConnection(url, userName, password); 
         Statement st = con.createStatement(); 
+        Statement st2 = con.createStatement();
         ResultSet rs = st.executeQuery(query);
-                
-        while(rs.next()){
+        ResultSet rs2 = st2.executeQuery(query2);
+                             
+                if(action.equals("adminview")/*||action2.equals("adminview")*/){
+                    while(rs.next()){
                      id = rs.getInt(1);
                      prodTitle = rs.getString(2);
                      prodDescription = rs.getString(3);
@@ -74,13 +79,23 @@ public class ViewProductsServlet extends HttpServlet {
                      activate = rs.getInt(7);
                      
                 products.add(new Products(prodTitle, prodDescription, prodType, prodPrice, id,prodImage, activate)); }
+                    
                 session.setAttribute("products", products);
-                
-                if(action.equals("adminview")){
                     RequestDispatcher rd = request.getRequestDispatcher("/adminViewProducts.jsp");
                     rd.forward(request, response);
                 }
+                
                 else if(action.equals("userview")){
+                    while(rs2.next()){
+                     id = rs2.getInt(1);
+                     prodTitle = rs2.getString(2);
+                     prodDescription = rs2.getString(3);
+                     prodPrice = rs2.getDouble(4);
+                     prodType = rs2.getString(5);
+                     prodImage = rs2.getString(6);
+                     
+                products.add(new Products(prodTitle, prodDescription, prodType, prodPrice, id, prodImage)); }
+                session.setAttribute("products", products);
                     RequestDispatcher rd = request.getRequestDispatcher("/products.jsp");
                     rd.forward(request, response);
                 }
