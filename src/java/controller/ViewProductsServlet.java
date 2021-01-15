@@ -44,12 +44,11 @@ public class ViewProductsServlet extends HttpServlet {
         
         HttpSession session = request.getSession(true);
         String action = request.getParameter("action");
-        System.out.println("action");
         ArrayList<Products> products = new ArrayList<Products>();
         
         String prodTitle, prodDescription, prodType;
         double prodPrice;
-        int id;
+        int id, activate;
         String prodImage;
         
         String driver = "com.mysql.jdbc.Driver";
@@ -72,12 +71,23 @@ public class ViewProductsServlet extends HttpServlet {
                      prodPrice = rs.getDouble(4);
                      prodType = rs.getString(5);
                      prodImage = rs.getString(6);
+                     activate = rs.getInt(7);
                      
-                     products.add(new Products(prodTitle, prodDescription, prodType, prodPrice, id,prodImage)); }
+                products.add(new Products(prodTitle, prodDescription, prodType, prodPrice, id,prodImage, activate)); }
                 session.setAttribute("products", products);
+                
+                if(action.equals("adminview")){
+                    RequestDispatcher rd = request.getRequestDispatcher("/adminViewProducts.jsp");
+                    rd.forward(request, response);
+                }
+                else if(action.equals("userview")){
+                    RequestDispatcher rd = request.getRequestDispatcher("/products.jsp");
+                    rd.forward(request, response);
+                }
 
-                RequestDispatcher rd = request.getRequestDispatcher("/dress.jsp");
-                rd.forward(request, response);
+                
+                
+                
         
 //        if(action.equals("dress")){
 //                query = "SELECT * FROM products WHERE prodType='dress'";

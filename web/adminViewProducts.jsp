@@ -1,10 +1,19 @@
 <%-- 
-    Document   : index
-    Created on : Jan 15, 2021, 1:29:46 PM
+    Document   : adminViewProducts
+    Created on : Jan 15, 2021, 10:27:47 PM
     Author     : janic
 --%>
 
+
+<%@page import="bean.Products"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    ArrayList products= (ArrayList) session.getAttribute("products");
+%>  
+
+
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -30,6 +39,27 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <style> 
+        table {
+          width: 100%;
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+
+        th, td {
+          text-align: left;
+          padding: 8px;
+          border: 1px solid black;
+        }
+
+        tr:nth-child(even){background-color: #f2f2f2}
+
+        th {
+          background-color: black;
+          color: white;
+        }
+        
+    </style>
 </head>
 
 <body>
@@ -50,7 +80,7 @@
                             <nav>
                                 <ul>
                                     <li class="angle-shape"><a href="adminIndex.jsp">Home </a></li>
-                                    <li class="angle-shape"><a href=""> Products <span>new</span> </a>
+                                     <li class="angle-shape"><a href=""> Products <span>new</span> </a>
                                     <ul class="submenu">
                                         <li>
                                         <form name="View" action="ViewProductsServlet" method="POST">
@@ -66,7 +96,6 @@
                                             <li><a href="">Manage Rent</a></li>
                                             <li><a href="">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
-                                            <li><a href="admin-register.jsp">Register new admin</a></li>                                            
                                             <li><a href="">Manage Products </a></li>
                                             <li><a href="">Logout </a></li>
                                         </ul>
@@ -106,15 +135,63 @@
     
     
     <!-- Content start here -->
-                <div class="container">
-                    <div class="card-body">
-                    <div class="card text-center">
+    <% if (products != null && (products.size() > 0)) { %>
+    <div class="container" style="item-align: center" >
+    
                         
-                    <h1 class="card-title">Welcome to <br><b>Dress & Suits Renting System.</b></h1>
-                    <p class="card-text">Rent the best quality of dress and suits here.</p>
-                        </div>
-                    </div>
-                </div>
+                        
+                        <table>
+                            <tr>
+                                <th>Id</th>
+                                <th>Product Title</th>
+                                <th>Product Description</th>
+                                <th>Product Price</th>
+                                <th>Product Type</th>
+                                <th>Product Image</th>
+                                <th>Activate</th>
+                                <th colspan="2">Action</th>
+                            </tr>
+                            <% 
+                                 for (int index=0; index < products.size();index++){
+                                    Products prod = (Products) products.get(index); %>
+                                    <tr>
+                                        <td><%= prod.getId() %></td>
+                                        <td><%= prod.getProdTitle() %></td>
+                                        <td><%= prod.getProdDescription() %></td>
+                                        <td><%= prod.getProdPrice() %></td>
+                                        <td><%= prod.getProdType() %></td>
+                                        <td><%= prod.getProdImage() %></td>
+                                        <td><%= prod.getActivate() %></td>
+                                        <td>
+                                             <form name="updateForm" action="" method="POST">
+                                                 <input type="submit" value="Update" class="btn btn-secondary">
+                                                 <input type="hidden" name="upindex" value="<%= prod.getId() %>">
+                                                 <input type="hidden" name="action" value="UPDATE">
+                                            </form>
+                                        </td>
+                                        <td>
+                                             <form name="deleteForm" action="" method="POST">
+                                                 <input type="submit" value="Delete" class="btn btn-danger">
+                                                 <input type="hidden" name="delindex" value="<%= prod.getId() %>">
+                                                 <input type="hidden" name="action" value="DELETE">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                     <% } 
+                                                         } 
+                else { %>
+                                 <center><b><p>Products Empty</b></center>
+                    <% } %>
+                       </table>
+                        
+                        
+                        
+    </div>
+                                                       
+                 
+      
+                
+       
     <!-- Content ends here here -->
     
     
@@ -137,32 +214,3 @@
         </div>
     </footer>
 </div>
-
-
-
-
-
-
-
-
-
-
-<!-- All JS is here
-============================================ -->
-
-<!-- jQuery JS -->
-<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
-<!-- Popper JS -->
-<script src="assets/js/popper.min.js"></script>
-<!-- Bootstrap JS -->
-<script src="assets/js/bootstrap.min.js"></script>
-<!-- Plugins JS -->
-<script src="assets/js/plugins.js"></script>
-<!-- Ajax Mail -->
-<script src="assets/js/ajax-mail.js"></script>
-<!-- Main JS -->
-<script src="assets/js/main.js"></script>
-
-</body>
-
-</html>

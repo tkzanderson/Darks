@@ -14,16 +14,25 @@ import java.io.Serializable;
 public class Products implements Serializable{
     private String prodTitle, prodDescription, prodType;
     private double prodPrice;
-    private int id;
+    private int id, activate;
     private String prodImage;
 
-    public Products(String prodTitle, String prodDescription, String prodType, double prodPrice, int id, String prodImage) {
+    public Products(String prodTitle, String prodDescription, String prodType, double prodPrice, int id, String prodImage, int activate) {
         this.prodTitle = prodTitle;
         this.prodDescription = prodDescription;
         this.prodType = prodType;
         this.prodPrice = prodPrice;
         this.id = id;
         this.prodImage = prodImage;
+        this.activate = activate;
+    }
+
+    public int getActivate() {
+        return activate;
+    }
+
+    public void setActivate(int activate) {
+        this.activate = activate;
     }
 
     public Products() {
