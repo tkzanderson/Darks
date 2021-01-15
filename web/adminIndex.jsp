@@ -50,8 +50,12 @@
                             <nav>
                                 <ul>
                                     <li class="angle-shape"><a href="adminIndex.jsp">Home </a></li>
-                                    <li class="angle-shape"><a href="dress.jsp"> Dress <span>new</span> </a></li>
-                                    <li class="angle-shape"><a href="suit.jsp"> Suits <span>new</span> </a></li>
+                                    <li class="angle-shape"><a href=""> Products <span>new</span> </a>
+                                    <ul class="submenu">
+                                            <li><a href="/Darks/ViewProductsServlet">View Products </a></li>
+                                            <li><a href="">Add Products</a></li>
+                                        </ul>
+                                        </li>
                                     <li><a href="">Promotion <span>hot</span> </a></li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
