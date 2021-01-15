@@ -4,9 +4,17 @@
         <servlet-name>RegisterController</servlet-name>
         <servlet-class>controller.RegisterController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewProductsServlet</servlet-name>
+        <servlet-class>controller.ViewProductsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/RegisterController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewProductsServlet</servlet-name>
+        <url-pattern>/ViewProductsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

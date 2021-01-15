@@ -4,7 +4,15 @@
     Author     : janic
 --%>
 
+<%@page import="bean.Products"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    ArrayList products= (ArrayList) session.getAttribute("products");
+%>  
+
+
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -50,8 +58,7 @@
                             <nav>
                                 <ul>
                                     <li class="angle-shape"><a href="adminIndex.jsp">Home </a></li>
-                                    <li class="angle-shape"><a href="dress.jsp"> Dress <span>new</span> </a></li>
-                                    <li class="angle-shape"><a href="suit.jsp"> Suits <span>new</span> </a></li>
+                                     <li class="angle-shape"><a href="/Darks/ViewProductsServlet"> Products <span>new</span> </a></li>
                                     <li><a href="">Promotion <span>hot</span> </a></li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
@@ -99,7 +106,54 @@
     
     
     <!-- Content start here -->
+    <% if (products != null && (products.size() > 0)) { %>
+    <div class="container" style="item-align: center" >
+    <% 
+                 for (int index=0; index < products.size();index++)
+                    {
+                    	Products prod = (Products) products.get(index); %>
+    <div class="shop-list-wrap shop-list-mrg mb-30">
+        <div class="row">
+            <div class="col-lg-4 col-md-5 align-self-center">
+                <div class="product-list-img">
+                 <img src="assets/img/product/product-list-4.svg" alt="Universal Product Style">
+               </div>
+             </div>
+             <div class="col-lg-8 col-md-7 align-self-center">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-12">
+                                                    <div class="shop-list-content">
+                                                        <h3><a href="product-details.html"><%= prod.getProdTitle() %></a></h3>
+                                                        <span><%= prod.getProdType() %></span>
+                                                        <div class="shop-list-paragraph">
+                                                        <p><%= prod.getProdDescription() %></p>
+                                                        
+                                                    </div>
+                                                        <div class="ht-product-list-price">
+                                                            <span class="new">RM<%= prod.getProdPrice() %></span>
+                                                        </div>
+                                                        <div class="ht-product-list-action">
+                                                            <a class="list-wishlist" title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
+                                                            <a class="list-cart" title="Rent" href="#" style="background-color: red; color: white"><i class="sli sli-basket-loaded"></i> Rent</a>
+                                                            <a class="list-refresh" title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                                        <% } 
+                                                         } 
+                else { %>
+                                 <center><b><p>Products Empty</b></center>
+                    <% } %>
+                 
+      
                 
+       
     <!-- Content ends here here -->
     
     
