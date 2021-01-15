@@ -50,13 +50,8 @@
                             <nav>
                                 <ul>
                                     <li class="angle-shape"><a href="adminIndex.jsp">Home </a></li>
-                                    <li class="angle-shape"><a href=""> Products <span>new</span> </a>
-                                    <ul class="submenu">
-                                        <li>
-                                        <form name="View" action="ViewProductsServlet" method="POST">
-                                            <input type="hidden" name="action" value="adminview"><input type="submit" value="View Products"></form></li>
-                                            <li><a href="">Add Products</a></li>
-                                        </ul>
+                                    <li class="angle-shape"> <form name="View" action="ViewProductsServlet" method="POST" >
+                                            <input type="hidden" name="action" value="adminview"> <input class="btn btn-light" type="submit" value="Manage Products"></form> 
                                         </li>
                                     <li><a href="">Promotion <span>hot</span> </a></li>
                                     <li class="angle-shape">Pages
@@ -67,7 +62,7 @@
                                             <li><a href="">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
                                             <li><a href="admin-register.jsp">Register new admin</a></li>                                            
-                                            <li><a href="">Manage Products </a></li>
+
                                             <li><a href="">Logout </a></li>
                                         </ul>
                                     </li>

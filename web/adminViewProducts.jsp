@@ -80,13 +80,8 @@
                             <nav>
                                 <ul>
                                     <li class="angle-shape"><a href="adminIndex.jsp">Home </a></li>
-                                     <li class="angle-shape"><a href=""> Products <span>new</span> </a>
-                                    <ul class="submenu">
-                                        <li>
-                                        <form name="View" action="ViewProductsServlet" method="POST">
-                                            <input type="hidden" name="action" value="adminview"><input type="submit" value="View Products"></form></li>
-                                            <li><a href="">Add Products</a></li>
-                                        </ul>
+                                     <li class="angle-shape"> <form name="View" action="ViewProductsServlet" method="POST" >
+                                            <input type="hidden" name="action" value="adminview"> <input class="btn btn-light" type="submit" value="Manage Products"></form> 
                                         </li>
                                     <li><a href="">Promotion <span>hot</span> </a></li>
                                     <li class="angle-shape">Pages
@@ -96,7 +91,6 @@
                                             <li><a href="">Manage Rent</a></li>
                                             <li><a href="">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
-                                            <li><a href="">Manage Products </a></li>
                                             <li><a href="">Logout </a></li>
                                         </ul>
                                     </li>
@@ -148,8 +142,8 @@
                                 <th>Product Price</th>
                                 <th>Product Type</th>
                                 <th>Product Image</th>
-                                <th>Activate</th>
-                                <th colspan="2">Action</th>
+                                <th>Active Status</th>
+                                <th colspan="4">Action</th>
                             </tr>
                             <% 
                                  for (int index=0; index < products.size();index++){
@@ -174,6 +168,22 @@
                                                  <input type="submit" value="Delete" class="btn btn-danger">
                                                  <input type="hidden" name="delindex" value="<%= prod.getId() %>">
                                                  <input type="hidden" name="action" value="DELETE">
+                                            </form>
+                                        </td>
+                                        
+                                        <td>
+                                             <form name="activateForm" action="activationServlet" method="POST">
+                                                 <input type="submit" value="Activate" class="btn btn-primary">
+                                                 <input type="hidden" name="aclindex" value="<%= prod.getId() %>">
+                                                 <input type="hidden" name="action" value="1">
+                                            </form>
+                                        </td>
+                                        
+                                        <td>
+                                             <form name="deactivateForm" action="activationServlet" method="POST">
+                                                 <input type="submit" value="Deactivate" class="btn btn-danger">
+                                                 <input type="hidden" name="deaclindex" value="<%= prod.getId() %>">
+                                                 <input type="hidden" name="action" value="0">
                                             </form>
                                         </td>
                                     </tr>
