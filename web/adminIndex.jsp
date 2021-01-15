@@ -60,6 +60,7 @@
                                             <li><a href="">Manage Rent</a></li>
                                             <li><a href="">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
+                                            <li><a href="admin-register.jsp">Register new admin</a></li>                                            
                                             <li><a href="">Manage Products </a></li>
                                             <li><a href="">Logout </a></li>
                                         </ul>
