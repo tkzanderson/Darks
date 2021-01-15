@@ -1,6 +1,6 @@
 <%-- 
-    Document   : userIndex
-    Created on : Jan 15, 2021, 2:38:33 PM
+    Document   : dress.jsp
+    Created on : Jan 15, 2021, 3:26:03 PM
     Author     : janic
 --%>
 
@@ -40,7 +40,7 @@
                 <div class="row">
                     <div class="col-xl-2 col-lg-2">
                         <div class="logo pt-40">
-                            <a href="userIndex.jsp">
+                            <a href="adminIndex.jsp">
                                 <h1><b>Darks</b></h1>
                             </a>
                         </div>
@@ -49,7 +49,7 @@
                         <div class="main-menu">
                             <nav>
                                 <ul>
-                                    <li class="angle-shape"><a href="userIndex.jsp">Home </a></li>
+                                    <li class="angle-shape"><a href="adminIndex.jsp">Home </a></li>
                                     <li class="angle-shape"><a href="dress.jsp"> Dress <span>new</span> </a></li>
                                     <li class="angle-shape"><a href="suit.jsp"> Suits <span>new</span> </a></li>
                                     <li><a href="">Promotion <span>hot</span> </a></li>
@@ -57,10 +57,10 @@
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
                                             <li><a href="">Transaction History </a></li>
-                                            <li><a href="">Wishlist</a></li>
-                                            <li><a href="">Renting Cart</a></li>
+                                            <li><a href="">Manage Rent</a></li>
                                             <li><a href="">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
+                                            <li><a href="">Manage Products </a></li>
                                             <li><a href="">Logout </a></li>
                                         </ul>
                                     </li>
@@ -99,15 +99,7 @@
     
     
     <!-- Content start here -->
-                <div class="container">
-                    <div class="card-body">
-                    <div class="card text-center">
-                        
-                    <h1 class="card-title">Welcome to <br><b>Dress & Suits Renting System.</b></h1>
-                    <p class="card-text">Rent the best quality of dress and suits here.</p>
-                        </div>
-                    </div>
-                </div>
+                
     <!-- Content ends here here -->
     
     
@@ -130,32 +122,3 @@
         </div>
     </footer>
 </div>
-
-
-
-
-
-
-
-
-
-
-<!-- All JS is here
-============================================ -->
-
-<!-- jQuery JS -->
-<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
-<!-- Popper JS -->
-<script src="assets/js/popper.min.js"></script>
-<!-- Bootstrap JS -->
-<script src="assets/js/bootstrap.min.js"></script>
-<!-- Plugins JS -->
-<script src="assets/js/plugins.js"></script>
-<!-- Ajax Mail -->
-<script src="assets/js/ajax-mail.js"></script>
-<!-- Main JS -->
-<script src="assets/js/main.js"></script>
-
-</body>
-
-</html>
