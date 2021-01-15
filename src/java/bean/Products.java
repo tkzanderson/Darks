@@ -5,11 +5,13 @@
  */
 package bean;
 
+import java.io.Serializable;
+
 /**
  *
  * @author janic
  */
-public class Products {
+public class Products implements Serializable{
     private String prodTitle, prodDescription, prodType;
     private double prodPrice;
     private int id;
