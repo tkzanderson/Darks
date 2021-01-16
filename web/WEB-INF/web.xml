@@ -12,6 +12,10 @@
         <servlet-name>activationServlet</servlet-name>
         <servlet-class>controller.activationServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminRegisterController</servlet-name>
+        <servlet-class>controller.AdminRegisterController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/RegisterController</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>activationServlet</servlet-name>
         <url-pattern>/activationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminRegisterController</servlet-name>
+        <url-pattern>/AdminRegisterController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

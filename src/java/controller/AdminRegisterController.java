@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 package controller;
-
 import java.sql.*;
 import bean.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -22,7 +24,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author user
  */
-public class RegisterController extends HttpServlet {
+public class AdminRegisterController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +38,8 @@ public class RegisterController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-    
-        HttpSession session = request.getSession();
+         HttpSession session = request.getSession();
        
-        
         String driver = "com.mysql.jdbc.Driver";
         String dbName = "darks";
         String url = "jdbc:mysql://localhost/" + dbName + "?";
@@ -70,7 +70,7 @@ public class RegisterController extends HttpServlet {
         st.setString(1, userName);
         st.setString(2, userPassword);
         st.setString(3, email);
-        st.setString(4, "customer");
+        st.setString(4, "admin");
 
         
         //st.executeUpdate(query);    //step5 execute the query
@@ -81,12 +81,14 @@ public class RegisterController extends HttpServlet {
         con.close();
         
         session.setAttribute("User",user);
-        
-        RequestDispatcher rd= request.getRequestDispatcher("/userIndex.jsp");
+          try (PrintWriter out = response.getWriter()) {
+                 RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
+        out.println("New Admin Regisster Suscess!");
         rd.include(request, response);
-    }
+          }
+ 
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    }// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -101,7 +103,7 @@ public class RegisterController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminRegisterController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -119,7 +121,7 @@ public class RegisterController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminRegisterController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
