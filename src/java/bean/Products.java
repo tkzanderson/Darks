@@ -16,6 +16,26 @@ public class Products implements Serializable{
     private double prodPrice;
     private int id, activate;
     private String prodImage;
+    private double promotionPrice;
+    private int promotionStatus;
+
+    public double getPromotionPrice() {
+        return promotionPrice;
+    }
+
+    public void setPromotionPrice(double promotionPrice) {
+        this.promotionPrice = promotionPrice;
+    }
+
+    public int getPromotionStatus() {
+        return promotionStatus;
+    }
+
+    public void setPromotionStatus(int promotionStatus) {
+        this.promotionStatus = promotionStatus;
+    }
+
+
 
     public Products(String prodTitle, String prodDescription, String prodType, double prodPrice, int id, String prodImage, int activate) {
         this.prodTitle = prodTitle;
@@ -27,6 +47,17 @@ public class Products implements Serializable{
         this.activate = activate;
     }
     
+     public Products(String prodTitle, String prodDescription, String prodType, double prodPrice, int id, String prodImage, int activate, double promotionPrice, int promotionStatus) {
+        this.prodTitle = prodTitle;
+        this.prodDescription = prodDescription;
+        this.prodType = prodType;
+        this.prodPrice = prodPrice;
+        this.id = id;
+        this.prodImage = prodImage;
+        this.activate = activate;
+          this.promotionPrice = promotionPrice;
+            this.promotionStatus = promotionStatus;
+    }
     public Products(String prodTitle, String prodDescription, String prodType, double prodPrice, int id, String prodImage) {
         this.prodTitle = prodTitle;
         this.prodDescription = prodDescription;

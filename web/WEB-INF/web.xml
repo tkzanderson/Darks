@@ -28,6 +28,14 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>controller.LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewPromotionsServlet</servlet-name>
+        <servlet-class>controller.ViewPromotionsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdatePromotionServlet</servlet-name>
+        <servlet-class>controller.UpdatePromotionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/RegisterController</url-pattern>
@@ -55,6 +63,14 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/LogoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewPromotionsServlet</servlet-name>
+        <url-pattern>/ViewPromotionsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePromotionServlet</servlet-name>
+        <url-pattern>/UpdatePromotionServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

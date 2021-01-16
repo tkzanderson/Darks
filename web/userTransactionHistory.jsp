@@ -1,6 +1,12 @@
 <%-- 
-    Document   : index
-    Created on : Jan 15, 2021, 1:29:46 PM
+    Document   : userTransactionHistory
+    Created on : Jan 16, 2021, 9:37:40 AM
+    Author     : user
+--%>
+
+<%-- 
+    Document   : userIndex
+    Created on : Jan 15, 2021, 2:38:33 PM
     Author     : janic
 --%>
 
@@ -41,35 +47,29 @@
                 <div class="row">
                     <div class="col-xl-2 col-lg-2">
                         <div class="logo pt-40">
-                            <a href="adminIndex.jsp">
+                            <a href="userIndex.jsp">
                                 <h1><b>Darks</b></h1>
                             </a>
                         </div>
                     </div>
-                    <div class="col-xl-15 col-lg-15">
+                    <div class="col-xl-7 col-lg-7 ">
                         <div class="main-menu">
                             <nav>
                                 <ul>
-                                    <li class="angle-shape"><a href="adminIndex.jsp">Home </a></li>
-                                    <li> <form name="View" action="ViewProductsServlet" method="POST" >
-                                            <input type="hidden" name="action" value="adminview"> <input class="btn btn-light" type="submit" value="Manage Products"></form> 
-                                        </li>
-                                    <li>
-                                        <form name="View" action="ViewPromotionsServlet" method="POST" >
-                                             <input type="hidden" name="action" value="adminview">
-                                            <input class="btn btn-light" type="submit" value="Manage Promotions">
-                                        </form>
-                                    </li>
+                                    <li class="angle-shape"><a href="userIndex.jsp">Home </a></li>
+                                    <li class="angle-shape">
+                                    <form name="View" action="ViewProductsServlet" method="POST">
+                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Products"></form></li>
+                                    <li><a href="">Promotion <span>hot</span> </a></li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
-                                            <li><a href="">Transaction History </a></li>
-                                            <li><a href="">Manage Rent</a></li>
+                                            <li><a href="userTransactionHistory.jsp">Transaction History </a></li>
+                                            <li><a href="">Wishlist</a></li>
+                                            <li><a href="">Renting Cart</a></li>
                                             <li><a href="">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
-                                            <li><a href="admin-register.jsp">Register new admin</a></li>                                            
-
-                                            <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
+                                            <li><a href="">Logout </a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -107,16 +107,66 @@
     
     
     <!-- Content start here -->
-                <div class="container">
+                 <div class="container">
                     <div class="card-body">
                     <div class="card text-center">
-                    <%User user = (User)session.getAttribute("User");%>
-                    <h5 class="card-title">Hello <%=user.getUserName()%></h5>
                     <h1 class="card-title">Welcome to <br><b>Dress & Suits Renting System.</b></h1>
                     <p class="card-text">Rent the best quality of dress and suits here.</p>
                         </div>
                     </div>
                 </div>
+                    
+            <div>
+            <table border="1" cellpadding="10" cellspacing="10" width="100%">
+                <tr style="background-color: peachpuff">
+                    <td>Munchkin Cat</td>
+                    <td></td>
+                </tr>
+                <tr style="background-color: cornsilk">
+                    <td>Age</td>
+                    <td>6</td>
+                </tr>
+                <tr style="background-color: cornsilk">
+                    <td>Quantity</td>
+                    <td><input type="text" name="itemQuant1" id="itemQuant1" placeholder="Enter quantity here" required></td>
+                </tr>
+                <tr style="background-color: cornsilk">
+                    <td>Price per unit</td>
+                    <td>RM500</td>
+                </tr>
+                <tr style="background-color: cornsilk">
+                    <td>Item Total</td>
+                    <td><input type="text" name="total1" id="total1" placeholder="0" readonly></td>
+                </tr>
+                <tr style="background-color: peachpuff">
+                    <td>British Shorthair Cat</td>
+                    <td></td>
+                </tr>
+                <tr style="background-color: cornsilk">
+                    <td>Age</td>
+                    <td>3</td>
+                </tr>
+                <tr style="background-color: cornsilk">
+                    <td>Quantity</td>
+                    <td><input type="text" name="itemQuant2" id="itemQuant2" placeholder="Enter quantity here" required></td>
+                </tr>
+                <tr style="background-color: cornsilk">
+                    <td>Price per unit</td>
+                    <td>RM650</td>
+                </tr>
+                <tr style="background-color: cornsilk">
+                    <td>Item Total</td>
+                    <td><input type="text" name="total2" id="total2" placeholder="0" readonly></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                       
+                        <a href="cart.html"><button class="btn btn-primary">Checkout</button></a>
+                    </td>
+                </tr>
+            </table>
+            </div>
+                    
     <!-- Content ends here here -->
     
     
@@ -168,3 +218,4 @@
 </body>
 
 </html>
+

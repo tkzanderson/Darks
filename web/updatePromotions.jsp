@@ -1,11 +1,16 @@
 <%-- 
-    Document   : index
-    Created on : Jan 15, 2021, 1:29:46 PM
-    Author     : janic
+    Document   : updatePromotions
+    Created on : Jan 17, 2021, 5:33:27 AM
+    Author     : user
 --%>
 
-<%@page import="bean.User"%>
+<%@page import="bean.Products"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% 
+    Products products = (Products) session.getAttribute("products");
+
+%>
+
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -31,6 +36,10 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <style>
+        
+    </style>
+   
 </head>
 
 <body>
@@ -46,7 +55,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-xl-15 col-lg-15">
+                      <div class="col-xl-15 col-lg-15">
                         <div class="main-menu">
                             <nav>
                                 <ul>
@@ -106,17 +115,33 @@
     </header>
     
     
-    <!-- Content start here -->
-                <div class="container">
-                    <div class="card-body">
-                    <div class="card text-center">
-                    <%User user = (User)session.getAttribute("User");%>
-                    <h5 class="card-title">Hello <%=user.getUserName()%></h5>
-                    <h1 class="card-title">Welcome to <br><b>Dress & Suits Renting System.</b></h1>
-                    <p class="card-text">Rent the best quality of dress and suits here.</p>
-                        </div>
-                    </div>
-                </div>
+    <!-- Content start here -->       
+    <div class="container">
+    <form name="editForm" action="UpdatePromotionServlet" method="POST" >
+        <h1> Update Promotions</h1>
+        Product Title: <input type="text" name="prodTitle" value="<%= products.getProdTitle() %>" readOnly=""><br><br>
+        Product Description: <input type="text" name="prodDescription" value="<%= products.getProdDescription() %>" readOnly><br><br>
+        Product Price: <input type="text" name="prodPrice" value="<%= products.getProdPrice() %>" readOnly=""><br><br>
+        Product Type: <input type="text" name="prodType" value="<%= products.getProdType() %>" readOnly=""><br><br>
+       <input type="hidden" name="prodImage" value="<%= products.getProdImage() %>">
+         <input type="hidden" name="prodType" value="<%= products.getProdType()%>">
+        
+          Promotion Status
+        <select name="promotionStatus" >
+             <option value="1">On</option>
+             <option value="0">Off</option> 
+         </select><br>
+        <br>Product Promotion Price: <input type="text" name="promotionPrice" value="<%= products.getPromotionPrice() %>" ><br>
+      
+    
+        <br>
+            <input type="submit" value="Update Promotions" class="btn btn-info">
+            <input type="hidden" name="editindex" value="<%= products.getId() %>">
+            <input type="hidden" name="action" value="EDIT">
+        </form>
+      </div>
+                
+       
     <!-- Content ends here here -->
     
     
@@ -139,32 +164,3 @@
         </div>
     </footer>
 </div>
-
-
-
-
-
-
-
-
-
-
-<!-- All JS is here
-============================================ -->
-
-<!-- jQuery JS -->
-<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
-<!-- Popper JS -->
-<script src="assets/js/popper.min.js"></script>
-<!-- Bootstrap JS -->
-<script src="assets/js/bootstrap.min.js"></script>
-<!-- Plugins JS -->
-<script src="assets/js/plugins.js"></script>
-<!-- Ajax Mail -->
-<script src="assets/js/ajax-mail.js"></script>
-<!-- Main JS -->
-<script src="assets/js/main.js"></script>
-
-</body>
-
-</html>
