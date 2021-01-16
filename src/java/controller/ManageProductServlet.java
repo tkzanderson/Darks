@@ -157,6 +157,29 @@ public class ManageProductServlet extends HttpServlet {
             RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
             rd.include(request, response);
        }
+       
+       else if(action.equals("DELETE")){
+           int delindex= Integer.parseInt(request.getParameter("delindex"));
+           
+           String query = "DELETE FROM products WHERE id=?";
+           try {
+                Class.forName(driver);  //step2 load and register driver
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Connection con = DriverManager.getConnection(url, userNameDB, password); //step3 establish connection
+            //Statement st = con.createStatement();   //step4 create statement normal statement
+            PreparedStatement st = con.prepareStatement(query);//preparedstatement
+            
+            st.setInt(1, delindex);
+             st.executeUpdate(); //preppared statment
+        
+            st.close(); //7-close connection
+            con.close();
+            
+            RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
+            rd.include(request, response);
+       }
         
         
         

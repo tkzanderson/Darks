@@ -155,8 +155,6 @@
                 
        
     <!-- Content ends here here -->
-    
-    
     <footer class="footer-area">
         <div class="footer-bottom border-top-2 pt-30">
             <div class="container">

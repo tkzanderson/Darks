@@ -166,8 +166,8 @@
                                             </form>
                                         </td>
                                         <td>
-                                             <form name="deleteForm" action="" method="POST">
-                                                 <input type="submit" value="Delete" class="btn btn-danger">
+                                             <form name="deleteForm" action="ManageProductServlet" method="POST">
+                                                 <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this product?');">
                                                  <input type="hidden" name="delindex" value="<%= prod.getId() %>">
                                                  <input type="hidden" name="action" value="DELETE">
                                             </form>
