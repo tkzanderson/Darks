@@ -36,6 +36,7 @@ public class LoginController extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
@@ -78,9 +79,11 @@ public class LoginController extends HttpServlet {
                 if("admin".equals(rs.getString(4))){
                     RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
                     rd.include(request, response); 
+                    //out.println("ADMIN VIEW");
                 }else{
                     RequestDispatcher rd= request.getRequestDispatcher("/userIndex.jsp");
                     rd.include(request, response); 
+                    //out.println("CUSTOMER VIEW");
                 }
             }  
             else{  
