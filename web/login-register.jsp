@@ -134,9 +134,9 @@
                             <div id="lg1" class="tab-pane active">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
-                                        <form action="#" method="post">
-                                            <input type="text" name="user-name" placeholder="Username">
-                                            <input type="password" name="user-password" placeholder="Password">
+                                        <form action="LoginController" method="post">
+                                            <input type="text" name="userName" placeholder="Username">
+                                            <input type="password" name="userPassword" placeholder="Password">
                                             <div class="button-box">
                                                 <div class="login-toggle-btn">
                                                     <input type="checkbox">

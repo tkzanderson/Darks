@@ -5,13 +5,14 @@
  */
 package controller;
 
+import bean.Products;
 import bean.User;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,13 +22,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 /**
  *
- * @author User
+ * @author janic
  */
-public class LoginController extends HttpServlet {
-
+public class ManageProductServlet extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,65 +40,51 @@ public class LoginController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        
+        HttpSession session = request.getSession();
+        
+        String driver = "com.mysql.jdbc.Driver";
+        String dbName = "darks";
+        String url = "jdbc:mysql://localhost/" + dbName + "?";
+        String userNameDB = "root";
+        String password = "";
+     
+       
+        String prodTitle= request.getParameter("prodTitle");
+        String prodDescription= request.getParameter("prodDescription");
+        double prodPrice = Double.parseDouble(request.getParameter("prodPrice"));
+        String prodType= request.getParameter("prodType");
+        String prodImage = request.getParameter("prodImage");
+        int active= Integer.parseInt(request.getParameter("active"));
+        String query = "INSERT INTO products(prodTitle, prodDescription, prodPrice, prodType, prodImage, active) VALUES(?,?,?,?,?,?)"; //prepared statement
+        
+         try {
+            Class.forName(driver);  //step2 load and register driver
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Connection con = DriverManager.getConnection(url, userNameDB, password); //step3 establish connection
+        //Statement st = con.createStatement();   //step4 create statement normal statement
+        PreparedStatement st = con.prepareStatement(query); //preparedstatement
+        st.setString(1, prodTitle);
+        st.setString(2,prodDescription);
+        st.setDouble(3, prodPrice);
+        st.setString(4, prodType);
+        st.setString(5, prodImage);
+        st.setInt(6, active);
+        
+        //st.executeUpdate(query);    //step5 execute the query
+        st.executeUpdate();
+        
+        st.close(); //step7 close connection
+        con.close();
+        
+        RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
+        rd.include(request, response);
+        
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String driver = "com.mysql.jdbc.Driver";
-            String dbName = "darks";
-            String url = "jdbc:mysql://localhost/" + dbName + "?";
-            String userNameDB = "root";
-            String password = "";
-            String query = "select * from users where userName=? and userPassword=?";
             
-            String userName = request.getParameter("userName");  
-            String userPassword = request.getParameter("userPassword");
-            String email = null, role = null;
-            
-            HttpSession session = request.getSession();
-            
-            try {
-            Class.forName(driver); 
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            Connection con = DriverManager.getConnection(url, userNameDB, password); 
-            
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1,userName);  
-            ps.setString(2,userPassword);
-            
-            ResultSet rs=ps.executeQuery(); 
-
-            if(rs.next()){ 
-                
-                User user = new User();
-                user.setUserName(userName);
-                user.setUserPassword(userPassword);
-                user.setEmail(rs.getString(3));
-                
-                session.setAttribute("User",user);
-                if("admin".equals(rs.getString(4))){
-                    RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
-                    rd.include(request, response); 
-                }else{
-                    RequestDispatcher rd= request.getRequestDispatcher("/userIndex.jsp");
-                    rd.include(request, response); 
-                }
-            }  
-            else{  
-                out.print("Wrong username or password !");  
-                RequestDispatcher rd=request.getRequestDispatcher("/login-register.jsp");  
-                rd.include(request,response);  
-            } 
-
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("</body>");
-            out.println("</html>");
         }
     }
 
@@ -116,7 +103,7 @@ public class LoginController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageProductServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -134,7 +121,7 @@ public class LoginController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageProductServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

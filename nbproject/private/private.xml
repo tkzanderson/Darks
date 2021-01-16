@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Anderson/Documents/NetBeansProjects/Darks/src/java/controller/ViewProductsServlet.java</file>
-            <file>file:/C:/Users/Anderson/Documents/NetBeansProjects/Darks/web/adminIndex.jsp</file>
-            <file>file:/C:/Users/Anderson/Documents/NetBeansProjects/Darks/web/userIndex.jsp</file>
-            <file>file:/C:/Users/Anderson/Documents/NetBeansProjects/Darks/web/adminViewProducts.jsp</file>
-            <file>file:/C:/Users/Anderson/Documents/NetBeansProjects/Darks/src/java/controller/activationServlet.java</file>
-            <file>file:/C:/Users/Anderson/Documents/NetBeansProjects/Darks/src/java/bean/Products.java</file>
+            <file>file:/C:/Users/User/Desktop/UTM%20SEMESTERS/sem5%20assignments/INTERNET%20PROGRAMMING/DARKS/Darks/src/java/controller/RegisterController.java</file>
+            <file>file:/C:/Users/User/Desktop/UTM%20SEMESTERS/sem5%20assignments/INTERNET%20PROGRAMMING/DARKS/Darks/src/java/controller/LoginController.java</file>
+            <file>file:/C:/Users/User/Desktop/UTM%20SEMESTERS/sem5%20assignments/INTERNET%20PROGRAMMING/DARKS/Darks/web/admin-register.jsp</file>
+            <file>file:/C:/Users/User/Desktop/UTM%20SEMESTERS/sem5%20assignments/INTERNET%20PROGRAMMING/DARKS/Darks/web/userIndex.jsp</file>
         </group>
     </open-files>
 </project-private>

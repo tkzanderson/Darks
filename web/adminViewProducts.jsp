@@ -80,7 +80,7 @@
                             <nav>
                                 <ul>
                                     <li class="angle-shape"><a href="adminIndex.jsp">Home </a></li>
-                                     <li class="angle-shape"> <form name="View" action="ViewProductsServlet" method="POST" >
+                                     <li> <form name="View" action="ViewProductsServlet" method="POST" >
                                             <input type="hidden" name="action" value="adminview"> <input class="btn btn-light" type="submit" value="Manage Products"></form> 
                                         </li>
                                     <li><a href="">Promotion <span>hot</span> </a></li>
@@ -129,11 +129,13 @@
     
     
     <!-- Content start here -->
+    <div style="width:200px; text-align: center; margin: auto">
+        <a href="addproducts.jsp"><input type="submit" value="Add Product" class="btn btn-info"></a>
+        </div>
+    <br>
     <% if (products != null && (products.size() > 0)) { %>
     <div class="container" style="item-align: center" >
-    
-                        
-                        
+        
                         <table>
                             <tr>
                                 <th>Id</th>

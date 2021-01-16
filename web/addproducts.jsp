@@ -1,9 +1,11 @@
 <%-- 
-    Document   : index
-    Created on : Jan 15, 2021, 1:29:46 PM
+    Document   : addproducts
+    Created on : Jan 16, 2021, 12:57:51 PM
     Author     : janic
 --%>
 
+
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
@@ -30,6 +32,10 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <style>
+        
+    </style>
+   
 </head>
 
 <body>
@@ -50,7 +56,7 @@
                             <nav>
                                 <ul>
                                     <li class="angle-shape"><a href="adminIndex.jsp">Home </a></li>
-                                    <li> <form name="View" action="ViewProductsServlet" method="POST" >
+                                     <li> <form name="View" action="ViewProductsServlet" method="POST" >
                                             <input type="hidden" name="action" value="adminview"> <input class="btn btn-light" type="submit" value="Manage Products"></form> 
                                         </li>
                                     <li><a href="">Promotion <span>hot</span> </a></li>
@@ -61,8 +67,6 @@
                                             <li><a href="">Manage Rent</a></li>
                                             <li><a href="">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
-                                            <li><a href="admin-register.jsp">Register new admin</a></li>                                            
-
                                             <li><a href="">Logout </a></li>
                                         </ul>
                                     </li>
@@ -100,16 +104,29 @@
     </header>
     
     
-    <!-- Content start here -->
-                <div class="container">
-                    <div class="card-body">
-                    <div class="card text-center">
-                        
-                    <h1 class="card-title">Welcome to <br><b>Dress & Suits Renting System.</b></h1>
-                    <p class="card-text">Rent the best quality of dress and suits here.</p>
-                        </div>
-                    </div>
-                </div>
+    <!-- Content start here -->       
+    <div class="container">
+    <form name="addForm" action="ManageProductServlet" method="POST" >
+        <h1> Insert Product</h1>
+        Product Title: <input type="text" name="prodTitle"><br>
+        Product Description: <input type="text" name="prodDescription"><br>
+        Product Price: <input type="text" name="prodPrice"><br>
+        Product Type:
+        <select name="prodType">
+             <option>Dress</option>
+             <option>Suit</option> 
+         </select>
+        Product Image: <input type="text" name="prodImage"><br>
+        Active/Deactivate: <select name="active">
+             <option>1</option>
+             <option>0</option> 
+         </select><br>
+            <input type="submit" value="Add Product" class="btn btn-info">
+            <input type="hidden" name="action" value="ADD">
+        </form>
+      </div>
+                
+       
     <!-- Content ends here here -->
     
     
@@ -132,32 +149,3 @@
         </div>
     </footer>
 </div>
-
-
-
-
-
-
-
-
-
-
-<!-- All JS is here
-============================================ -->
-
-<!-- jQuery JS -->
-<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
-<!-- Popper JS -->
-<script src="assets/js/popper.min.js"></script>
-<!-- Bootstrap JS -->
-<script src="assets/js/bootstrap.min.js"></script>
-<!-- Plugins JS -->
-<script src="assets/js/plugins.js"></script>
-<!-- Ajax Mail -->
-<script src="assets/js/ajax-mail.js"></script>
-<!-- Main JS -->
-<script src="assets/js/main.js"></script>
-
-</body>
-
-</html>
