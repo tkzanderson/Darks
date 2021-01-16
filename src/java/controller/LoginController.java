@@ -5,13 +5,22 @@
  */
 package controller;
 
+import bean.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,23 +38,51 @@ public class LoginController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
+            String driver = "com.mysql.jdbc.Driver";
+            String dbName = "darks";
+            String url = "jdbc:mysql://localhost/" + dbName + "?";
+            String userNameDB = "root";
+            String password = "";
+            String query = "select * from users where userName=? and userPassword=?";
             
-            if(password.equals("123")){
-                RequestDispatcher rd = request.getRequestDispatcher("/userIndex.jsp");
-                rd.forward(request, response);
-            }else{
-                RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
-                rd.include(request, response);
-                out.println("<br>Wrong password!");
-                
-                /*response.sendRedirect("http://www.google.com");*/
+            String userName = request.getParameter("userName");  
+            String userPassword = request.getParameter("userPassword");  
+            
+            HttpSession session = request.getSession();
+            
+            try {
+            Class.forName(driver); 
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
             }
+            Connection con = DriverManager.getConnection(url, userNameDB, password); 
             
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1,userName);  
+            ps.setString(2,userPassword); 
+            
+            ResultSet rs=ps.executeQuery(); 
+            
+            User user = new User();
+            user.setUserName(userName);
+            user.setUserPassword(userPassword);
+
+            if(rs.next()){   
+                session.setAttribute("User",user);
+        
+                RequestDispatcher rd= request.getRequestDispatcher("/userIndex.jsp");
+                rd.include(request, response); 
+                
+            }  
+            else{  
+                out.print("Wrong username or password !");  
+                RequestDispatcher rd=request.getRequestDispatcher("/login-register.jsp");  
+                rd.include(request,response);  
+            } 
+
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -53,7 +90,6 @@ public class LoginController extends HttpServlet {
             out.println("<title>Servlet LoginController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -71,7 +107,11 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -85,7 +125,11 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
