@@ -13,6 +13,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -49,7 +50,8 @@ public class LoginController extends HttpServlet {
             String query = "select * from users where userName=? and userPassword=?";
             
             String userName = request.getParameter("userName");  
-            String userPassword = request.getParameter("userPassword");  
+            String userPassword = request.getParameter("userPassword");
+            String email = null, role = null;
             
             HttpSession session = request.getSession();
             
@@ -62,20 +64,25 @@ public class LoginController extends HttpServlet {
             
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1,userName);  
-            ps.setString(2,userPassword); 
+            ps.setString(2,userPassword);
             
             ResultSet rs=ps.executeQuery(); 
-            
-            User user = new User();
-            user.setUserName(userName);
-            user.setUserPassword(userPassword);
 
-            if(rs.next()){   
-                session.setAttribute("User",user);
-        
-                RequestDispatcher rd= request.getRequestDispatcher("/userIndex.jsp");
-                rd.include(request, response); 
+            if(rs.next()){ 
                 
+                User user = new User();
+                user.setUserName(userName);
+                user.setUserPassword(userPassword);
+                user.setEmail(rs.getString(3));
+                
+                session.setAttribute("User",user);
+                if("admin".equals(rs.getString(4))){
+                    RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
+                    rd.include(request, response); 
+                }else{
+                    RequestDispatcher rd= request.getRequestDispatcher("/userIndex.jsp");
+                    rd.include(request, response); 
+                }
             }  
             else{  
                 out.print("Wrong username or password !");  
