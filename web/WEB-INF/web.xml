@@ -17,6 +17,10 @@
         <servlet-class>controller.AdminRegisterController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ManageProductServlet</servlet-name>
+        <servlet-class>controller.ManageProductServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>LoginController</servlet-name>
         <servlet-class>controller.LoginController</servlet-class>
     </servlet>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageProductServlet</servlet-name>
+        <url-pattern>/ManageProductServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
