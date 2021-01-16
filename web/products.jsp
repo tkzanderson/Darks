@@ -116,7 +116,7 @@
         <div class="row">
             <div class="col-lg-4 col-md-5 align-self-center">
                 <div class="product-list-img">
-                 <img src="assets/img/product/product-list-4.svg" alt="Universal Product Style">
+                    <img src="<%= prod.getProdImage() %>" style="width: 300px; height:400px" />
                </div>
              </div>
              <div class="col-lg-8 col-md-7 align-self-center">
