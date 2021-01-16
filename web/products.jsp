@@ -57,7 +57,7 @@
                         <div class="main-menu">
                             <nav>
                                 <ul>
-                                    <li class="angle-shape"><a href="adminIndex.jsp">Home </a></li>
+                                    <li class="angle-shape"><a href="userIndex.jsp">Home </a></li>
                                      <li class="angle-shape"><a href="/Darks/ViewProductsServlet"> Products <span>new</span> </a></li>
                                     <li><a href="">Promotion <span>hot</span> </a></li>
                                     <li class="angle-shape">Pages
