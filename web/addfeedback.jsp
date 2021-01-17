@@ -1,13 +1,9 @@
 <%-- 
-    Document   : feedbackcust
-    Created on : Jan 16, 2021, 5:10:44 PM
+    Document   : addfeedback
+    Created on : Jan 17, 2021, 6:12:42 PM
     Author     : User
 --%>
 
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.Connection"%>
 <%@page import="bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,7 +12,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Darks: Feedback Page</title>
+    <title>Darks: Dress & Suits Renting System</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
@@ -105,57 +101,67 @@
     
     
     <!-- Content start here -->
-    <div class="team-area pt-95 pb-70">
+    <div class="breadcrumb-area pt-35 pb-35 bg-gray">
         <div class="container">
-            <div class="section-title text-center pb-60">
-                <h2>Customer Feedbacks</h2>
-                <p>“A satisfied customer is the best source of advertisement”</p><br><br>
-                <button type="button" class="btn btn-outline-secondary">
-                    <a href="addfeedback.jsp">
-                        Add a Feedback
-                    </a>
-                </button>
+            <div class="breadcrumb-content text-center">
+                <ul>
+                    <li>
+                        <a href="/userIndex.jsp">Home</a>
+                    </li>
+                    <li class="active">Add a Feedback</li>
+                </ul>
             </div>
+        </div>
+    </div>
+    <div class="contact-area pt-100 pb-100">
+        <div class="container">
             <div class="row">
-                <% 
-                    String driver = "com.mysql.jdbc.Driver";
-                    String dbName = "darks";
-                    String url = "jdbc:mysql://localhost/" + dbName + "?";
-                    String userNameDB = "root";
-                    String password = "";
-                    String query = "SELECT * FROM feedback";
-
-                    Class.forName(driver); //2. load and register the driver
-                    Connection con = DriverManager.getConnection(url, userNameDB, password); //3. establish the connection
-
-                    Statement st = con.createStatement(); //4. create the statement
-                    ResultSet rs = st.executeQuery(query); //5.execute the query
-         
-                    while(rs.next()){ //6. process the result
-                        
-                        out.println("<div class=\"col-lg-3 col-md-6 col-sm-6\">\n" +
-"                    <div class=\"team-wrapper mb-30\">\n" +
-"                        <div class=\"team-content text-center\">\n" +
-"                            <h4> " + rs.getString(3) + " </h4>\n" +
-"                            <span>- " + rs.getString(2) + " </span>\n" +
-"                        </div>\n" +
-"                    </div>\n" +
-"                </div>");
-                    }
-                                
-                %>
-                <!--
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="team-wrapper mb-30">
-                        <div class="team-content text-center">
-                            <span>Feedback By: here(2) </span>
-                            <h4> here(4) </h4>
-                            <span>- here(2) </span>
+                <div class="col-lg-5 col-md-6">
+                    <div class="contact-info-area">
+                        <h2>Give us a feedback</h2>
+                        <p>
+                            Let us know about your rental experience with us. 
+                        </p>
+                        <div class="contact-info-wrap">
+                            <div class="single-contact-info">
+                                <div class="contact-info-icon">
+                                    <i class="sli sli-location-pin"></i>
+                                </div>
+                                <div class="contact-info-content">
+                                    <p>Address goes here,  street, Crossroad 123.</p>
+                                </div>
+                            </div>
+                            <div class="single-contact-info">
+                                <div class="contact-info-icon">
+                                    <i class="sli sli-envelope"></i>
+                                </div>
+                                <div class="contact-info-content">
+                                    <p><a href="#">info@example.com</a> / <a href="#">info@example.com</a></p>
+                                </div>
+                            </div>
+                            <div class="single-contact-info">
+                                <div class="contact-info-icon">
+                                    <i class="sli sli-screen-smartphone"></i>
+                                </div>
+                                <div class="contact-info-content">
+                                    <p>+1 35 776 859 000  /  +1 35 776 859 011</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                -->
-                
+                <div class="col-lg-7 col-md-6">
+                    <div class="contact-from contact-shadow">
+                        <form name="feedbackform" action="FeedbackController" method="post">
+                            <input name="name" type="text" placeholder="Your Name">
+                            <textarea name="feedback" placeholder="Your Message"></textarea>
+                            <input class="btn btn-danger" type="submit" value="Send Feedback">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-map pt-100">
+                <div id="map"></div>
             </div>
         </div>
     </div>
