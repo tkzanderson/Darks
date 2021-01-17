@@ -5,28 +5,24 @@
  */
 package controller;
 
-import bean.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author User
  */
-public class LoginController extends HttpServlet {
+public class FeedbackController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +32,9 @@ public class LoginController extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String driver = "com.mysql.jdbc.Driver";
@@ -47,61 +42,25 @@ public class LoginController extends HttpServlet {
             String url = "jdbc:mysql://localhost/" + dbName + "?";
             String userNameDB = "root";
             String password = "";
-            String query = "select * from users where userName=? and userPassword=?";
+            String query = "SELECT * FROM feedback";
             
-            String userName = request.getParameter("userName");  
-            String userPassword = request.getParameter("userPassword");
-            String email = null, role = null;
+            Class.forName(driver); //2. load and register the driver
+            Connection con = DriverManager.getConnection(url, userNameDB, password); //3. establish the connection
             
-            HttpSession session = request.getSession();
+            PreparedStatement st = con.prepareStatement(query);
             
-            try {
-            Class.forName(driver); 
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            Connection con = DriverManager.getConnection(url, userNameDB, password); 
             
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1,userName);  
-            ps.setString(2,userPassword);
-            
-            ResultSet rs=ps.executeQuery(); 
-
-            if(rs.next()){ 
-                
-                User user = new User();
-                user.setUserName(userName);
-                user.setUserPassword(userPassword);
-                user.setEmail(rs.getString(3));
-                
-                session.setAttribute("User",user);
-                if("admin".equals(rs.getString(4))){
-                    RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
-                    rd.include(request, response); 
-                    //out.println("ADMIN VIEW");
-                }else{
-                    RequestDispatcher rd= request.getRequestDispatcher("/userIndex.jsp");
-                    rd.include(request, response); 
-                    //out.println("CUSTOMER VIEW");
-                }
-            }  
-            else{  
-                out.print("Wrong username or password !");  
-                RequestDispatcher rd=request.getRequestDispatcher("/login-register.jsp");  
-                rd.include(request,response);  
-            } 
-            
-            ps.close(); // 7. close the connection
+            st.close(); // 7. close the connection
             con.close();
-
+            
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");            
+            out.println("<title>Servlet FeedbackController</title>");            
             out.println("</head>");
             out.println("<body>");
+            out.println("<h1>Servlet FeedbackController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -121,8 +80,10 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FeedbackController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FeedbackController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -139,8 +100,10 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FeedbackController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FeedbackController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

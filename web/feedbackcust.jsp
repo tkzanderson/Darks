@@ -1,7 +1,7 @@
 <%-- 
-    Document   : userIndex
-    Created on : Jan 15, 2021, 2:38:33 PM
-    Author     : janic
+    Document   : feedbackcust
+    Created on : Jan 16, 2021, 5:10:44 PM
+    Author     : User
 --%>
 
 <%@page import="bean.User"%>
@@ -12,7 +12,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Darks: Dress & Suits Renting System</title>
+    <title>Darks: Feedback Page</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
@@ -61,7 +61,7 @@
                                             <li><a href="">Transaction History </a></li>
                                             <li><a href="">Wishlist</a></li>
                                             <li><a href="">Renting Cart</a></li>
-                                            <li><a href="feedbackcust.jsp">Feedback </a></li>
+                                            <li><a href="">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
                                             <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
                                         </ul>
@@ -101,16 +101,112 @@
     
     
     <!-- Content start here -->
-                 <div class="container">
-                    <div class="card-body">
-                    <div class="card text-center">
-                     <%User user = (User)session.getAttribute("User");%>
-                    <h5 class="card-title">Hello <%=user.getUserName()%></h5>
-                    <h1 class="card-title">Welcome to <br><b>Dress & Suits Renting System.</b></h1>
-                    <p class="card-text">Rent the best quality of dress and suits here.</p>
+    <div class="team-area pt-95 pb-70">
+        <div class="container">
+            <div class="section-title text-center pb-60">
+                <h2>Customer Feedbacks</h2>
+                <p>“A satisfied customer is the best source of advertisement”</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="team-wrapper mb-30">
+                        <div class="team-img">
+                            <a href="#">
+                                <img src="assets/img/team/team-1.jpg" alt="">
+                            </a>
+                            <div class="team-action">
+                                <a class="facebook" href="#">
+                                    <i class="sli sli-social-facebook"></i>
+                                </a>
+                                <a class="twitter" title="Wishlist" href="#">
+                                    <i class="sli sli-social-twitter"></i>
+                                </a>
+                                <a class="instagram" href="#">
+                                    <i class="sli sli-social-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="team-content text-center">
+                            <h4>Mr.Mike Banding</h4>
+                            <span>Manager </span>
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="team-wrapper mb-30">
+                        <div class="team-img">
+                            <a href="#">
+                                <img src="assets/img/team/team-3.jpg" alt="">
+                            </a>
+                            <div class="team-action">
+                                <a class="facebook" href="#">
+                                    <i class="sli sli-social-facebook"></i>
+                                </a>
+                                <a class="twitter" title="Wishlist" href="#">
+                                    <i class="sli sli-social-twitter"></i>
+                                </a>
+                                <a class="instagram" href="#">
+                                    <i class="sli sli-social-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="team-content text-center">
+                            <h4>Mr.Peter Pan</h4>
+                            <span>Developer </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="team-wrapper mb-30">
+                        <div class="team-img">
+                            <a href="#">
+                                <img src="assets/img/team/team-2.jpg" alt="">
+                            </a>
+                            <div class="team-action">
+                                <a class="facebook" href="#">
+                                    <i class="sli sli-social-facebook"></i>
+                                </a>
+                                <a class="twitter" title="Wishlist" href="#">
+                                    <i class="sli sli-social-twitter"></i>
+                                </a>
+                                <a class="instagram" href="#">
+                                    <i class="sli sli-social-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="team-content text-center">
+                            <h4>Ms.Sophia</h4>
+                            <span>Designer </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="team-wrapper mb-30">
+                        <div class="team-img">
+                            <a href="#">
+                                <img src="assets/img/team/team-4.jpg" alt="">
+                            </a>
+                            <div class="team-action">
+                                <a class="facebook" href="#">
+                                    <i class="sli sli-social-facebook"></i>
+                                </a>
+                                <a class="twitter" title="Wishlist" href="#">
+                                    <i class="sli sli-social-twitter"></i>
+                                </a>
+                                <a class="instagram" href="#">
+                                    <i class="sli sli-social-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="team-content text-center">
+                            <h4>Mr.John Lee</h4>
+                            <span>Chairmen </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Content ends here here -->
     
     
