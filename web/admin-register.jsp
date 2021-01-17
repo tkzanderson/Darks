@@ -45,23 +45,30 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-xl-7 col-lg-7 ">
+              <div class="col-xl-15 col-lg-15">
                         <div class="main-menu">
                             <nav>
                                 <ul>
-                                    <li class="angle-shape"><a href="userIndex.jsp">Home </a></li>
-                                    <li class="angle-shape"><a href="dress.jsp"> Dress <span>new</span> </a></li>
-                                    <li class="angle-shape"><a href="suit.jsp"> Suits <span>new</span> </a></li>
-                                    <li><a href="">Promotion <span>hot</span> </a></li>
+                                    <li class="angle-shape"><a href="adminIndex.jsp">Home </a></li>
+                                    <li> <form name="View" action="ViewProductsServlet" method="POST" >
+                                            <input type="hidden" name="action" value="adminview"> <input class="btn btn-light" type="submit" value="Manage Products"></form> 
+                                        </li>
+                                    <li>
+                                        <form name="View" action="ViewPromotionsServlet" method="POST" >
+                                             <input type="hidden" name="action" value="adminview">
+                                            <input class="btn btn-light" type="submit" value="Manage Promotions">
+                                        </form>
+                                    </li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
                                             <li><a href="">Transaction History </a></li>
-                                            <li><a href="">Wishlist</a></li>
-                                            <li><a href="">Renting Cart</a></li>
+                                            <li><a href="">Manage Rent</a></li>
                                             <li><a href="">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
-                                            <li><a href="">Logout </a></li>
+                                            <li><a href="admin-register.jsp">Register new admin</a></li>                                            
+
+                                            <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -127,7 +134,13 @@
                                         <form action="AdminRegisterController" method="post">
                                             <input type="text" name="userName" placeholder="Username">
                                             <input type="password" name="userPassword" placeholder="Password">
-                                            <input name="email" placeholder="Email" type="email">
+                                              <select name="gender" >
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option> 
+                                             </select><br><br>
+                                            <input type="email" name="email" placeholder="Email" required>
+                                            <input type="text" name="shippingAddress" placeholder="Shipping address" required>
+                                             <input type="tel" name="phoneNumber" placeholder="Telephone number: 012-345-6789" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
                                             <div class="button-box">
                                                 <button type="submit">Register</button>
                                             </div>

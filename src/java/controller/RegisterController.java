@@ -37,9 +37,8 @@ public class RegisterController extends HttpServlet {
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
     
-        HttpSession session = request.getSession();
-       
         
+                HttpSession session = request.getSession(true);
         String driver = "com.mysql.jdbc.Driver";
         String dbName = "darks";
         String url = "jdbc:mysql://localhost/" + dbName + "?";
@@ -51,13 +50,16 @@ public class RegisterController extends HttpServlet {
         String userName= request.getParameter("userName");
         String userPassword= request.getParameter("userPassword");
         String email= request.getParameter("email");
-            
+        String gender= request.getParameter("gender");
+        String shippingAddress= request.getParameter("shippingAddress");
+        String phoneNumber= request.getParameter("phoneNumber");
+        
         User user = new User();
         user.setUserName(userName);
         user.setUserPassword(userPassword);
         user.setEmail(email);
         
-        String query = "INSERT INTO users(userName, userPassword, email, role) VALUES(?,?,?,?)"; //prepared statement
+        String query = "INSERT INTO users(userName, userPassword, email, role, gender, shippingAddress, phoneNumber) VALUES(?,?,?,?,?,?,?)"; //prepared statement
         
          try {
             Class.forName(driver);  //step2 load and register driver
@@ -71,6 +73,9 @@ public class RegisterController extends HttpServlet {
         st.setString(2, userPassword);
         st.setString(3, email);
         st.setString(4, "customer");
+        st.setString(5, gender);
+        st.setString(6, shippingAddress);
+        st.setString(7, phoneNumber);
 
         
         //st.executeUpdate(query);    //step5 execute the query
@@ -81,9 +86,17 @@ public class RegisterController extends HttpServlet {
         con.close();
         
         session.setAttribute("User",user);
-        
-        RequestDispatcher rd= request.getRequestDispatcher("/userIndex.jsp");
+      
+        try (PrintWriter out = response.getWriter()) {
+                  RequestDispatcher rd= request.getRequestDispatcher("/userIndex.jsp");
         rd.include(request, response);
+         out.println("<script type=\"text/javascript\">");
+                     out.println("alert('You has sucessfully register, welcome to Darks Dress and Suit Renting');");
+                     out.println("</script>");
+      
+          }        
+        
+   
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -56,7 +56,7 @@ public class ViewPromotionsServlet extends HttpServlet {
         String userName = "root";
         String password = "";
         String query="SELECT * FROM products";
-        String query2="SELECT * FROM products WHERE active=1";
+        String query2="SELECT * FROM products WHERE active=1 AND promotionStatus=1";
         
         
         Class.forName(driver); 
@@ -92,10 +92,12 @@ public class ViewPromotionsServlet extends HttpServlet {
                      prodPrice = rs2.getDouble(4);
                      prodType = rs2.getString(5);
                      prodImage = rs2.getString(6);
-                     
-                products.add(new Products(prodTitle, prodDescription, prodType, prodPrice, id, prodImage)); }
-                session.setAttribute("products", products);
-                    RequestDispatcher rd = request.getRequestDispatcher("/products.jsp");
+                                 activate = rs2.getInt(7);
+                     promotionPrice = rs2.getDouble(8);
+                     promotionStatus = rs2.getInt(9);
+                     products.add(new Products(prodTitle, prodDescription, prodType, prodPrice, id,prodImage, activate, promotionPrice, promotionStatus)); }
+                    session.setAttribute("products", products);
+                    RequestDispatcher rd = request.getRequestDispatcher("/userViewPromotions.jsp");
                     rd.forward(request, response);
                 }
        

@@ -12,8 +12,41 @@ import java.io.Serializable;
  * @author user
  */
 public class User implements Serializable{
+    
+    private int id;
 
-    private String userName, userPassword, email;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    private String userName, userPassword, email, phoneNumber, gender, shippingAddress;
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(String shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
 
     public String getUserName() {
         return userName;
@@ -41,5 +74,7 @@ public class User implements Serializable{
      
     public User() {
     }
+  
+   
     
 }

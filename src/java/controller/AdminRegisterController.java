@@ -51,13 +51,16 @@ public class AdminRegisterController extends HttpServlet {
         String userName= request.getParameter("userName");
         String userPassword= request.getParameter("userPassword");
         String email= request.getParameter("email");
-            
+        String gender= request.getParameter("gender");
+        String shippingAddress= request.getParameter("shippingAddress");
+        String phoneNumber= request.getParameter("phoneNumber");
+        
         User user = new User();
         user.setUserName(userName);
         user.setUserPassword(userPassword);
         user.setEmail(email);
         
-        String query = "INSERT INTO users(userName, userPassword, email, role) VALUES(?,?,?,?)"; //prepared statement
+        String query = "INSERT INTO users(userName, userPassword, email, role, gender, shippingAddress, phoneNumber) VALUES(?,?,?,?,?,?,?)"; //prepared statement
         
          try {
             Class.forName(driver);  //step2 load and register driver
@@ -71,7 +74,9 @@ public class AdminRegisterController extends HttpServlet {
         st.setString(2, userPassword);
         st.setString(3, email);
         st.setString(4, "admin");
-
+        st.setString(5, gender);
+        st.setString(6, shippingAddress);
+        st.setString(7, phoneNumber);
         
         //st.executeUpdate(query);    //step5 execute the query
         st.executeUpdate();
@@ -83,8 +88,11 @@ public class AdminRegisterController extends HttpServlet {
         session.setAttribute("User",user);
           try (PrintWriter out = response.getWriter()) {
                  RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
-        out.println("New Admin Regisster Suscess!");
-        rd.include(request, response);
+                   rd.include(request, response);
+         out.println("<script type=\"text/javascript\">");
+                     out.println("alert('New admin had sucessfully registered');");
+                     out.println("</script>");
+      
           }
  
 

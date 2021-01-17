@@ -1,11 +1,18 @@
 <%-- 
-    Document   : userIndex
-    Created on : Jan 15, 2021, 2:38:33 PM
-    Author     : janic
+    Document   : userViewPromotions
+    Created on : Jan 17, 2021, 11:51:59 PM
+    Author     : user
 --%>
 
-<%@page import="bean.User"%>
+<%@page import="bean.Products"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    ArrayList products= (ArrayList) session.getAttribute("products");
+%>  
+
+
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -41,12 +48,12 @@
                 <div class="row">
                     <div class="col-xl-2 col-lg-2">
                         <div class="logo pt-40">
-                            <a href="userIndex.jsp">
+                            <a href="adminIndex.jsp">
                                 <h1><b>Darks</b></h1>
                             </a>
                         </div>
                     </div>
-                    <div class="col-xl-7 col-lg-7 ">
+                <div class="col-xl-7 col-lg-7 ">
                         <div class="main-menu">
                             <nav>
                                 <ul>
@@ -103,19 +110,57 @@
     
     
     <!-- Content start here -->
-                 <div class="container">
-                    <div class="card-body">
-                    <div class="card text-center">
-                     <%User user = (User)session.getAttribute("User");%>
-                    <h5 class="card-title">Hello <%=user.getUserName()%></h5>
-                    <h1 class="card-title">Welcome to <br><b>Dress & Suits Renting System.</b></h1>
-                    <p class="card-text">Rent the best quality of dress and suits here.</p>
-                        </div>
-                    </div>
-                </div>
+    <% if (products != null && (products.size() > 0)) { %>
+    <div class="container" style="item-align: center" >
+    <% 
+        for (int index=0; index < products.size();index++)
+        {
+            Products prod = (Products) products.get(index); %>
+    <div class="shop-list-wrap shop-list-mrg mb-30">
+        <div class="row">
+            <div class="col-lg-4 col-md-5 align-self-center">
+                <div class="product-list-img">
+                    <img src="<%= prod.getProdImage() %>" style="width: 300px; height:400px" />
+               </div>
+             </div>
+             <div class="col-lg-8 col-md-7 align-self-center">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-12">
+                                                    <div class="shop-list-content">
+                                                        <h3><a href="product-details.html"><%= prod.getProdTitle() %></a></h3>
+                                                        <span><%= prod.getProdType() %></span>
+                                                        <div class="shop-list-paragraph">
+                                                        <p><%= prod.getProdDescription() %></p>
+                                                        
+                                                    </div> <div class="ht-product-list-price">
+                                                            <span class="">Original Price: <del>RM<%= prod.getProdPrice() %></del></span>
+                                                        </div>
+                                                        <div class="ht-product-list-price">
+                                                            <span class="new">Promotion Price: <ins>RM<%= prod.getPromotionPrice() %></ins> !!!</span>
+                                                        </div>
+                                                        <div class="ht-product-list-action">
+                                                            <a class="list-wishlist" title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
+                                                            <a class="list-cart" title="Rent" href="#" style="background-color: red; color: white"><i class="sli sli-basket-loaded"></i> Rent</a>
+                                                            <a class="list-refresh" title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                                        <% } 
+                                                         } 
+                else { %>
+                        <center><b>Promotions Empty</b></center>
+                    <% } %>
+                 
+      
+                
+       
     <!-- Content ends here here -->
-    
-    
     <footer class="footer-area">
         <div class="footer-bottom border-top-2 pt-30">
             <div class="container">
@@ -135,32 +180,3 @@
         </div>
     </footer>
 </div>
-
-
-
-
-
-
-
-
-
-
-<!-- All JS is here
-============================================ -->
-
-<!-- jQuery JS -->
-<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
-<!-- Popper JS -->
-<script src="assets/js/popper.min.js"></script>
-<!-- Bootstrap JS -->
-<script src="assets/js/bootstrap.min.js"></script>
-<!-- Plugins JS -->
-<script src="assets/js/plugins.js"></script>
-<!-- Ajax Mail -->
-<script src="assets/js/ajax-mail.js"></script>
-<!-- Main JS -->
-<script src="assets/js/main.js"></script>
-
-</body>
-
-</html>

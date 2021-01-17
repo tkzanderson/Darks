@@ -110,8 +110,7 @@
                 <div class="container">
                     <div class="card-body">
                     <div class="card text-center">
-                    <%User user = (User)session.getAttribute("User");%>
-                    <h5 class="card-title">Hello <%=user.getUserName()%></h5>
+              
                     <h1 class="card-title">Welcome to <br><b>Dress & Suits Renting System.</b></h1>
                     <p class="card-text">Rent the best quality of dress and suits here.</p>
                         </div>
