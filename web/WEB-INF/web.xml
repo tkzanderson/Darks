@@ -33,12 +33,12 @@
         <servlet-class>controller.ViewPromotionsServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>FeedbackController</servlet-name>
-        <servlet-class>controller.FeedbackController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>UpdatePromotionServlet</servlet-name>
         <servlet-class>controller.UpdatePromotionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FeedbackController</servlet-name>
+        <servlet-class>controller.FeedbackController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
@@ -48,10 +48,6 @@
         <servlet-name>ViewProductsServlet</servlet-name>
         <url-pattern>/ViewProductsServlet</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>FeedbackController</servlet-name>
-        <servlet-class>/FeedbackController</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>activationServlet</servlet-name>
         <url-pattern>/activationServlet</url-pattern>
@@ -79,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>UpdatePromotionServlet</servlet-name>
         <url-pattern>/UpdatePromotionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedbackController</servlet-name>
+        <url-pattern>/FeedbackController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

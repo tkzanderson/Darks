@@ -4,10 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/User/Desktop/UTM%20SEMESTERS/sem5%20assignments/INTERNET%20PROGRAMMING/DARKS/Darks/src/java/controller/RegisterController.java</file>
-            <file>file:/C:/Users/User/Desktop/UTM%20SEMESTERS/sem5%20assignments/INTERNET%20PROGRAMMING/DARKS/Darks/src/java/controller/LoginController.java</file>
             <file>file:/C:/Users/User/Desktop/UTM%20SEMESTERS/sem5%20assignments/INTERNET%20PROGRAMMING/DARKS/Darks/src/java/controller/FeedbackController.java</file>
+            <file>file:/C:/Users/User/Desktop/UTM%20SEMESTERS/sem5%20assignments/INTERNET%20PROGRAMMING/DARKS/Darks/src/java/controller/AdminRegisterController.java</file>
             <file>file:/C:/Users/User/Desktop/UTM%20SEMESTERS/sem5%20assignments/INTERNET%20PROGRAMMING/DARKS/Darks/web/feedbackcust.jsp</file>
             <file>file:/C:/Users/User/Desktop/UTM%20SEMESTERS/sem5%20assignments/INTERNET%20PROGRAMMING/DARKS/Darks/web/userIndex.jsp</file>
+            <file>file:/C:/Users/User/Desktop/UTM%20SEMESTERS/sem5%20assignments/INTERNET%20PROGRAMMING/DARKS/Darks/web/login-register.jsp</file>
             <file>file:/C:/Users/User/Desktop/UTM%20SEMESTERS/sem5%20assignments/INTERNET%20PROGRAMMING/DARKS/Darks/web/adminIndex.jsp</file>
         </group>
     </open-files>
