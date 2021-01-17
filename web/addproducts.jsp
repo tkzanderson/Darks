@@ -32,9 +32,99 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
-    <style>
+    <style type="text/css">
+.form-style-3{
+	max-width: 500px;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        margin: auto;
+}
+.form-style-3 label{
+	display:block;
+	margin-bottom: 10px;
+}
+.form-style-3 label > span{
+	float: left;
+	width: 100px;
+	color: black;
+	font-weight: bold;
+	font-size: 14px;
+	text-shadow: 1px 1px 1px #fff;
+}
+.form-style-3 fieldset{
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	margin: 0px 0px 10px 0px;
+	border: 1px solid black;
+	padding: 20px;
+	background: white;
+	box-shadow: inset 0px 0px 15px #FFE5E5;
+	-moz-box-shadow: inset 0px 0px 15px #FFE5E5;
+	-webkit-box-shadow: inset 0px 0px 15px #FFE5E5;
+}
+.form-style-3 fieldset legend{
+	color: black;
+        border: 1px solid black;
+	border-radius: 5px 5px 0px 0px;
+	-webkit-border-radius: 5px 5px 0px 0px;
+	-moz-border-radius: 5px 5px 0px 0px;
+	background: #FFF4F4;
+	padding: 3px 8px 3px 20px;
+	box-shadow: -0px -1px 2px #F1F1F1;
+	-moz-box-shadow:-0px -1px 2px #F1F1F1;
+	-webkit-box-shadow:-0px -1px 2px #F1F1F1;
+	font-weight:900;
+	font-size: 20px;
+}
+.form-style-3 textarea{
+	width:250px;
+	height:100px;
+}
+.form-style-3 input[type=text],
+.form-style-3 input[type=date],
+.form-style-3 input[type=datetime],
+.form-style-3 input[type=number],
+.form-style-3 input[type=search],
+.form-style-3 input[type=time],
+.form-style-3 input[type=url],
+.form-style-3 input[type=email],
+.form-style-3 select, 
+.form-style-3 textarea{
+        margin-left: 70px;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border: 1px solid black;
+	outline: none;
+	color: black;
+	padding: 5px 9px 5px 8px;
+	box-shadow: inset 1px 1px 4px #FFD5E7;
+	-moz-box-shadow: inset 1px 1px 4px #FFD5E7;
+	-webkit-box-shadow: inset 1px 1px 4px #FFD5E7;
+	background: #FFEFF6;
+	width:50%;
         
-    </style>
+}
+.form-style-3  input[type=submit],
+.form-style-3  input[type=button]{
+	background: #EB3B88;
+	border: 1px solid #C94A81;
+	padding: 5px 15px 5px 15px;
+	color: #FFCBE2;
+	box-shadow: inset -1px -1px 3px #FF62A7;
+	-moz-box-shadow: inset -1px -1px 3px #FF62A7;
+	-webkit-box-shadow: inset -1px -1px 3px #FF62A7;
+	border-radius: 3px;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;	
+	font-weight: bold;
+}
+.required{
+	color:red;
+	font-weight:normal;
+}
+</style>
    
 </head>
 
@@ -104,27 +194,29 @@
     </header>
     
     
-    <!-- Content start here -->       
-    <div class="container">
+    <!-- Content start here -->    
+    
+    <div class="form-style-3">
     <form name="addForm" action="ManageProductServlet" method="POST" >
-        <h1> Insert Product</h1>
-        Product Title: <input type="text" name="prodTitle"><br>
-        Product Description: <input type="text" name="prodDescription"><br>
-        Product Price: <input type="text" name="prodPrice"><br>
-        Product Type:
+        <fieldset><legend> Insert Product</legend>
+            <label for="field1"><span>   Product Title: </span><input type="text" name="prodTitle"></label><br>
+            <label for="field2"><span>  Product Description: </span><textarea name="prodDescription" class="textarea-field"></textarea></label><br>
+            <label for="field3"><span>  Product Price: </span><input type="text" name="prodPrice"></label><br>
+        <label for="field4"><span> Product Type:</span>
         <select name="prodType">
-             <option>Dress</option>
-             <option>Suit</option> 
-         </select>
-        Product Image: <input type="text" name="prodImage"><br>
-        Active/Deactivate: <select name="active">
+             <option>dress</option>
+             <option>suit</option> 
+        </select></label><br>
+        <label for="field4"><span> Product Image:</span> <input type="text" name="prodImage"></label><br>
+        <label for="field6"><span> Active(1)/Deactivate(0):</span> <select name="active">
              <option>1</option>
              <option>0</option> 
-         </select><br>
+            </select></label><br>
             <input type="submit" value="Add Product" class="btn btn-info">
             <input type="hidden" name="action" value="ADD">
         </form>
-      </div>
+</div>
+    
                 
        
     <!-- Content ends here here -->
