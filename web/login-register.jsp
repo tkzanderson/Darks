@@ -62,7 +62,6 @@
                                             <li><a href="">Manage Rent</a></li>
                                             <li><a href="">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
-                                            <li><a href="admin-register.jsp">Register new admin</a></li>                                            
                                             <li><a href="">Manage Products </a></li>
                                             <li><a href="">Logout </a></li>
                                         </ul>
@@ -153,9 +152,15 @@
                                 <div class="login-form-container">
                                     <div class="login-register-form">
                                         <form action="RegisterController" method="post">
-                                            <input type="text" name="userName" placeholder="Username">
-                                            <input type="password" name="userPassword" placeholder="Password">
-                                            <input name="email" placeholder="Email" type="email">
+                                            <input type="text" name="userName" placeholder="Username" required>
+                                            <input type="password" name="userPassword" placeholder="Password" required><br>
+                                            <select name="gender" >
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option> 
+                                             </select><br><br>
+                                            <input type="email" name="email" placeholder="Email" required>
+                                            <input type="text" name="shippingAddress" placeholder="Shipping address" required>
+                                             <input type="tel" name="phoneNumber" placeholder="Telephone number: 012-345-6789" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
                                             <div class="button-box">
                                                 <button type="submit">Register</button>
                                             </div>

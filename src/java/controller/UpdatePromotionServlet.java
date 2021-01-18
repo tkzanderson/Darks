@@ -6,15 +6,12 @@
 package controller;
 
 import bean.Products;
-import bean.User;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,13 +21,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
+import java.sql.*;
 
 /**
  *
- * @author janic
+ * @author user
  */
-public class ManageProductServlet extends HttpServlet {
+public class UpdatePromotionServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,8 +40,8 @@ public class ManageProductServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        
-        HttpSession session = request.getSession(true);
+        response.setContentType("text/html;charset=UTF-8");
+               HttpSession session = request.getSession(true);
         String action = request.getParameter("action");
         
         String driver = "com.mysql.jdbc.Driver";
@@ -52,45 +50,12 @@ public class ManageProductServlet extends HttpServlet {
         String userNameDB = "root";
         String password = "";
      
-       if(action.equals("ADD")) {
-            String prodTitle= request.getParameter("prodTitle");
-            String prodDescription= request.getParameter("prodDescription");
-            double prodPrice = Double.parseDouble(request.getParameter("prodPrice"));
-            String prodType= request.getParameter("prodType");
-            String prodImage = request.getParameter("prodImage");
-            int active= Integer.parseInt(request.getParameter("active"));
-            String query = "INSERT INTO products(prodTitle, prodDescription, prodPrice, prodType, prodImage, active) VALUES(?,?,?,?,?,?)"; //prepared statement
-
-             try {
-                Class.forName(driver);  //step2 load and register driver
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            Connection con = DriverManager.getConnection(url, userNameDB, password); //step3 establish connection
-            //Statement st = con.createStatement();   //step4 create statement normal statement
-            PreparedStatement st = con.prepareStatement(query); //preparedstatement
-            st.setString(1, prodTitle);
-            st.setString(2,prodDescription);
-            st.setDouble(3, prodPrice);
-            st.setString(4, prodType);
-            st.setString(5, prodImage);
-            st.setInt(6, active);
-
-            //st.executeUpdate(query);    //step5 execute the query
-            st.executeUpdate();
-
-            st.close(); //step7 close connection
-            con.close();
-
-            RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
-            rd.include(request, response);
-       }
-       else if(action.equals("UPDATE")){
+      if(action.equals("UPDATE")){
            
            int prodid = Integer.parseInt(request.getParameter("upindex"));
            String prodTitle, prodDescription, prodType;
-           double prodPrice;
-           int id, activate;
+           double prodPrice, promotionPrice;
+           int id, activate, promotionStatus;
             String prodImage;
            String query = "SELECT * FROM products where id="+prodid;
            
@@ -113,26 +78,28 @@ public class ManageProductServlet extends HttpServlet {
             products.setProdPrice(rs.getDouble(4));
             products.setProdType(rs.getString(5));
             products.setProdImage(rs.getString(6));
-            products.setActivate(rs.getInt(7));}
+            products.setActivate(rs.getInt(7));
+          products.setPromotionPrice(rs.getDouble(8));
+      products.setPromotionStatus(rs.getInt(9));}
             
             st.close(); //step7 close connection
             con.close();
             
             session.setAttribute("products", products);
-            RequestDispatcher rd= request.getRequestDispatcher("/updateProducts.jsp");
+            RequestDispatcher rd= request.getRequestDispatcher("/updatePromotions.jsp");
             rd.include(request, response);
            
        }
        
        else if(action.equals("EDIT")){
-            String prodTitle= request.getParameter("prodTitle");
-            String prodDescription= request.getParameter("prodDescription");
-            double prodPrice = Double.parseDouble(request.getParameter("prodPrice"));
-            String prodType= request.getParameter("prodType");
-            String prodImage = request.getParameter("prodImage");
+          
+            double promotionPrice = Double.parseDouble(request.getParameter("promotionPrice"));
+            int promotionStatus = Integer.parseInt(request.getParameter("promotionStatus"));
+           
+           
             int editindex= Integer.parseInt(request.getParameter("editindex"));
             
-            String query = "UPDATE products set prodTitle=?, prodDescription=?, prodPrice=?, prodType=?, prodImage=? where id="+editindex; //prepared statement
+            String query = "UPDATE products set promotionPrice=?, promotionStatus=? where id="+editindex; //prepared statement
 
              try {
                 Class.forName(driver);  //step2 load and register driver
@@ -142,11 +109,10 @@ public class ManageProductServlet extends HttpServlet {
             Connection con = DriverManager.getConnection(url, userNameDB, password); //step3 establish connection
             //Statement st = con.createStatement();   //step4 create statement normal statement
             PreparedStatement st = con.prepareStatement(query); //preparedstatement
-            st.setString(1, prodTitle);
-            st.setString(2,prodDescription);
-            st.setDouble(3, prodPrice);
-            st.setString(4, prodType);
-            st.setString(5, prodImage);
+          
+            st.setDouble(1, promotionPrice);
+            st.setInt(2, promotionStatus);
+           
 
             //st.executeUpdate(query);    //step5 execute the query
             st.executeUpdate();
@@ -156,36 +122,16 @@ public class ManageProductServlet extends HttpServlet {
 
             RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
             rd.include(request, response);
+            
        }
        
-       else if(action.equals("DELETE")){
-           int delindex= Integer.parseInt(request.getParameter("delindex"));
-           
-           String query = "DELETE FROM products WHERE id=?";
-           try {
-                Class.forName(driver);  //step2 load and register driver
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            Connection con = DriverManager.getConnection(url, userNameDB, password); //step3 establish connection
-            //Statement st = con.createStatement();   //step4 create statement normal statement
-            PreparedStatement st = con.prepareStatement(query);//preparedstatement
-            
-            st.setInt(1, delindex);
-             st.executeUpdate(); //preppared statment
-        
-            st.close(); //7-close connection
-            con.close();
-            
-            RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
-            rd.include(request, response);
-       }
+   
         
         
         
-        response.setContentType("text/html;charset=UTF-8");
+     
         try (PrintWriter out = response.getWriter()) {
-            
+       
         }
     }
 
@@ -204,7 +150,7 @@ public class ManageProductServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(ManageProductServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UpdatePromotionServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -222,7 +168,7 @@ public class ManageProductServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(ManageProductServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UpdatePromotionServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

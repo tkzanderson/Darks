@@ -1,9 +1,8 @@
 <%-- 
-    Document   : dress.jsp
-    Created on : Jan 15, 2021, 3:26:03 PM
-    Author     : janic
+    Document   : adminViewPromotions
+    Created on : Jan 17, 2021, 4:38:57 AM
+    Author     : user
 --%>
-
 <%@page import="bean.Products"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,7 +10,6 @@
 <%
     ArrayList products= (ArrayList) session.getAttribute("products");
 %>  
-
 
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
@@ -38,6 +36,27 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <style> 
+        table {
+          width: 100%;
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+
+        th, td {
+          text-align: left;
+          padding: 8px;
+          border: 1px solid black;
+        }
+
+        tr:nth-child(even){background-color: #f2f2f2}
+
+        th {
+          background-color: black;
+          color: white;
+        }
+        
+    </style>
 </head>
 
 <body>
@@ -53,13 +72,20 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-xl-7 col-lg-7 ">
+                    <div class="col-xl-15 col-lg-15">
                         <div class="main-menu">
                             <nav>
                                 <ul>
-                                    <li class="angle-shape"><a href="userIndex.jsp">Home </a></li>
-                                     <li class="angle-shape"><a href="/Darks/ViewProductsServlet"> Products <span>new</span> </a></li>
-                                    <li><a href="">Promotion <span>hot</span> </a></li>
+                                    <li class="angle-shape"><a href="adminIndex.jsp">Home </a></li>
+                                    <li> <form name="View" action="ViewProductsServlet" method="POST" >
+                                            <input type="hidden" name="action" value="adminview"> <input class="btn btn-light" type="submit" value="Manage Products"></form> 
+                                        </li>
+                                    <li>
+                                        <form name="View" action="ViewPromotionsServlet" method="POST" >
+                                             <input type="hidden" name="action" value="adminview">
+                                            <input class="btn btn-light" type="submit" value="Manage Promotions">
+                                        </form>
+                                    </li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
@@ -67,8 +93,9 @@
                                             <li><a href="">Manage Rent</a></li>
                                             <li><a href="">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
-                                            <li><a href="">Manage Products </a></li>
-                                            <li><a href="">Logout </a></li>
+                                            <li><a href="admin-register.jsp">Register new admin</a></li>                                            
+
+                                            <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -106,55 +133,68 @@
     
     
     <!-- Content start here -->
+    <br>
     <% if (products != null && (products.size() > 0)) { %>
     <div class="container" style="item-align: center" >
-    <% 
-                 for (int index=0; index < products.size();index++)
-                    {
-                    	Products prod = (Products) products.get(index); %>
-    <div class="shop-list-wrap shop-list-mrg mb-30">
-        <div class="row">
-            <div class="col-lg-4 col-md-5 align-self-center">
-                <div class="product-list-img">
-                    <img src="<%= prod.getProdImage() %>" style="width: 300px; height:400px" />
-               </div>
-             </div>
-             <div class="col-lg-8 col-md-7 align-self-center">
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-12">
-                                                    <div class="shop-list-content">
-                                                        <h3><a href="product-details.html"><%= prod.getProdTitle() %></a></h3>
-                                                        <span><%= prod.getProdType() %></span>
-                                                        <div class="shop-list-paragraph">
-                                                        <p><%= prod.getProdDescription() %></p>
-                                                        
-                                                    </div>
-                                                        <div class="ht-product-list-price">
-                                                            <span class="new">RM<%= prod.getProdPrice() %></span>
-                                                        </div>
-                                                        <div class="ht-product-list-action">
-                                                            <a class="list-wishlist" title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                                                            <a class="list-cart" title="Rent" href="rentpage.jsp" style="background-color: red; color: white"><i class="sli sli-basket-loaded"></i> Rent</a>
-                                                            <a class="list-refresh" title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                                        <% } 
+        
+                        <table>
+                            <tr>
+                                <th>Id</th>
+                                <th>Product Title</th>
+                                <th>Product Description</th>
+                                <th>Product Price</th>
+                                <th>Product Type</th>
+                                <th>Promotion Price</th>
+                                <th>Promotion Status</th>
+                                <th colspan="4">Action</th>
+                            </tr>
+                            <% 
+                                 for (int index=0; index < products.size();index++){
+                                    Products prod = (Products) products.get(index); %>
+                                    <tr>
+                                        <td><%= prod.getId() %></td>
+                                        <td><%= prod.getProdTitle() %></td>
+                                        <td><%= prod.getProdDescription() %></td>
+                                        <td><%= prod.getProdPrice() %></td>
+                                        <td><%= prod.getProdType() %></td>
+                                        <td><%= prod.getPromotionPrice() %></td>
+                                        <td><% if(prod.getPromotionStatus()==1){
+                                            out.println("On");
+                                        }
+                                        else{
+                                            out.println("Off");
+                                        }%>
+                                           </td>
+                                     
+                                        <td>
+                                             <form name="updateForm" action="UpdatePromotionServlet" method="POST">
+                                                 <input type="submit" value="UPDATE" class="btn btn-secondary">
+                                                 <input type="hidden" name="upindex" value="<%= prod.getId() %>">
+                                                 <input type="hidden" name="action" value="UPDATE">
+                                            </form>
+                                        </td>
+                                       
+                                        
+                                   
+                                    </tr>
+                                     <% } 
                                                          } 
                 else { %>
                                  <center><b><p>Products Empty</b></center>
                     <% } %>
+                       </table>
+                        
+                        
+                        
+    </div>
+                                                       
                  
       
                 
        
     <!-- Content ends here here -->
+    
+    
     <footer class="footer-area">
         <div class="footer-bottom border-top-2 pt-30">
             <div class="container">

@@ -1,18 +1,11 @@
 <%-- 
-    Document   : dress.jsp
-    Created on : Jan 15, 2021, 3:26:03 PM
-    Author     : janic
+    Document   : addfeedback
+    Created on : Jan 17, 2021, 6:12:42 PM
+    Author     : User
 --%>
 
-<%@page import="bean.Products"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<%
-    ArrayList products= (ArrayList) session.getAttribute("products");
-%>  
-
-
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -48,7 +41,7 @@
                 <div class="row">
                     <div class="col-xl-2 col-lg-2">
                         <div class="logo pt-40">
-                            <a href="adminIndex.jsp">
+                            <a href="userIndex.jsp">
                                 <h1><b>Darks</b></h1>
                             </a>
                         </div>
@@ -58,17 +51,19 @@
                             <nav>
                                 <ul>
                                     <li class="angle-shape"><a href="userIndex.jsp">Home </a></li>
-                                     <li class="angle-shape"><a href="/Darks/ViewProductsServlet"> Products <span>new</span> </a></li>
+                                    <li class="angle-shape">
+                                    <form name="View" action="ViewProductsServlet" method="POST">
+                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Products"></form></li>
                                     <li><a href="">Promotion <span>hot</span> </a></li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
                                             <li><a href="">Transaction History </a></li>
-                                            <li><a href="">Manage Rent</a></li>
-                                            <li><a href="">Feedback </a></li>
+                                            <li><a href="">Wishlist</a></li>
+                                            <li><a href="">Renting Cart</a></li>
+                                            <li><a href="feedbackcust.jsp">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
-                                            <li><a href="">Manage Products </a></li>
-                                            <li><a href="">Logout </a></li>
+                                            <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -106,55 +101,73 @@
     
     
     <!-- Content start here -->
-    <% if (products != null && (products.size() > 0)) { %>
-    <div class="container" style="item-align: center" >
-    <% 
-                 for (int index=0; index < products.size();index++)
-                    {
-                    	Products prod = (Products) products.get(index); %>
-    <div class="shop-list-wrap shop-list-mrg mb-30">
-        <div class="row">
-            <div class="col-lg-4 col-md-5 align-self-center">
-                <div class="product-list-img">
-                    <img src="<%= prod.getProdImage() %>" style="width: 300px; height:400px" />
-               </div>
-             </div>
-             <div class="col-lg-8 col-md-7 align-self-center">
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-12">
-                                                    <div class="shop-list-content">
-                                                        <h3><a href="product-details.html"><%= prod.getProdTitle() %></a></h3>
-                                                        <span><%= prod.getProdType() %></span>
-                                                        <div class="shop-list-paragraph">
-                                                        <p><%= prod.getProdDescription() %></p>
-                                                        
-                                                    </div>
-                                                        <div class="ht-product-list-price">
-                                                            <span class="new">RM<%= prod.getProdPrice() %></span>
-                                                        </div>
-                                                        <div class="ht-product-list-action">
-                                                            <a class="list-wishlist" title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                                                            <a class="list-cart" title="Rent" href="rentpage.jsp" style="background-color: red; color: white"><i class="sli sli-basket-loaded"></i> Rent</a>
-                                                            <a class="list-refresh" title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
+    <div class="breadcrumb-area pt-35 pb-35 bg-gray">
+        <div class="container">
+            <div class="breadcrumb-content text-center">
+                <ul>
+                    <li>
+                        <a href="/userIndex.jsp">Home</a>
+                    </li>
+                    <li class="active">Add a Feedback</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="contact-area pt-100 pb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-6">
+                    <div class="contact-info-area">
+                        <h2>Give us a feedback</h2>
+                        <p>
+                            Let us know about your rental experience with us. 
+                        </p>
+                        <div class="contact-info-wrap">
+                            <div class="single-contact-info">
+                                <div class="contact-info-icon">
+                                    <i class="sli sli-location-pin"></i>
                                 </div>
-                                                        <% } 
-                                                         } 
-                else { %>
-                                 <center><b><p>Products Empty</b></center>
-                    <% } %>
-                 
-      
-                
-       
+                                <div class="contact-info-content">
+                                    <p>Address goes here,  street, Crossroad 123.</p>
+                                </div>
+                            </div>
+                            <div class="single-contact-info">
+                                <div class="contact-info-icon">
+                                    <i class="sli sli-envelope"></i>
+                                </div>
+                                <div class="contact-info-content">
+                                    <p><a href="#">info@example.com</a> / <a href="#">info@example.com</a></p>
+                                </div>
+                            </div>
+                            <div class="single-contact-info">
+                                <div class="contact-info-icon">
+                                    <i class="sli sli-screen-smartphone"></i>
+                                </div>
+                                <div class="contact-info-content">
+                                    <p>+1 35 776 859 000  /  +1 35 776 859 011</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-6">
+                    <div class="contact-from contact-shadow">
+                        <form name="feedbackform" action="FeedbackController" method="post">
+                            <input name="name" type="text" placeholder="Your Name">
+                            <textarea name="feedback" placeholder="Your Message"></textarea>
+                            <input class="btn btn-danger" type="submit" value="Send Feedback">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-map pt-100">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
     <!-- Content ends here here -->
+    
+    
     <footer class="footer-area">
         <div class="footer-bottom border-top-2 pt-30">
             <div class="container">
@@ -174,3 +187,32 @@
         </div>
     </footer>
 </div>
+
+
+
+
+
+
+
+
+
+
+<!-- All JS is here
+============================================ -->
+
+<!-- jQuery JS -->
+<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+<!-- Popper JS -->
+<script src="assets/js/popper.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="assets/js/bootstrap.min.js"></script>
+<!-- Plugins JS -->
+<script src="assets/js/plugins.js"></script>
+<!-- Ajax Mail -->
+<script src="assets/js/ajax-mail.js"></script>
+<!-- Main JS -->
+<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

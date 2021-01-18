@@ -1,25 +1,22 @@
 <%-- 
-    Document   : dress.jsp
-    Created on : Jan 15, 2021, 3:26:03 PM
-    Author     : janic
+    Document   : feedbackcust
+    Created on : Jan 16, 2021, 5:10:44 PM
+    Author     : User
 --%>
 
-<%@page import="bean.Products"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<%
-    ArrayList products= (ArrayList) session.getAttribute("products");
-%>  
-
-
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Darks: Dress & Suits Renting System</title>
+    <title>Darks: Feedback Page</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
@@ -48,7 +45,7 @@
                 <div class="row">
                     <div class="col-xl-2 col-lg-2">
                         <div class="logo pt-40">
-                            <a href="adminIndex.jsp">
+                            <a href="userIndex.jsp">
                                 <h1><b>Darks</b></h1>
                             </a>
                         </div>
@@ -58,17 +55,19 @@
                             <nav>
                                 <ul>
                                     <li class="angle-shape"><a href="userIndex.jsp">Home </a></li>
-                                     <li class="angle-shape"><a href="/Darks/ViewProductsServlet"> Products <span>new</span> </a></li>
+                                    <li class="angle-shape">
+                                    <form name="View" action="ViewProductsServlet" method="POST">
+                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Products"></form></li>
                                     <li><a href="">Promotion <span>hot</span> </a></li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
                                             <li><a href="">Transaction History </a></li>
-                                            <li><a href="">Manage Rent</a></li>
-                                            <li><a href="">Feedback </a></li>
+                                            <li><a href="">Wishlist</a></li>
+                                            <li><a href="">Renting Cart</a></li>
+                                            <li><a href="feedbackcust.jsp">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
-                                            <li><a href="">Manage Products </a></li>
-                                            <li><a href="">Logout </a></li>
+                                            <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -106,55 +105,63 @@
     
     
     <!-- Content start here -->
-    <% if (products != null && (products.size() > 0)) { %>
-    <div class="container" style="item-align: center" >
-    <% 
-                 for (int index=0; index < products.size();index++)
-                    {
-                    	Products prod = (Products) products.get(index); %>
-    <div class="shop-list-wrap shop-list-mrg mb-30">
-        <div class="row">
-            <div class="col-lg-4 col-md-5 align-self-center">
-                <div class="product-list-img">
-                    <img src="<%= prod.getProdImage() %>" style="width: 300px; height:400px" />
-               </div>
-             </div>
-             <div class="col-lg-8 col-md-7 align-self-center">
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-12">
-                                                    <div class="shop-list-content">
-                                                        <h3><a href="product-details.html"><%= prod.getProdTitle() %></a></h3>
-                                                        <span><%= prod.getProdType() %></span>
-                                                        <div class="shop-list-paragraph">
-                                                        <p><%= prod.getProdDescription() %></p>
-                                                        
-                                                    </div>
-                                                        <div class="ht-product-list-price">
-                                                            <span class="new">RM<%= prod.getProdPrice() %></span>
-                                                        </div>
-                                                        <div class="ht-product-list-action">
-                                                            <a class="list-wishlist" title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                                                            <a class="list-cart" title="Rent" href="rentpage.jsp" style="background-color: red; color: white"><i class="sli sli-basket-loaded"></i> Rent</a>
-                                                            <a class="list-refresh" title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                                        <% } 
-                                                         } 
-                else { %>
-                                 <center><b><p>Products Empty</b></center>
-                    <% } %>
-                 
-      
+    <div class="team-area pt-95 pb-70">
+        <div class="container">
+            <div class="section-title text-center pb-60">
+                <h2>Customer Feedbacks</h2>
+                <p>“A satisfied customer is the best source of advertisement”</p><br><br>
+                <button type="button" class="btn btn-outline-secondary">
+                    <a href="addfeedback.jsp">
+                        Add a Feedback
+                    </a>
+                </button>
+            </div>
+            <div class="row">
+                <% 
+                    String driver = "com.mysql.jdbc.Driver";
+                    String dbName = "darks";
+                    String url = "jdbc:mysql://localhost/" + dbName + "?";
+                    String userNameDB = "root";
+                    String password = "";
+                    String query = "SELECT * FROM feedback";
+
+                    Class.forName(driver); //2. load and register the driver
+                    Connection con = DriverManager.getConnection(url, userNameDB, password); //3. establish the connection
+
+                    Statement st = con.createStatement(); //4. create the statement
+                    ResultSet rs = st.executeQuery(query); //5.execute the query
+         
+                    while(rs.next()){ //6. process the result
+                        
+                        out.println("<div class=\"col-lg-3 col-md-6 col-sm-6\">\n" +
+"                    <div class=\"team-wrapper mb-30\">\n" +
+"                        <div class=\"team-content text-center\">\n" +
+"                            <h4> " + rs.getString(3) + " </h4>\n" +
+"                            <span>- " + rs.getString(2) + " </span>\n" +
+"                        </div>\n" +
+"                    </div>\n" +
+"                </div>");
+                    }
+                                
+                %>
+                <!--
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="team-wrapper mb-30">
+                        <div class="team-content text-center">
+                            <span>Feedback By: here(2) </span>
+                            <h4> here(4) </h4>
+                            <span>- here(2) </span>
+                        </div>
+                    </div>
+                </div>
+                -->
                 
-       
+            </div>
+        </div>
+    </div>
     <!-- Content ends here here -->
+    
+    
     <footer class="footer-area">
         <div class="footer-bottom border-top-2 pt-30">
             <div class="container">
@@ -174,3 +181,32 @@
         </div>
     </footer>
 </div>
+
+
+
+
+
+
+
+
+
+
+<!-- All JS is here
+============================================ -->
+
+<!-- jQuery JS -->
+<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+<!-- Popper JS -->
+<script src="assets/js/popper.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="assets/js/bootstrap.min.js"></script>
+<!-- Plugins JS -->
+<script src="assets/js/plugins.js"></script>
+<!-- Ajax Mail -->
+<script src="assets/js/ajax-mail.js"></script>
+<!-- Main JS -->
+<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

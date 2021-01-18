@@ -1,18 +1,17 @@
 <%-- 
-    Document   : dress.jsp
-    Created on : Jan 15, 2021, 3:26:03 PM
+    Document   : userTransactionHistory
+    Created on : Jan 16, 2021, 9:37:40 AM
+    Author     : user
+--%>
+
+<%-- 
+    Document   : userIndex
+    Created on : Jan 15, 2021, 2:38:33 PM
     Author     : janic
 --%>
 
-<%@page import="bean.Products"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<%
-    ArrayList products= (ArrayList) session.getAttribute("products");
-%>  
-
-
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -48,7 +47,7 @@
                 <div class="row">
                     <div class="col-xl-2 col-lg-2">
                         <div class="logo pt-40">
-                            <a href="adminIndex.jsp">
+                            <a href="userIndex.jsp">
                                 <h1><b>Darks</b></h1>
                             </a>
                         </div>
@@ -58,16 +57,18 @@
                             <nav>
                                 <ul>
                                     <li class="angle-shape"><a href="userIndex.jsp">Home </a></li>
-                                     <li class="angle-shape"><a href="/Darks/ViewProductsServlet"> Products <span>new</span> </a></li>
+                                    <li class="angle-shape">
+                                    <form name="View" action="ViewProductsServlet" method="POST">
+                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Products"></form></li>
                                     <li><a href="">Promotion <span>hot</span> </a></li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
-                                            <li><a href="">Transaction History </a></li>
-                                            <li><a href="">Manage Rent</a></li>
+                                            <li><a href="userTransactionHistory.jsp">Transaction History </a></li>
+                                            <li><a href="">Wishlist</a></li>
+                                            <li><a href="">Renting Cart</a></li>
                                             <li><a href="">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
-                                            <li><a href="">Manage Products </a></li>
                                             <li><a href="">Logout </a></li>
                                         </ul>
                                     </li>
@@ -106,55 +107,69 @@
     
     
     <!-- Content start here -->
-    <% if (products != null && (products.size() > 0)) { %>
-    <div class="container" style="item-align: center" >
-    <% 
-                 for (int index=0; index < products.size();index++)
-                    {
-                    	Products prod = (Products) products.get(index); %>
-    <div class="shop-list-wrap shop-list-mrg mb-30">
-        <div class="row">
-            <div class="col-lg-4 col-md-5 align-self-center">
-                <div class="product-list-img">
-                    <img src="<%= prod.getProdImage() %>" style="width: 300px; height:400px" />
-               </div>
-             </div>
-             <div class="col-lg-8 col-md-7 align-self-center">
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-12">
-                                                    <div class="shop-list-content">
-                                                        <h3><a href="product-details.html"><%= prod.getProdTitle() %></a></h3>
-                                                        <span><%= prod.getProdType() %></span>
-                                                        <div class="shop-list-paragraph">
-                                                        <p><%= prod.getProdDescription() %></p>
-                                                        
-                                                    </div>
-                                                        <div class="ht-product-list-price">
-                                                            <span class="new">RM<%= prod.getProdPrice() %></span>
-                                                        </div>
-                                                        <div class="ht-product-list-action">
-                                                            <a class="list-wishlist" title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                                                            <a class="list-cart" title="Rent" href="rentpage.jsp" style="background-color: red; color: white"><i class="sli sli-basket-loaded"></i> Rent</a>
-                                                            <a class="list-refresh" title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                                        <% } 
-                                                         } 
-                else { %>
-                                 <center><b><p>Products Empty</b></center>
-                    <% } %>
-                 
-      
-                
-       
+                 <div class="container">
+                    <div class="card-body">
+                    <div class="card text-center">
+                    <h1 class="card-title">Welcome to <br><b>Dress & Suits Renting System.</b></h1>
+                    <p class="card-text">Rent the best quality of dress and suits here.</p>
+                        </div>
+                    </div>
+                </div>
+                    
+            <div>
+            <table border="1" cellpadding="10" cellspacing="10" width="100%">
+                <tr style="background-color: peachpuff">
+                    <td>Munchkin Cat</td>
+                    <td></td>
+                </tr>
+                <tr style="background-color: cornsilk">
+                    <td>Age</td>
+                    <td>6</td>
+                </tr>
+                <tr style="background-color: cornsilk">
+                    <td>Quantity</td>
+                    <td><input type="text" name="itemQuant1" id="itemQuant1" placeholder="Enter quantity here" required></td>
+                </tr>
+                <tr style="background-color: cornsilk">
+                    <td>Price per unit</td>
+                    <td>RM500</td>
+                </tr>
+                <tr style="background-color: cornsilk">
+                    <td>Item Total</td>
+                    <td><input type="text" name="total1" id="total1" placeholder="0" readonly></td>
+                </tr>
+                <tr style="background-color: peachpuff">
+                    <td>British Shorthair Cat</td>
+                    <td></td>
+                </tr>
+                <tr style="background-color: cornsilk">
+                    <td>Age</td>
+                    <td>3</td>
+                </tr>
+                <tr style="background-color: cornsilk">
+                    <td>Quantity</td>
+                    <td><input type="text" name="itemQuant2" id="itemQuant2" placeholder="Enter quantity here" required></td>
+                </tr>
+                <tr style="background-color: cornsilk">
+                    <td>Price per unit</td>
+                    <td>RM650</td>
+                </tr>
+                <tr style="background-color: cornsilk">
+                    <td>Item Total</td>
+                    <td><input type="text" name="total2" id="total2" placeholder="0" readonly></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                       
+                        <a href="cart.html"><button class="btn btn-primary">Checkout</button></a>
+                    </td>
+                </tr>
+            </table>
+            </div>
+                    
     <!-- Content ends here here -->
+    
+    
     <footer class="footer-area">
         <div class="footer-bottom border-top-2 pt-30">
             <div class="container">
@@ -174,3 +189,33 @@
         </div>
     </footer>
 </div>
+
+
+
+
+
+
+
+
+
+
+<!-- All JS is here
+============================================ -->
+
+<!-- jQuery JS -->
+<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+<!-- Popper JS -->
+<script src="assets/js/popper.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="assets/js/bootstrap.min.js"></script>
+<!-- Plugins JS -->
+<script src="assets/js/plugins.js"></script>
+<!-- Ajax Mail -->
+<script src="assets/js/ajax-mail.js"></script>
+<!-- Main JS -->
+<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
+

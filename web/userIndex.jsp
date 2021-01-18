@@ -54,14 +54,16 @@
                                     <li class="angle-shape">
                                     <form name="View" action="ViewProductsServlet" method="POST">
                                     <input type="hidden" name="action" value="userview"><input type="submit" value="Products"></form></li>
-                                    <li><a href="">Promotion <span>hot</span> </a></li>
+                                    <li class="angle-shape">
+                                    <form name="View" action="ViewPromotionsServlet" method="POST">
+                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Promotion"></form></li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
                                             <li><a href="">Transaction History </a></li>
                                             <li><a href="">Wishlist</a></li>
                                             <li><a href="">Renting Cart</a></li>
-                                            <li><a href="">Feedback </a></li>
+                                            <li><a href="feedbackcust.jsp">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
                                             <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
                                         </ul>

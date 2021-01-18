@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/User/Desktop/UTM%20SEMESTERS/sem5%20assignments/INTERNET%20PROGRAMMING/DARKS/Darks/web/addfeedback.jsp</file>
             <file>file:/C:/Users/User/Desktop/UTM%20SEMESTERS/sem5%20assignments/INTERNET%20PROGRAMMING/DARKS/Darks/src/java/controller/RegisterController.java</file>
             <file>file:/C:/Users/User/Desktop/UTM%20SEMESTERS/sem5%20assignments/INTERNET%20PROGRAMMING/DARKS/Darks/src/java/controller/LoginController.java</file>
-            <file>file:/C:/Users/User/Desktop/UTM%20SEMESTERS/sem5%20assignments/INTERNET%20PROGRAMMING/DARKS/Darks/web/admin-register.jsp</file>
-            <file>file:/C:/Users/User/Desktop/UTM%20SEMESTERS/sem5%20assignments/INTERNET%20PROGRAMMING/DARKS/Darks/web/userIndex.jsp</file>
+            <file>file:/C:/Users/User/Desktop/UTM%20SEMESTERS/sem5%20assignments/INTERNET%20PROGRAMMING/DARKS/Darks/src/java/controller/FeedbackController.java</file>
+            <file>file:/C:/Users/User/Desktop/UTM%20SEMESTERS/sem5%20assignments/INTERNET%20PROGRAMMING/DARKS/Darks/web/feedbackadmin.jsp</file>
+            <file>file:/C:/Users/User/Desktop/UTM%20SEMESTERS/sem5%20assignments/INTERNET%20PROGRAMMING/DARKS/Darks/web/adminIndex.jsp</file>
         </group>
     </open-files>
 </project-private>

@@ -1,7 +1,7 @@
 <%-- 
-    Document   : dress.jsp
-    Created on : Jan 15, 2021, 3:26:03 PM
-    Author     : janic
+    Document   : userViewPromotions
+    Created on : Jan 17, 2021, 11:51:59 PM
+    Author     : user
 --%>
 
 <%@page import="bean.Products"%>
@@ -53,22 +53,26 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-xl-7 col-lg-7 ">
+                <div class="col-xl-7 col-lg-7 ">
                         <div class="main-menu">
                             <nav>
                                 <ul>
                                     <li class="angle-shape"><a href="userIndex.jsp">Home </a></li>
-                                     <li class="angle-shape"><a href="/Darks/ViewProductsServlet"> Products <span>new</span> </a></li>
-                                    <li><a href="">Promotion <span>hot</span> </a></li>
+                                    <li class="angle-shape">
+                                    <form name="View" action="ViewProductsServlet" method="POST">
+                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Products"></form></li>
+                                    <li class="angle-shape">
+                                    <form name="View" action="ViewPromotionsServlet" method="POST">
+                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Promotion"></form></li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
                                             <li><a href="">Transaction History </a></li>
-                                            <li><a href="">Manage Rent</a></li>
-                                            <li><a href="">Feedback </a></li>
+                                            <li><a href="">Wishlist</a></li>
+                                            <li><a href="">Renting Cart</a></li>
+                                            <li><a href="feedbackcust.jsp">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
-                                            <li><a href="">Manage Products </a></li>
-                                            <li><a href="">Logout </a></li>
+                                            <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -109,9 +113,9 @@
     <% if (products != null && (products.size() > 0)) { %>
     <div class="container" style="item-align: center" >
     <% 
-                 for (int index=0; index < products.size();index++)
-                    {
-                    	Products prod = (Products) products.get(index); %>
+        for (int index=0; index < products.size();index++)
+        {
+            Products prod = (Products) products.get(index); %>
     <div class="shop-list-wrap shop-list-mrg mb-30">
         <div class="row">
             <div class="col-lg-4 col-md-5 align-self-center">
@@ -128,13 +132,15 @@
                                                         <div class="shop-list-paragraph">
                                                         <p><%= prod.getProdDescription() %></p>
                                                         
-                                                    </div>
+                                                    </div> <div class="ht-product-list-price">
+                                                            <span class="">Original Price: <del>RM<%= prod.getProdPrice() %></del></span>
+                                                        </div>
                                                         <div class="ht-product-list-price">
-                                                            <span class="new">RM<%= prod.getProdPrice() %></span>
+                                                            <span class="new">Promotion Price: <ins>RM<%= prod.getPromotionPrice() %></ins> !!!</span>
                                                         </div>
                                                         <div class="ht-product-list-action">
                                                             <a class="list-wishlist" title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                                                            <a class="list-cart" title="Rent" href="rentpage.jsp" style="background-color: red; color: white"><i class="sli sli-basket-loaded"></i> Rent</a>
+                                                            <a class="list-cart" title="Rent" href="#" style="background-color: red; color: white"><i class="sli sli-basket-loaded"></i> Rent</a>
                                                             <a class="list-refresh" title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
                                                         </div>
                                                         
@@ -148,7 +154,7 @@
                                                         <% } 
                                                          } 
                 else { %>
-                                 <center><b><p>Products Empty</b></center>
+                        <center><b>Promotions Empty</b></center>
                     <% } %>
                  
       

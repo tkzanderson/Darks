@@ -46,7 +46,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-xl-7 col-lg-7 ">
+                    <div class="col-xl-15 col-lg-15">
                         <div class="main-menu">
                             <nav>
                                 <ul>
@@ -54,13 +54,18 @@
                                     <li> <form name="View" action="ViewProductsServlet" method="POST" >
                                             <input type="hidden" name="action" value="adminview"> <input class="btn btn-light" type="submit" value="Manage Products"></form> 
                                         </li>
-                                    <li><a href="">Promotion <span>hot</span> </a></li>
+                                    <li>
+                                        <form name="View" action="ViewPromotionsServlet" method="POST" >
+                                             <input type="hidden" name="action" value="adminview">
+                                            <input class="btn btn-light" type="submit" value="Manage Promotions">
+                                        </form>
+                                    </li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
                                             <li><a href="">Transaction History </a></li>
                                             <li><a href="">Manage Rent</a></li>
-                                            <li><a href="">Feedback </a></li>
+                                            <li><a href="feedbackadmin.jsp">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
                                             <li><a href="admin-register.jsp">Register new admin</a></li>                                            
 
@@ -105,7 +110,7 @@
                 <div class="container">
                     <div class="card-body">
                     <div class="card text-center">
-                     <%User user = (User)session.getAttribute("User");%>
+                    <%User user = (User)session.getAttribute("User");%>
                     <h5 class="card-title">Hello <%=user.getUserName()%></h5>
                     <h1 class="card-title">Welcome to <br><b>Dress & Suits Renting System.</b></h1>
                     <p class="card-text">Rent the best quality of dress and suits here.</p>

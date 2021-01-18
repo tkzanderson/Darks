@@ -1,17 +1,15 @@
 <%-- 
-    Document   : dress.jsp
-    Created on : Jan 15, 2021, 3:26:03 PM
-    Author     : janic
+    Document   : updatePromotions
+    Created on : Jan 17, 2021, 5:33:27 AM
+    Author     : user
 --%>
 
 <%@page import="bean.Products"%>
-<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% 
+    Products products = (Products) session.getAttribute("products");
 
-<%
-    ArrayList products= (ArrayList) session.getAttribute("products");
-%>  
-
+%>
 
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
@@ -38,6 +36,10 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <style>
+        
+    </style>
+   
 </head>
 
 <body>
@@ -53,13 +55,20 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-xl-7 col-lg-7 ">
+                      <div class="col-xl-15 col-lg-15">
                         <div class="main-menu">
                             <nav>
                                 <ul>
-                                    <li class="angle-shape"><a href="userIndex.jsp">Home </a></li>
-                                     <li class="angle-shape"><a href="/Darks/ViewProductsServlet"> Products <span>new</span> </a></li>
-                                    <li><a href="">Promotion <span>hot</span> </a></li>
+                                    <li class="angle-shape"><a href="adminIndex.jsp">Home </a></li>
+                                    <li> <form name="View" action="ViewProductsServlet" method="POST" >
+                                            <input type="hidden" name="action" value="adminview"> <input class="btn btn-light" type="submit" value="Manage Products"></form> 
+                                        </li>
+                                    <li>
+                                        <form name="View" action="ViewPromotionsServlet" method="POST" >
+                                             <input type="hidden" name="action" value="adminview">
+                                            <input class="btn btn-light" type="submit" value="Manage Promotions">
+                                        </form>
+                                    </li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
@@ -67,8 +76,9 @@
                                             <li><a href="">Manage Rent</a></li>
                                             <li><a href="">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
-                                            <li><a href="">Manage Products </a></li>
-                                            <li><a href="">Logout </a></li>
+                                            <li><a href="admin-register.jsp">Register new admin</a></li>                                            
+
+                                            <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -105,56 +115,36 @@
     </header>
     
     
-    <!-- Content start here -->
-    <% if (products != null && (products.size() > 0)) { %>
-    <div class="container" style="item-align: center" >
-    <% 
-                 for (int index=0; index < products.size();index++)
-                    {
-                    	Products prod = (Products) products.get(index); %>
-    <div class="shop-list-wrap shop-list-mrg mb-30">
-        <div class="row">
-            <div class="col-lg-4 col-md-5 align-self-center">
-                <div class="product-list-img">
-                    <img src="<%= prod.getProdImage() %>" style="width: 300px; height:400px" />
-               </div>
-             </div>
-             <div class="col-lg-8 col-md-7 align-self-center">
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-12">
-                                                    <div class="shop-list-content">
-                                                        <h3><a href="product-details.html"><%= prod.getProdTitle() %></a></h3>
-                                                        <span><%= prod.getProdType() %></span>
-                                                        <div class="shop-list-paragraph">
-                                                        <p><%= prod.getProdDescription() %></p>
-                                                        
-                                                    </div>
-                                                        <div class="ht-product-list-price">
-                                                            <span class="new">RM<%= prod.getProdPrice() %></span>
-                                                        </div>
-                                                        <div class="ht-product-list-action">
-                                                            <a class="list-wishlist" title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                                                            <a class="list-cart" title="Rent" href="rentpage.jsp" style="background-color: red; color: white"><i class="sli sli-basket-loaded"></i> Rent</a>
-                                                            <a class="list-refresh" title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                                        <% } 
-                                                         } 
-                else { %>
-                                 <center><b><p>Products Empty</b></center>
-                    <% } %>
-                 
+    <!-- Content start here -->       
+    <div class="container">
+    <form name="editForm" action="UpdatePromotionServlet" method="POST" >
+        <h1> Update Promotions</h1>
+        Product Title: <input type="text" name="prodTitle" value="<%= products.getProdTitle() %>" readOnly=""><br><br>
+        Product Description: <input type="text" name="prodDescription" value="<%= products.getProdDescription() %>" readOnly><br><br>
+        Product Price: <input type="text" name="prodPrice" value="<%= products.getProdPrice() %>" readOnly=""><br><br>
+        Product Type: <input type="text" name="prodType" value="<%= products.getProdType() %>" readOnly=""><br><br>
+       <input type="hidden" name="prodImage" value="<%= products.getProdImage() %>">
+         <input type="hidden" name="prodType" value="<%= products.getProdType()%>">
+        
+          Promotion Status
+        <select name="promotionStatus" >
+             <option value="1">On</option>
+             <option value="0">Off</option> 
+         </select><br>
+        <br>Product Promotion Price: <input type="text" name="promotionPrice" value="<%= products.getPromotionPrice() %>" ><br>
       
+    
+        <br>
+            <input type="submit" value="Update Promotions" class="btn btn-info">
+            <input type="hidden" name="editindex" value="<%= products.getId() %>">
+            <input type="hidden" name="action" value="EDIT">
+        </form>
+      </div>
                 
        
     <!-- Content ends here here -->
+    
+    
     <footer class="footer-area">
         <div class="footer-bottom border-top-2 pt-30">
             <div class="container">
