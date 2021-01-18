@@ -40,6 +40,10 @@
         <servlet-name>FeedbackController</servlet-name>
         <servlet-class>controller.FeedbackController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>rentController</servlet-name>
+        <servlet-class>controller.rentController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/RegisterController</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>FeedbackController</servlet-name>
         <url-pattern>/FeedbackController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>rentController</servlet-name>
+        <url-pattern>/rentController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

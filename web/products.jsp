@@ -134,7 +134,11 @@
                                                         </div>
                                                         <div class="ht-product-list-action">
                                                             <a class="list-wishlist" title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                                                            <a class="list-cart" title="Rent" href="rentpage.jsp" style="background-color: red; color: white"><i class="sli sli-basket-loaded"></i> Rent</a>
+                                                            <form   name="Rent" action="rentController" method="POST">
+                                                            <input  type="hidden" name="action" value="<%= prod.getId() %>">
+                                                            <input  type="submit" name="option" value="Rent" style="background-color: red; color: white">
+                                                            </form>
+<!--                                                           <a class="list-cart" title="Rent" href="rentController" style="background-color: red; color: white"><i class="sli sli-basket-loaded"></i> Rent</a>-->
                                                             <a class="list-refresh" title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
                                                         </div>
                                                         

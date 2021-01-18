@@ -3,8 +3,9 @@
     Created on : Jan 18, 2021, 9:05:22 AM
     Author     : Anderson
 --%>
-
+<%@page import="bean.Products"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+   <% Products prod = (Products)session.getAttribute("products"); %>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -95,6 +96,54 @@
             </div>
         </div>
     </header>
+    
+ 
+    <div class="shop-list-wrap shop-list-mrg mb-30">
+        <div class="row">
+            <div class="col-lg-4 col-md-5 align-self-center">
+                <div class="product-list-img">
+                    <img src="<%= prod.getProdImage() %>" style="width: 300px; height:400px" />
+               </div>
+             </div>
+             <div class="col-lg-8 col-md-7 align-self-center">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-12">
+                                                    <div class="shop-list-content">
+                                                        <h3><a href="product-details.html"><%= prod.getProdTitle() %></a></h3>
+                                                        <span><%= prod.getProdType() %></span>
+                                                        <div class="shop-list-paragraph">
+                                                        <p><%= prod.getProdDescription() %></p>
+                                                        
+                                                    </div>
+                                                        <div class="ht-product-list-price">
+                                                            <span class="new">RM<%= prod.getProdPrice() %></span>
+                                                        </div>
+                                                        <form action="rentController">
+                                                            <label for="size">Choose your size:</label>
+                                                            <select name="size">
+                                                                 <option value="S">Small</option>
+                                                                 <option value="M">Medium</option>
+                                                                 <option value="L">Large</option>
+                                                                 <option value="XL">Extra large</option>
+                                                                 <option value="XXL">Extra extra large</option>
+                                                            </select> 
+                                                            <label for="birthday">Return Date:</label>
+                                                            <input type="date" id="return_date" name="return_date">
+                                                            <input class="btn btn-dark" type="submit" name="option" value="Confirm Rent">
+                                                        </form>
+                                                        
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+    
+    
+    
+    
     
     
     <footer class="footer-area">
