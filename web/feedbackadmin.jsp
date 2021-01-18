@@ -1,9 +1,13 @@
 <%-- 
-    Document   : index
-    Created on : Jan 15, 2021, 1:29:46 PM
-    Author     : janic
+    Document   : feedbackadmin
+    Created on : Jan 17, 2021, 7:56:06 PM
+    Author     : User
 --%>
 
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,7 +16,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Darks: Dress & Suits Renting System</title>
+    <title>Darks: Feedback Page</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
@@ -41,34 +45,28 @@
                 <div class="row">
                     <div class="col-xl-2 col-lg-2">
                         <div class="logo pt-40">
-                            <a href="adminIndex.jsp">
+                            <a href="userIndex.jsp">
                                 <h1><b>Darks</b></h1>
                             </a>
                         </div>
                     </div>
-                    <div class="col-xl-15 col-lg-15">
+                    <div class="col-xl-7 col-lg-7 ">
                         <div class="main-menu">
                             <nav>
                                 <ul>
-                                    <li class="angle-shape"><a href="adminIndex.jsp">Home </a></li>
-                                    <li> <form name="View" action="ViewProductsServlet" method="POST" >
-                                            <input type="hidden" name="action" value="adminview"> <input class="btn btn-light" type="submit" value="Manage Products"></form> 
-                                        </li>
-                                    <li>
-                                        <form name="View" action="ViewPromotionsServlet" method="POST" >
-                                             <input type="hidden" name="action" value="adminview">
-                                            <input class="btn btn-light" type="submit" value="Manage Promotions">
-                                        </form>
-                                    </li>
+                                    <li class="angle-shape"><a href="userIndex.jsp">Home </a></li>
+                                    <li class="angle-shape">
+                                    <form name="View" action="ViewProductsServlet" method="POST">
+                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Products"></form></li>
+                                    <li><a href="">Promotion <span>hot</span> </a></li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
                                             <li><a href="">Transaction History </a></li>
-                                            <li><a href="">Manage Rent</a></li>
-                                            <li><a href="feedbackadmin.jsp">Feedback </a></li>
+                                            <li><a href="">Wishlist</a></li>
+                                            <li><a href="">Renting Cart</a></li>
+                                            <li><a href="feedbackcust.jsp">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
-                                            <li><a href="admin-register.jsp">Register new admin</a></li>                                            
-
                                             <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
                                         </ul>
                                     </li>
@@ -107,16 +105,70 @@
     
     
     <!-- Content start here -->
-                <div class="container">
-                    <div class="card-body">
-                    <div class="card text-center">
-                    <%User user = (User)session.getAttribute("User");%>
-                    <h5 class="card-title">Hello <%=user.getUserName()%></h5>
-                    <h1 class="card-title">Welcome to <br><b>Dress & Suits Renting System.</b></h1>
-                    <p class="card-text">Rent the best quality of dress and suits here.</p>
+    <div class="team-area pt-95 pb-70">
+        <div class="container">
+            <div class="section-title text-center pb-60">
+                <h2>Customer Feedbacks</h2>
+                <p>“A satisfied customer is the best source of advertisement”</p><br><br>
+                <button type="button" class="btn btn-outline-secondary">
+                    <a href="addfeedback.jsp">
+                        Add a Feedback
+                    </a>
+                </button>
+                <button type="button" class="btn btn-outline-secondary">
+                    <a href="addfeedback.jsp">
+                        Update a Feedback
+                    </a>
+                </button>
+                <button type="button" class="btn btn-outline-secondary">
+                    <a href="addfeedback.jsp">
+                        Delete a Feedback
+                    </a>
+                </button>
+            </div>
+            <div class="row">
+                <% 
+                    String driver = "com.mysql.jdbc.Driver";
+                    String dbName = "darks";
+                    String url = "jdbc:mysql://localhost/" + dbName + "?";
+                    String userNameDB = "root";
+                    String password = "";
+                    String query = "SELECT * FROM feedback";
+
+                    Class.forName(driver); //2. load and register the driver
+                    Connection con = DriverManager.getConnection(url, userNameDB, password); //3. establish the connection
+
+                    Statement st = con.createStatement(); //4. create the statement
+                    ResultSet rs = st.executeQuery(query); //5.execute the query
+         
+                    while(rs.next()){ //6. process the result
+                        
+                        out.println("<div class=\"col-lg-3 col-md-6 col-sm-6\">\n" +
+"                    <div class=\"team-wrapper mb-30\">\n" +
+"                        <div class=\"team-content text-center\">\n" +
+"                            <h4> " + rs.getString(3) + " </h4>\n" +
+"                            <span>- " + rs.getString(2) + " </span>\n" +
+"                        </div>\n" +
+"                    </div>\n" +
+"                </div>");
+                    }
+                                
+                %>
+                <!--
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="team-wrapper mb-30">
+                        <div class="team-content text-center">
+                            <span>Feedback By: here(2) </span>
+                            <h4> here(4) </h4>
+                            <span>- here(2) </span>
                         </div>
                     </div>
                 </div>
+                -->
+                
+            </div>
+        </div>
+    </div>
     <!-- Content ends here here -->
     
     
@@ -168,3 +220,4 @@
 </body>
 
 </html>
+

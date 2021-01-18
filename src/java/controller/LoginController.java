@@ -60,40 +60,38 @@ public class LoginController extends HttpServlet {
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            Connection con = DriverManager.getConnection(url, userNameDB, password); 
-            
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1,userName);  
-            ps.setString(2,userPassword);
-            
-            ResultSet rs=ps.executeQuery(); 
-
-            if(rs.next()){ 
+            try (Connection con = DriverManager.getConnection(url, userNameDB, password); PreparedStatement ps = con.prepareStatement(query)) {
+                ps.setString(1,userName);
+                ps.setString(2,userPassword); 
                 
-                User user = new User();
-                user.setUserName(userName);
-                user.setUserPassword(userPassword);
-                user.setEmail(rs.getString(3));
+                ResultSet rs=ps.executeQuery();
                 
-                session.setAttribute("User",user);
-                if("admin".equals(rs.getString(4))){
-                    RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
-                    rd.include(request, response); 
-                    //out.println("ADMIN VIEW");
-                }else{
-                    RequestDispatcher rd= request.getRequestDispatcher("/userIndex.jsp");
-                    rd.include(request, response); 
-                    //out.println("CUSTOMER VIEW");
+                if(rs.next()){
+                    
+                    User user = new User();
+                    user.setUserName(userName);
+                    user.setUserPassword(userPassword);
+                    user.setEmail(rs.getString(4));
+                    
+                    session.setAttribute("User",user);
+                    if("admin".equals(rs.getString(5))){
+                        RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
+                        rd.include(request, response);
+                        out.println("ADMIN VIEW");
+                    }else{
+                        RequestDispatcher rd= request.getRequestDispatcher("/userIndex.jsp");
+                        rd.include(request, response);
+                        out.println("CUSTOMER VIEW");
+                    }
                 }
-            }  
-            else{  
-                out.print("Wrong username or password !");  
-                RequestDispatcher rd=request.getRequestDispatcher("/login-register.jsp");  
-                rd.include(request,response);  
-            } 
-            
-            ps.close(); // 7. close the connection
-            con.close();
+                else{
+                    out.print("Wrong username or password !");
+                    RequestDispatcher rd=request.getRequestDispatcher("/login-register.jsp");
+                    rd.include(request,response);
+                }
+                // 7. close the connection
+                
+            }
 
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
