@@ -1,18 +1,10 @@
 <%-- 
-    Document   : dress.jsp
-    Created on : Jan 15, 2021, 3:26:03 PM
-    Author     : janic
+    Document   : rentpage
+    Created on : Jan 18, 2021, 9:05:22 AM
+    Author     : Anderson
 --%>
 
-<%@page import="bean.Products"%>
-<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<%
-    ArrayList products= (ArrayList) session.getAttribute("products");
-%>  
-
-
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -105,58 +97,6 @@
     </header>
     
     
-    <!-- Content start here -->
-    <% if (products != null && (products.size() > 0)) { %>
-    <div class="container" style="item-align: center" >
-    <% 
-                 for (int index=0; index < products.size();index++)
-                    {
-                    	Products prod = (Products) products.get(index); %>
-    <div class="shop-list-wrap shop-list-mrg mb-30">
-        <div class="row">
-            <div class="col-lg-4 col-md-5 align-self-center">
-                <div class="product-list-img">
-                    <img src="<%= prod.getProdImage() %>" style="width: 300px; height:400px" />
-               </div>
-             </div>
-             <div class="col-lg-8 col-md-7 align-self-center">
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-12">
-                                                    <div class="shop-list-content">
-                                                        <h3><a href="product-details.html"><%= prod.getProdTitle() %></a></h3>
-                                                        <span><%= prod.getProdType() %></span>
-                                                        <div class="shop-list-paragraph">
-                                                        <p><%= prod.getProdDescription() %></p>
-                                                        
-                                                    </div>
-                                                        <div class="ht-product-list-price">
-                                                            <span class="new">RM<%= prod.getProdPrice() %></span>
-                                                        </div>
-                                                        <div class="ht-product-list-action">
-                                                            <a class="list-wishlist" title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                                                            <a class="list-cart" title="Rent" href="rentpage.jsp" style="background-color: red; color: white"><i class="sli sli-basket-loaded"></i> Rent</a>
-                                                            <a class="list-refresh" title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                                        <% } 
-                                                         } 
-                else { %>
-                                 <center><b><p>Products Empty</b></center>
-                    <% } %>
-                 
-      
-                
-       
-    <!-- Content ends here here -->
-    
-    
     <footer class="footer-area">
         <div class="footer-bottom border-top-2 pt-30">
             <div class="container">
@@ -176,3 +116,4 @@
         </div>
     </footer>
 </div>
+</html>
