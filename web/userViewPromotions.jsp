@@ -67,7 +67,7 @@
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
-                                            <li><a href="">Transaction History </a></li>
+                                            <li><a href="userTransactionHistory.jsp">Transaction History </a></li>
                                             <li><a href="">Wishlist</a></li>
                                             <li><a href="">Renting Cart</a></li>
                                             <li><a href="feedbackcust.jsp">Feedback </a></li>

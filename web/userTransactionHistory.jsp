@@ -60,16 +60,17 @@
                                     <li class="angle-shape">
                                     <form name="View" action="ViewProductsServlet" method="POST">
                                     <input type="hidden" name="action" value="userview"><input type="submit" value="Products"></form></li>
-                                    <li><a href="">Promotion <span>hot</span> </a></li>
+                                    <li class="angle-shape">
+                                    <form name="View" action="ViewPromotionsServlet" method="POST">
+                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Promotion"></form></li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
-                                            <li><a href="userTransactionHistory.jsp">Transaction History </a></li>
-                                            <li><a href="">Wishlist</a></li>
+                                            <li><a href="">Transaction History </a></li>
+                                            <li><a href="wishlist.jsp">Wishlist</a></li>
                                             <li><a href="">Renting Cart</a></li>
-                                            <li><a href="">Feedback </a></li>
-                                            <li><a href="">My Profile </a></li>
-                                            <li><a href="">Logout </a></li>
+                                            <li><a href="feedbackcust.jsp">Feedback </a></li>
+                                            <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -119,51 +120,51 @@
             <div>
             <table border="1" cellpadding="10" cellspacing="10" width="100%">
                 <tr style="background-color: peachpuff">
-                    <td>Munchkin Cat</td>
-                    <td></td>
+                    <th>Item name</th>
+                    <th>Amount Paid</th>
+                    <th>Date</th>
                 </tr>
                 <tr style="background-color: cornsilk">
-                    <td>Age</td>
-                    <td>6</td>
+                    <td>Dress 1</td>
+                    <td>RM 100</td>
+                    <td>3 Feb 2021</td>
+                </tr>
+               <tr style="background-color: cornsilk">
+                    <td>Dress 1</td>
+                    <td>RM 100</td>
+                    <td>3 Feb 2021</td>
+                </tr>
+              <tr style="background-color: cornsilk">
+                    <td>Dress 1</td>
+                    <td>RM 100</td>
+                    <td>3 Feb 2021</td>
                 </tr>
                 <tr style="background-color: cornsilk">
-                    <td>Quantity</td>
-                    <td><input type="text" name="itemQuant1" id="itemQuant1" placeholder="Enter quantity here" required></td>
+                    <td>Dress 1</td>
+                    <td>RM 100</td>
+                    <td>3 Feb 2021</td>
                 </tr>
-                <tr style="background-color: cornsilk">
-                    <td>Price per unit</td>
-                    <td>RM500</td>
+             <tr style="background-color: cornsilk">
+                    <td>Dress 1</td>
+                    <td>RM 100</td>
+                    <td>3 Feb 2021</td>
                 </tr>
-                <tr style="background-color: cornsilk">
-                    <td>Item Total</td>
-                    <td><input type="text" name="total1" id="total1" placeholder="0" readonly></td>
+               <tr style="background-color: cornsilk">
+                    <td>Dress 1</td>
+                    <td>RM 100</td>
+                    <td>3 Feb 2021</td>
                 </tr>
-                <tr style="background-color: peachpuff">
-                    <td>British Shorthair Cat</td>
-                    <td></td>
+            <tr style="background-color: cornsilk">
+                    <td>Dress 1</td>
+                    <td>RM 100</td>
+                    <td>3 Feb 2021</td>
                 </tr>
-                <tr style="background-color: cornsilk">
-                    <td>Age</td>
-                    <td>3</td>
+              <tr style="background-color: cornsilk">
+                    <td>Dress 1</td>
+                    <td>RM 100</td>
+                    <td>3 Feb 2021</td>
                 </tr>
-                <tr style="background-color: cornsilk">
-                    <td>Quantity</td>
-                    <td><input type="text" name="itemQuant2" id="itemQuant2" placeholder="Enter quantity here" required></td>
-                </tr>
-                <tr style="background-color: cornsilk">
-                    <td>Price per unit</td>
-                    <td>RM650</td>
-                </tr>
-                <tr style="background-color: cornsilk">
-                    <td>Item Total</td>
-                    <td><input type="text" name="total2" id="total2" placeholder="0" readonly></td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                       
-                        <a href="cart.html"><button class="btn btn-primary">Checkout</button></a>
-                    </td>
-                </tr>
+
             </table>
             </div>
                     
