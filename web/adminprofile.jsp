@@ -1,13 +1,14 @@
 <%-- 
-    Document   : userIndex
-    Created on : Jan 15, 2021, 2:38:33 PM
+    Document   : adminprofile
+    Created on : Jan 19, 2021, 10:39:02 PM
     Author     : janic
 --%>
 
 <%@page import="bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%User user = (User)session.getAttribute("User");%>
+
+<%User users = (User)session.getAttribute("users");%>
 
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
@@ -44,31 +45,34 @@
                 <div class="row">
                     <div class="col-xl-2 col-lg-2">
                         <div class="logo pt-40">
-                            <a href="userIndex.jsp">
+                            <a href="adminIndex.jsp">
                                 <h1><b>Darks</b></h1>
                             </a>
                         </div>
                     </div>
-                    <div class="col-xl-7 col-lg-7 ">
+                    <div class="col-xl-15 col-lg-15">
                         <div class="main-menu">
                             <nav>
                                 <ul>
-                                    <li class="angle-shape"><a href="userIndex.jsp">Home </a></li>
-                                    <li class="angle-shape">
-                                    <form name="View" action="ViewProductsServlet" method="POST">
-                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Products"></form></li>
-                                    <li class="angle-shape">
-                                    <form name="View" action="ViewPromotionsServlet" method="POST">
-                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Promotion"></form></li>
+                                    <li class="angle-shape"><a href="adminIndex.jsp">Home </a></li>
+                                    <li> <form name="View" action="ViewProductsServlet" method="POST" >
+                                            <input type="hidden" name="action" value="adminview"> <input class="btn btn-light" type="submit" value="Manage Products"></form> 
+                                        </li>
+                                    <li>
+                                        <form name="View" action="ViewPromotionsServlet" method="POST" >
+                                             <input type="hidden" name="action" value="adminview">
+                                            <input class="btn btn-light" type="submit" value="Manage Promotions">
+                                        </form>
+                                    </li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
                                             <li><a href="">Transaction History </a></li>
-                                            <li><a href="wishlist.jsp">Wishlist</a></li>
-                                            <li><a href="">Renting Cart</a></li>
-                                            <li><a href="feedbackcust.jsp">Feedback </a></li>
-                                            <li><form name="profile" action="ProfileServlet" method="POST">
-                                            <input type="hidden" name="username" value="<%= user.getUserName() %>"><input type="submit" value="My Profile"></form></li>
+                                            <li><a href="">Manage Rent</a></li>
+                                            <li><a href="feedbackadmin.jsp">Feedback </a></li>
+                                            <li><a href="">My Profile </a></li>
+                                            <li><a href="admin-register.jsp">Register new admin</a></li>                                            
+
                                             <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
                                         </ul>
                                     </li>
@@ -107,10 +111,10 @@
     
     
     <!-- Content start here -->
-                 <div class="container">
+                <div class="container">
                     <div class="card-body">
                     <div class="card text-center">
-                    <h5 class="card-title">Hello <%=user.getUserName()%></h5>
+                    <h5 class="card-title">Hello <%=users.getUserName()%></h5>
                     <h1 class="card-title">Welcome to <br><b>Dress & Suits Renting System.</b></h1>
                     <p class="card-text">Rent the best quality of dress and suits here.</p>
                         </div>

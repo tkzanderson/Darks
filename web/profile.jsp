@@ -1,13 +1,15 @@
 <%-- 
-    Document   : userIndex
-    Created on : Jan 15, 2021, 2:38:33 PM
+    Document   : profile
+    Created on : Jan 19, 2021, 10:28:28 PM
     Author     : janic
 --%>
 
 <%@page import="bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%User user = (User)session.getAttribute("User");%>
+
+<%User users = (User)session.getAttribute("users");
+    %>
 
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
@@ -67,8 +69,7 @@
                                             <li><a href="wishlist.jsp">Wishlist</a></li>
                                             <li><a href="">Renting Cart</a></li>
                                             <li><a href="feedbackcust.jsp">Feedback </a></li>
-                                            <li><form name="profile" action="ProfileServlet" method="POST">
-                                            <input type="hidden" name="username" value="<%= user.getUserName() %>"><input type="submit" value="My Profile"></form></li>
+                                            <li><a href="">My Profile </a></li>
                                             <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
                                         </ul>
                                     </li>
@@ -107,15 +108,43 @@
     
     
     <!-- Content start here -->
-                 <div class="container">
-                    <div class="card-body">
-                    <div class="card text-center">
-                    <h5 class="card-title">Hello <%=user.getUserName()%></h5>
-                    <h1 class="card-title">Welcome to <br><b>Dress & Suits Renting System.</b></h1>
-                    <p class="card-text">Rent the best quality of dress and suits here.</p>
-                        </div>
-                    </div>
-                </div>
+    <div class="container">
+    <div class="myaccount-content">
+                                            <h3>Account Details</h3>    
+                                            <div class="account-details-form">
+                                                <form action="#">
+                                                    <div class="row">
+                                                    <div class="single-input-item">
+                                                        <label for="display-name" class="required">UserName</label>
+                                                        <input type="text" id="display-name" value="<%=users.getUserName()%>"/>
+                                                    </div>    
+                                                    <div class="single-input-item">
+                                                        <label for="email" class="required">Email Address</label>
+                                                        <input type="email" id="email" value="<%=users.getEmail() %>" />
+                                                    </div>    
+                                                        <div class="single-input-item">
+                                                        <label for="gender" class="required">Gender</label>
+                                                        <input type="text" id="gender" value="<%=users.getGender() %>" />
+                                                    </div>   
+                                                        <div class="single-input-item">
+                                                        <label for="shipping" class="required">Shipping Address</label>
+                                                        <input type="text" id="shipping" value="<%=users.getShippingAddress() %>"/>
+                                                    </div>   
+                                                        <div class="single-input-item">
+                                                        <label for="phone" class="required">Phone Number</label>
+                                                        <input type="text" id="phone" value="<%=users.getPhoneNumber() %>"/>
+                                                    </div>   
+                                                    <hr>
+                                                    <div class="single-input-item">
+                                                        
+                                                        <button class="check-btn sqr-btn ">Save Changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+    </div>
+    </div>
+    
     <!-- Content ends here here -->
     
     
@@ -138,32 +167,3 @@
         </div>
     </footer>
 </div>
-
-
-
-
-
-
-
-
-
-
-<!-- All JS is here
-============================================ -->
-
-<!-- jQuery JS -->
-<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
-<!-- Popper JS -->
-<script src="assets/js/popper.min.js"></script>
-<!-- Bootstrap JS -->
-<script src="assets/js/bootstrap.min.js"></script>
-<!-- Plugins JS -->
-<script src="assets/js/plugins.js"></script>
-<!-- Ajax Mail -->
-<script src="assets/js/ajax-mail.js"></script>
-<!-- Main JS -->
-<script src="assets/js/main.js"></script>
-
-</body>
-
-</html>

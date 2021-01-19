@@ -22,7 +22,7 @@ public class User implements Serializable{
     public void setId(int id) {
         this.id = id;
     }
-    private String userName, userPassword, email, phoneNumber, gender, shippingAddress;
+    private String userName, userPassword, email, phoneNumber, gender, shippingAddress, role;
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -70,6 +70,14 @@ public class User implements Serializable{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
      
     public User() {
