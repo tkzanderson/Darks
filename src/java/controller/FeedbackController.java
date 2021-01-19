@@ -7,6 +7,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -39,52 +40,97 @@ public class FeedbackController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        PrintWriter out=response.getWriter();  
         String driver = "com.mysql.jdbc.Driver";
         String dbName = "darks";
         String url = "jdbc:mysql://localhost/" + dbName + "?";
         String userNameDB = "root";
         String password = "";
-        String query = "INSERT INTO feedback(name, feedback) VALUES(?, ?)";
+        String query;
             
         Class.forName(driver); //2. load and register the driver
         Connection con = DriverManager.getConnection(url, userNameDB, password); //3. establish the connection
             
-        PreparedStatement st = con.prepareStatement(query);  //4. create the statement
+        String action = request.getParameter("action");
+
+            if (action.equals("INSERT"))
+            {
+                query = "INSERT INTO feedback(name, feedback) VALUES(?, ?)";
+                PreparedStatement st = con.prepareStatement(query);  //4. create the statement
         
-        String name = request.getParameter("name");
-        String feedback = request.getParameter("feedback");
+                String name = request.getParameter("name");
+                String feedback = request.getParameter("feedback");
+
+                st.setString(1, name);
+                st.setString(2, feedback);
+
+                int insertStatus = 0;
+
+                //st.executeUpdate(query); //5. execute the query(normal statement
+
+                st.executeUpdate(); //prepared statement
+                System.out.println(insertStatus + "row affected"); //6. process the result
+
+                st.close(); // 7. close the connection
+                con.close();
         
-        st.setString(1, name);
-        st.setString(2, feedback);
-        
-        int insertStatus = 0;
-        
-        //st.executeUpdate(query); //5. execute the query(normal statement
-        
-        st.executeUpdate(); //prepared statement
-        System.out.println(insertStatus + "row affected"); //6. process the result
-        
-        st.close(); // 7. close the connection
-        con.close();
-        
-        try (PrintWriter out = response.getWriter()) {
-           /* TODO output your page here. You may use following sample code. */
-            out.println("Successfully inserted feedback !");
-            RequestDispatcher rd = request.getRequestDispatcher("feedbackcust.jsp");
-            rd.include(request, response);
-           
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet FeedbackController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Successfully inserted feedback !</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-        
+                out.println("Successfully inserted feedback !");
+                RequestDispatcher rd = request.getRequestDispatcher("feedbackcust.jsp");
+                rd.include(request, response);
+            }
+            else if (action.equals("UPDATE"))
+            {
+                int id = Integer.parseInt(request.getParameter("id"));
+                String name = request.getParameter("name");
+                String feedback = request.getParameter("feedback");
+                
+                RequestDispatcher rd = request.getRequestDispatcher("updateFeedback.jsp");
+                rd.forward(request, response);
+           }
+            else if (action.equals("DELETE"))
+            {
+                int id = Integer.parseInt(request.getParameter("id"));
+                query = "DELETE FROM feedback WHERE id=?";
+                PreparedStatement st = con.prepareStatement(query);  //4. create the statement
+                 
+                st.setInt(1,id);  
+                
+                st.executeUpdate();  
+                
+                st.close(); // 7. close the connection
+                con.close();
+                
+                out.println("Successfully deleted feedback !");
+                RequestDispatcher rd = request.getRequestDispatcher("feedbackadmin.jsp");
+                rd.include(request, response);
+           }
+            else if (action.equals("SAVE"))
+            {   
+                int id = Integer.parseInt(request.getParameter("id"));
+                String name = request.getParameter("name");
+                String feedback = request.getParameter("feedback");
+                
+                query = "UPDATE feedback set name=?, feedback=? WHERE id=?";
+                PreparedStatement st = con.prepareStatement(query);  //4. create the statement
+                
+                st.setString(1,name);  
+                st.setString(2,feedback);  
+                st.setInt(3,id);  
+                
+                int updateStatus = 0;
+                st.executeUpdate();  
+                System.out.println(updateStatus + "row affected"); //6. process the result
+
+                st.close(); // 7. close the connection
+                con.close();
+                
+                out.println("Successfully updated feedback !");
+                RequestDispatcher rd = request.getRequestDispatcher("feedbackadmin.jsp");
+                rd.include(request, response);
+                
+                //RequestDispatcher rd = request.getRequestDispatcher("feedbackadmin.jsp");
+                //rd.forward(request, response);
+           }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

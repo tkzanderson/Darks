@@ -4,6 +4,8 @@
     Author     : User
 --%>
 
+<%@page import="bean.Feedbacks"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
@@ -115,16 +117,6 @@
                         Add a Feedback
                     </a>
                 </button>
-                <button type="button" class="btn btn-outline-secondary">
-                    <a href="addfeedback.jsp">
-                        Update a Feedback
-                    </a>
-                </button>
-                <button type="button" class="btn btn-outline-secondary">
-                    <a href="addfeedback.jsp">
-                        Delete a Feedback
-                    </a>
-                </button>
             </div>
             <div class="row">
                 <% 
@@ -140,14 +132,36 @@
 
                     Statement st = con.createStatement(); //4. create the statement
                     ResultSet rs = st.executeQuery(query); //5.execute the query
-         
+                    
+                    ArrayList<Feedbacks> fblist = new ArrayList<Feedbacks>(); 
+                    String name, feedback;
+                    int id;
+                    
                     while(rs.next()){ //6. process the result
                         
+                        id = rs.getInt(1);
+                        name = rs.getString(2);
+                        feedback = rs.getString(3);
+                        Feedbacks f = new Feedbacks(id, name, feedback);
+                        fblist.add(f);
+    
                         out.println("<div class=\"col-lg-3 col-md-6 col-sm-6\">\n" +
 "                    <div class=\"team-wrapper mb-30\">\n" +
 "                        <div class=\"team-content text-center\">\n" +
-"                            <h4> " + rs.getString(3) + " </h4>\n" +
-"                            <span>- " + rs.getString(2) + " </span>\n" +
+"                            <h4> " + name + " </h4>\n" +
+"                            <span>\"" + feedback + "\"</span><br><br>\n" +
+"                            <form name=\"updateFeedback\" action=\"FeedbackController\" method=\"POST\">\n" +
+"                                <input type=\"hidden\" name=\"id\" value=\"" + id + "\">\n" +
+"                                <input type=\"hidden\" name=\"name\" value=\"" + name + "\">\n" +
+"                                <input type=\"hidden\" name=\"feedback\" value=\"" + feedback + "\">\n" +
+"                                <input type=\"hidden\" name=\"action\" value=\"UPDATE\">\n" +
+"                                <INPUT class=\"btn btn-outline-secondary\" NAME=\"submit\" TYPE=\"submit\" VALUE=\"Update\">\n" +
+"                            </form><br>\n" +
+"                            <form name=\"deleteFeedback\" action=\"FeedbackController\" method=\"POST\">\n" +
+"                                <input type=\"hidden\" name=\"id\" value=\"" + id + "\">\n" +
+"                                <input type=\"hidden\" name=\"action\" value=\"DELETE\">\n" +
+"                                <INPUT class=\"btn btn-outline-secondary\" NAME=\"submit\" TYPE=\"submit\" VALUE=\"DELETE\">\n" +
+"                            </form>\n" +
 "                        </div>\n" +
 "                    </div>\n" +
 "                </div>");
@@ -158,9 +172,20 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="team-wrapper mb-30">
                         <div class="team-content text-center">
-                            <span>Feedback By: here(2) </span>
-                            <h4> here(4) </h4>
-                            <span>- here(2) </span>
+                            <h4> here(feedback) </h4>
+                            <span>- here(name) </span><br><br>
+                            <form name="updateFeedback" action="FeedbackController" method="POST">
+                                <input type="hidden" name="id" value=" here(id) ">
+                                <input type="hidden" name="name" value=" here(name) ">
+                                <input type="hidden" name="feedback" value=" here(feedback) ">
+                                <input type="hidden" name="action" value="UPDATE">
+                                <INPUT class="btn btn-outline-secondary" NAME="submit" TYPE="submit" VALUE="Update">
+                            </form><br>
+                            <form name="deleteFeedback" action="FeedbackController" method="POST">
+                                <input type="hidden" name="id" value=" here(id) ">
+                                <input type="hidden" name="action" value="DELETE">
+                                <INPUT class="btn btn-outline-secondary" NAME="submit" TYPE="submit" VALUE="DELETE">
+                            </form>
                         </div>
                     </div>
                 </div>

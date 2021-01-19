@@ -13,10 +13,20 @@ import java.io.Serializable;
  */
 public class Feedbacks implements Serializable{
     private String name, feedback;
+    int id;
 
-    public Feedbacks() {
-        this.name = "";
-        this.feedback = "";
+    public Feedbacks(int id, String name, String feedback) {
+        this.id = id;
+        this.name = name;
+        this.feedback = feedback;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

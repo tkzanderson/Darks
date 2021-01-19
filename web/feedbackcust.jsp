@@ -136,8 +136,8 @@
                         out.println("<div class=\"col-lg-3 col-md-6 col-sm-6\">\n" +
 "                    <div class=\"team-wrapper mb-30\">\n" +
 "                        <div class=\"team-content text-center\">\n" +
-"                            <h4> " + rs.getString(3) + " </h4>\n" +
-"                            <span>- " + rs.getString(2) + " </span>\n" +
+"                            <h4> " + rs.getString(2) + " </h4>\n" +
+"                            <span>\"" + rs.getString(3) + "\" </span>\n" +
 "                        </div>\n" +
 "                    </div>\n" +
 "                </div>");

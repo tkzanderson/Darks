@@ -1,9 +1,10 @@
 <%-- 
-    Document   : addfeedback
-    Created on : Jan 17, 2021, 6:12:42 PM
+    Document   : updateFeedback
+    Created on : Jan 18, 2021, 8:48:02 PM
     Author     : User
 --%>
 
+<%@page import="bean.Feedbacks"%>
 <%@page import="bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -41,7 +42,7 @@
                 <div class="row">
                     <div class="col-xl-2 col-lg-2">
                         <div class="logo pt-40">
-                            <a href="userIndex.jsp">
+                            <a href="adminIndex.jsp">
                                 <h1><b>Darks</b></h1>
                             </a>
                         </div>
@@ -61,7 +62,7 @@
                                             <li><a href="">Transaction History </a></li>
                                             <li><a href="">Wishlist</a></li>
                                             <li><a href="">Renting Cart</a></li>
-                                            <li><a href="feedbackcust.jsp">Feedback </a></li>
+                                            <li><a href="feedbackadmin.jsp">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
                                             <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
                                         </ul>
@@ -106,7 +107,7 @@
             <div class="breadcrumb-content text-center">
                 <ul>
                     <li>
-                        <a href="/userIndex.jsp">Home</a>
+                        <a href="adminIndex.jsp">Home</a>
                     </li>
                     <li class="active">Add a Feedback</li>
                 </ul>
@@ -118,9 +119,9 @@
             <div class="row">
                 <div class="col-lg-5 col-md-6">
                     <div class="contact-info-area">
-                        <h2>Give us a feedback</h2>
+                        <h2>Update a Feedback</h2>
                         <p>
-                            Let us know about your rental experience with us. 
+                            You can edit the form to update the customer's feedback. 
                         </p>
                         <div class="contact-info-wrap">
                             <div class="single-contact-info">
@@ -152,12 +153,32 @@
                 </div>
                 <div class="col-lg-7 col-md-6">
                     <div class="contact-from contact-shadow">
+                        <%
+                            int id = Integer.parseInt(request.getParameter("id"));
+                            String name = request.getParameter("name");
+                            String feedback = request.getParameter("feedback");
+                            
+                            out.println("<form name=\"feedbackform\" action=\"FeedbackController\" method=\"post\">\n" +
+"                            <input type=\"hidden\" name=\"action\" value=\"SAVE\">\n" +
+"                            <input type=\"hidden\" name=\"id\" value=\"" + id + "\">\n" +
+"                            <b>Customer's Name:</b>\n" +
+"                            <input name=\"name\" type=\"text\" placeholder=\"" + name + "\" value=\"" + name + "\">\n" +
+"                            <b>Customer's Feedback</b>\n" +
+"                            <textarea name=\"feedback\" placeholder=\"" + feedback + "\">" + feedback + "</textarea>\n" +
+"                            <input class=\"btn btn-danger\" type=\"submit\" value=\"Save Feedback\">\n" +
+"                        </form>");
+                        %>
+                        <!--
                         <form name="feedbackform" action="FeedbackController" method="post">
-                            <input type="hidden" name="action" value="INSERT">
-                            <input name="name" type="text" placeholder="Your Name">
-                            <textarea name="feedback" placeholder="Your Feedback"></textarea>
+                            <input type="hidden" name="action" value="UPDATE">
+                            <input type="hidden" name="id" value=" here(id) ">
+                            <b>Customer's Name:</b>
+                            <input name="name" type="text" placeholder=" here(name) ">
+                            <b>Customer's Feedback</b>
+                            <textarea name="feedback" placeholder=" here(feedback) "></textarea>
                             <input class="btn btn-danger" type="submit" value="Send Feedback">
                         </form>
+                        -->
                     </div>
                 </div>
             </div>
@@ -217,3 +238,4 @@
 </body>
 
 </html>
+
