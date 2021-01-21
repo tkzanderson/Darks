@@ -58,7 +58,7 @@ public class ViewProductsServlet extends HttpServlet {
         String userName = "root";
         String password = "";
         String query="SELECT * FROM products";
-        String query2="SELECT * FROM products WHERE active=1";
+        String query2="SELECT * FROM products WHERE active=1 AND promotionStatus =0";
         
         
         Class.forName(driver); 
