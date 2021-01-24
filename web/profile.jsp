@@ -116,23 +116,23 @@
                                                     <div class="row">
                                                     <div class="single-input-item">
                                                         <label for="display-name" class="required">UserName</label>
-                                                        <input type="text" id="display-name" value="<%=users.getUserName()%>"/>
+                                                        <input type="text" name="userName" value="<%=users.getUserName()%>"/>
                                                     </div>    
                                                     <div class="single-input-item">
                                                         <label for="email" class="required">Email Address</label>
-                                                        <input type="email" id="email" value="<%=users.getEmail() %>" />
+                                                        <input type="email" name="email" value="<%=users.getEmail() %>" />
                                                     </div>    
                                                         <div class="single-input-item">
                                                         <label for="gender" class="required">Gender</label>
-                                                        <input type="text" id="gender" value="<%=users.getGender() %>" />
+                                                        <input type="text" name="gender" value="<%=users.getGender() %>" />
                                                     </div>   
                                                         <div class="single-input-item">
                                                         <label for="shipping" class="required">Shipping Address</label>
-                                                        <input type="text" id="shipping" value="<%=users.getShippingAddress() %>"/>
+                                                        <textarea name="shippingAddress"><%=users.getShippingAddress() %></textarea>
                                                     </div>   
                                                         <div class="single-input-item">
                                                         <label for="phone" class="required">Phone Number</label>
-                                                        <input type="text" id="phone" value="<%=users.getPhoneNumber() %>"/>
+                                                        <input type="text" name="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="<%=users.getPhoneNumber() %>"/>
                                                     </div>   
                                                     <hr>
                                                     <div class="single-input-item">
