@@ -141,7 +141,7 @@
                                                     <div class="single-input-item">
                                                         
                                                         <button type="submit" class="check-btn sqr-btn ">Save Changes</button>
-                                                        <input type="hidden" name="action" name="update"><input type="hidden" name="userid" value="<%= users.getId() %>">
+                                                        <input type="hidden" name="action" value="update"><input type="hidden" name="userid" value="<%= users.getId() %>">
                                                     </div>
                                                 </form>
                                             </div>
