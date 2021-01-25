@@ -45,13 +45,17 @@ public class ProfileServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         HttpSession session = request.getSession(true);
-        String newUser = request.getParameter("username");
-        String role="";        
         String driver = "com.mysql.jdbc.Driver";
         String dbName = "darks";
         String url = "jdbc:mysql://localhost/" + dbName + "?";
-        String userName = "root";
+        String userNameDB = "root";
         String password = "";
+        String action = request.getParameter("action");
+        
+        if(action.equals("display")) {
+        String newUser = request.getParameter("username");
+        String role="";        
+        
         String query="SELECT * FROM users WHERE userName=?";
         
         try {
@@ -59,7 +63,7 @@ public class ProfileServlet extends HttpServlet {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ProfileServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Connection con = DriverManager.getConnection(url, userName, password); //3-establish connection
+        Connection con = DriverManager.getConnection(url, userNameDB, password); //3-establish connection
         
         //Statement st = con.createStatement(); //4-create statement //normal statement
         PreparedStatement st = con.prepareStatement(query); //prepare statement
@@ -69,6 +73,7 @@ public class ProfileServlet extends HttpServlet {
     
         User users = new User();
         while(rs.next()){
+            users.setId(rs.getInt(1));
             users.setUserName(rs.getString(2));
             users.setEmail(rs.getString(4));
             users.setRole(rs.getString(5));
@@ -93,6 +98,42 @@ public class ProfileServlet extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
                 rd.include(request, response);
             }
+        }
+        
+        else if(action.equals("update")){
+            String userName = request.getParameter("userName");
+            String email = request.getParameter("email");
+            String gender = request.getParameter("gender");
+            String shippingAddress = request.getParameter("shippingAddress");
+            String phoneNumber = request.getParameter("phoneNumber");
+            int userid = Integer.parseInt(request.getParameter("userid"));
+            
+            String query = "UPDATE users SET userName=?, email=?, gender=?, shippingAddress=?, phoneNumber=? WHERE id=?";
+                
+            try {
+                Class.forName(driver);  //step2 load and register driver
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Connection con = DriverManager.getConnection(url, userNameDB, password);
+            PreparedStatement st = con.prepareStatement(query);
+            
+            st.setString(1, userName);
+            st.setString(2, email);
+            st.setString(3, gender);
+            st.setString(4, shippingAddress);
+            st.setString(5, phoneNumber);
+            st.setInt(6, userid);
+            
+           st.executeUpdate();
+
+            st.close();
+            con.close();
+            
+            RequestDispatcher rd= request.getRequestDispatcher("/userIndex.jsp");
+            rd.include(request, response);
+            
+        }
                 
         try (PrintWriter out = response.getWriter()) {
            

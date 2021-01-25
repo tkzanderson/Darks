@@ -110,9 +110,12 @@
     <!-- Content start here -->
     <div class="container">
     <div class="myaccount-content">
+        
+        
                                             <h3>Account Details</h3>    
                                             <div class="account-details-form">
-                                                <form action="#">
+                                                <form action="ProfileServlet" method="POST">
+                                                    
                                                     <div class="row">
                                                     <div class="single-input-item">
                                                         <label for="display-name" class="required">UserName</label>
@@ -137,7 +140,8 @@
                                                     <hr>
                                                     <div class="single-input-item">
                                                         
-                                                        <button class="check-btn sqr-btn ">Save Changes</button>
+                                                        <button type="submit" class="check-btn sqr-btn ">Save Changes</button>
+                                                        <input type="hidden" name="action" name="update"><input type="hidden" name="userid" value="<%= users.getId() %>">
                                                     </div>
                                                 </form>
                                             </div>
