@@ -69,6 +69,7 @@ public class LoginController extends HttpServlet {
                 if(rs.next()){
                     
                     User user = new User();
+                    user.setId(rs.getInt(1));
                     user.setUserName(userName);
                     user.setUserPassword(userPassword);
                     user.setEmail(rs.getString(4));

@@ -53,10 +53,10 @@ public class ProfileServlet extends HttpServlet {
         String action = request.getParameter("action");
         
         if(action.equals("display")) {
-        String newUser = request.getParameter("username");
+        int newUser = Integer.parseInt(request.getParameter("id"));
         String role="";        
         
-        String query="SELECT * FROM users WHERE userName=?";
+        String query="SELECT * FROM users WHERE id=?";
         
         try {
             Class.forName(driver); //2-load and register the driver
@@ -68,7 +68,7 @@ public class ProfileServlet extends HttpServlet {
         //Statement st = con.createStatement(); //4-create statement //normal statement
         PreparedStatement st = con.prepareStatement(query); //prepare statement
         
-        st.setString(1,newUser);
+        st.setInt(1,newUser);
         ResultSet rs = st.executeQuery();
     
         User users = new User();
