@@ -37,6 +37,12 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="assets/css/feedback.css">
 </head>
 
 <body>
@@ -67,7 +73,7 @@
                                             <li><a href="">Transaction History </a></li>
                                             <li><a href="">Wishlist</a></li>
                                             <li><a href="">Renting Cart</a></li>
-                                            <li><a href="feedbackcust.jsp">Feedback </a></li>
+                                            <li><a href="feedbackadmin.jsp">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
                                             <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
                                         </ul>
@@ -113,12 +119,36 @@
                 <h2>Customer Feedbacks</h2>
                 <p>“A satisfied customer is the best source of advertisement”</p><br><br>
                 <button type="button" class="btn btn-outline-secondary">
-                    <a href="addfeedback.jsp">
+                    <a href="addfeedbackadmin.jsp">
                         Add a Feedback
                     </a>
                 </button>
             </div>
             <div class="row">
+                <table class="table table-hover">
+  <thead>
+    <tr>
+      <th style="width: 3%">Feedback ID</th>
+      <th style="width: 6%">Customer Name</th>
+      <th style="width: 20%">Feedback</th>
+      <td style="width: 6%" align="center" scope="row"><b>Manage</b></td>
+    </tr>
+  </thead>
+  <tbody>
+     <!--
+    <tr>
+      <td> here(id) </td>
+      <td> here(name) </td>
+      <td> here(feedback) </td>
+      <td>
+        <form name="deleteFeedback" action="FeedbackController" method="POST">
+            <input type="hidden" name="id" value=" here(id) ">
+            <input type="hidden" name="action" value="DELETE">
+            <INPUT class="btn btn-outline-secondary" NAME="submit" TYPE="submit" VALUE="DELETE">
+        </form>
+       </td>
+    </tr>
+     -->
                 <% 
                     String driver = "com.mysql.jdbc.Driver";
                     String dbName = "darks";
@@ -145,7 +175,7 @@
                         Feedbacks f = new Feedbacks(id, name, feedback);
                         fblist.add(f);
     
-                        out.println("<div class=\"col-lg-3 col-md-6 col-sm-6\">\n" +
+                        /*out.println("<div class=\"col-lg-3 col-md-6 col-sm-6\">\n" +
 "                    <div class=\"team-wrapper mb-30\">\n" +
 "                        <div class=\"team-content text-center\">\n" +
 "                            <h4> " + name + " </h4>\n" +
@@ -164,10 +194,24 @@
 "                            </form>\n" +
 "                        </div>\n" +
 "                    </div>\n" +
-"                </div>");
+"                </div>");*/
+                        out.println("    <tr>\n" +
+"      <td> " + id + " </td>\n" +
+"      <td> " + name + " </td>\n" +
+"      <td> " + feedback + " </td>\n" +
+"      <td>\n" +
+"        <form name=\"deleteFeedback\" action=\"FeedbackController\" method=\"POST\">\n" +
+"            <input type=\"hidden\" name=\"id\" value=\"" + id + "\">\n" +
+"            <input type=\"hidden\" name=\"action\" value=\"DELETE\">\n" +
+"            <INPUT class=\"btn btn-outline-secondary\" NAME=\"submit\" TYPE=\"submit\" VALUE=\"DELETE\">\n" +
+"        </form>\n" +
+"       </td>\n" +
+"    </tr>");
                     }
                                 
-                %>
+                %> 
+  </tbody>
+</table>
                 <!--
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="team-wrapper mb-30">
@@ -189,6 +233,7 @@
                         </div>
                     </div>
                 </div>
+                
                 -->
                 
             </div>
