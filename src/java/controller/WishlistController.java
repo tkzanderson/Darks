@@ -5,12 +5,16 @@
  */
 package controller;
 
+import bean.Products;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Vector;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -56,7 +60,23 @@ public class WishlistController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession(true);
+
+        PrintWriter out = response.getWriter();
+        response.setContentType("text/html");
+
+        Vector wish = (Vector) session.getAttribute("wishlist");
+
+        String action = request.getParameter("action");
+        if (action.equals("VIEW"))
+        {
+            request.setAttribute("output", "VIEW");
+            session.setAttribute("wishlist", wish);
+              
+            RequestDispatcher rd= request.getRequestDispatcher("wishlist.jsp");
+            rd.forward(request, response);
+        }
+        
     }
 
     /**
