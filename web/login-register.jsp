@@ -30,8 +30,23 @@
     <link rel="stylesheet" href="assets/css/plugins.css">
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+    
+   
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+                                    <script>
+var check = function() {
+  if (document.getElementById('password').value ==
+    document.getElementById('confirm_password').value) {
+    document.getElementById('message').style.color = 'green';
+    document.getElementById('message').innerHTML = 'matching';
+  } else {
+    document.getElementById('message').style.color = 'red';
+    document.getElementById('message').innerHTML = 'not matching';
+  }
+}
+</script>
+    
 </head>
 
 <body>
@@ -151,20 +166,39 @@
                             <div id="lg2" class="tab-pane">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
-                                        <form action="RegisterController" method="post">
-                                            <input type="text" name="userName" placeholder="Username" required>
-                                            <input type="password" name="userPassword" placeholder="Password" required><br>
-                                            <select name="gender" >
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option> 
-                                             </select><br><br>
-                                            <input type="email" name="email" placeholder="Email" required>
-                                            <input type="text" name="shippingAddress" placeholder="Shipping address" required>
-                                             <input type="tel" name="phoneNumber" placeholder="Telephone number: 012-345-6789" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
-                                            <div class="button-box">
-                                                <button type="submit">Register</button>
-                                            </div>
-                                        </form>
+                                    <form action="RegisterController" method="post">
+                                        <label>Name</label>
+                                       <input type="text" name="userName" placeholder="Username" required>
+                                       
+                                       <label>Password</label>
+                                       <input type="password" name="userPassword" placeholder="Password" id="password" onblur="validate()" onkeyup='check();' required><br>
+                                           
+                                            
+                                       <label>Confirm Password
+                                           <br><span id='message'></span>
+                                       </label>
+                                       <input type="password" name="confirmUserPassword" placeholder="Confirm password" id="confirm_password" onblur="validate()" onkeyup='check();' required>
+                                        
+                                        <br>
+                                       <label>Gender</label>
+                                       <select name="gender" >
+                                           <option value="Male">Male</option>
+                                           <option value="Female">Female</option> 
+                                        </select><br><br>
+                                        
+                                        <label>Email</label>
+                                       <input type="email" name="email" placeholder="Email" required>
+                                       
+                                       <label>Shipping Address</label>
+                                       <input type="text" name="shippingAddress" placeholder="Shipping address" required>
+                                       
+                                       <label>Phone Number</label>
+                                        <input type="tel" name="phoneNumber" placeholder="Telephone number: 012-345-6789" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+                                       <div class="button-box">
+                                           <button type="submit">Register</button>
+                                       </div>
+                                   </form>
+
                                     </div>
                                 </div>
                             </div>

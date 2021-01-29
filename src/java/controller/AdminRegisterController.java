@@ -50,11 +50,22 @@ public class AdminRegisterController extends HttpServlet {
         
         String userName= request.getParameter("userName");
         String userPassword= request.getParameter("userPassword");
+           String confirmUserPassword= request.getParameter("confirmUserPassword");
         String email= request.getParameter("email");
         String gender= request.getParameter("gender");
         String shippingAddress= request.getParameter("shippingAddress");
         String phoneNumber= request.getParameter("phoneNumber");
         
+        if(!(userPassword.equals(confirmUserPassword))){
+              try (PrintWriter out = response.getWriter()) {
+                  RequestDispatcher rd= request.getRequestDispatcher("/admin-register.jsp");
+        rd.include(request, response);
+         out.println("<script type=\"text/javascript\">");
+                     out.println("alert('Confirmation password is not match with input password, please try again');");
+                     out.println("</script>");
+      
+          }   
+        }
         User user = new User();
         user.setUserName(userName);
         user.setUserPassword(userPassword);
