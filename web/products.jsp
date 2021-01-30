@@ -68,7 +68,7 @@
                                             <li><a href="">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
                                             <li><a href="">Manage Products </a></li>
-                                            <li><a href="">Logout </a></li>
+                                            <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -135,6 +135,9 @@
                                                         <div class="ht-product-list-action">
                                                             <form   name="Wishlist" action="WishlistController" method="POST">
                                                             <input  type="hidden" name="action" value="ADD">
+                                                            <input  type="hidden" name="title" value="<%= prod.getProdTitle() %>">
+                                                            <input  type="hidden" name="image" value="<%= prod.getProdTitle() %>">
+                                                            <input  type="hidden" name="price" value="<%= prod.getProdPrice() %>">
                                                             <input  type="submit" name="option" value="Add to Wishlist" style="background-color: red; color: white">
                                                             </form>
                                                             

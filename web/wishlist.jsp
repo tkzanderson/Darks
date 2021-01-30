@@ -136,8 +136,8 @@
 "                                    <tr>\n" +
 "                                        <th>Image</th>\n" +
 "                                        <th>Product Name</th>\n" +
-"                                        <th>Until Price</th>\n" +
-"                                        <th>Qty</th>\n" +
+//"                                        <th>Until Price</th>\n" +
+//"                                        <th>Qty</th>\n" +
 "                                        <th>Subtotal</th>\n" +
 "                                        <th>Add To Cart</th>\n" +
 "                                    </tr>\n" +

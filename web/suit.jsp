@@ -61,7 +61,7 @@
                                             <li><a href="">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
                                             <li><a href="">Manage Products </a></li>
-                                            <li><a href="">Logout </a></li>
+                                            <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
                                         </ul>
                                     </li>
                                 </ul>
