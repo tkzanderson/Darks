@@ -64,6 +64,7 @@
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
                                             <li><a href="">Transaction History </a></li>
+                                            <li><a href="wishlist.jsp">Wishlist</a></li>
                                             <li><a href="">Manage Rent</a></li>
                                             <li><a href="">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
