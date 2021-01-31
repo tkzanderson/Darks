@@ -3,9 +3,13 @@
     Created on : Jan 18, 2021, 9:05:22 AM
     Author     : Anderson
 --%>
+<%@page import="bean.User"%>
 <%@page import="bean.Products"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-   <% Products prod = (Products)session.getAttribute("products"); %>
+   <% Products prod = (Products)session.getAttribute("products"); 
+      //String username = (String)session.getAttribute("username");
+      User user = (User)session.getAttribute("users");
+    %>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -17,7 +21,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"/></script>
+    <link rel="stylesheet" ref="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
     <!-- CSS
 	============================================ -->
    
@@ -118,7 +124,7 @@
                                                         <div class="ht-product-list-price">
                                                             <span class="new">RM<%= prod.getProdPrice() %></span>
                                                         </div>
-                                                        <form action="rentController">
+                                                        <form action="rentController" method="POST">
                                                             <label for="size">Choose your size:</label>
                                                             <select name="size">
                                                                  <option value="S">Small</option>
@@ -126,10 +132,26 @@
                                                                  <option value="L">Large</option>
                                                                  <option value="XL">Extra large</option>
                                                                  <option value="XXL">Extra extra large</option>
-                                                            </select> 
-                                                            <label for="birthday">Return Date:</label>
-                                                            <input type="date" id="return_date" name="return_date">
-                                                            <input class="btn btn-dark" type="submit" name="option" value="Confirm Rent">
+                                                            </select>
+                                                            <b>Quantity: </b><input type="text" name="quantity" SIZE="1" value=1>
+<!--                                                            <label>
+                                                            Start <br/>
+                                                            <input type="date" name="startrent" value="Today"/>
+                                                            </label>
+ 
+                                                            <label>
+                                                            End <br/>
+                                                            <input type="date" name="endrent" data-value="7" value="After one week"/>
+                                                            </label>-->
+
+                                                             <label for="from">From</label> 
+                                                            <input type="text" id="from" name="from"/> 
+
+                                                            <label for="to">to</label> 
+                                                            <input type="text" id="to" name="to"/>
+                                                            <input  type="hidden" name="action" value="<%= prod.getId() %>"/>
+                                                            <input  type="hidden" name="newUser" value="<%= user.getUserName() %>"/>
+                                                            <input class="btn btn-dark" type="submit" name="option" value="Confirm Rent"/>
                                                         </form>
                                                         
                                                     </div>
@@ -165,4 +187,21 @@
         </div>
     </footer>
 </div>
+                                                        <script> 
+                                                        var dateToday = new Date();
+var dates = $("#from, #to").datepicker({
+    defaultDate: dateToday,
+    changeMonth: true,
+    numberOfMonths: 2,
+    minDate: dateToday,
+    maxDate: '+14D',
+    onSelect: function(selectedDate) {
+        var option = this.id == "from" ? "minDate" : "maxDate",
+            instance = $(this).data("datepicker"),
+            date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
+        dates.not(this).datepicker("option", option, date);
+    }
+});
+                                                        </script>                                                      
+                                                        
 </html>

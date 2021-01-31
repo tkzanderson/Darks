@@ -1,15 +1,22 @@
 <%-- 
-    Document   : index
-    Created on : Jan 15, 2021, 1:29:46 PM
-    Author     : janic
+    Document   : ManageRent
+    Created on : Jan 16, 2021, 10:30:25 PM
+    Author     : Anderson
 --%>
-    <%User user = (User)session.getAttribute("User");%>
-<%@page import="bean.User"%>
+
+
+<%@page import="bean.rent"%>
+<%@page import="bean.Products"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    ArrayList rentAL= (ArrayList) session.getAttribute("rent");
+%>  
+
+
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
-    
-
 
 <head>
     <meta charset="utf-8">
@@ -33,6 +40,27 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <style> 
+        table {
+          width: 100%;
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+
+        th, td {
+          text-align: left;
+          padding: 8px;
+          border: 1px solid black;
+        }
+
+        tr:nth-child(even){background-color: #f2f2f2}
+
+        th {
+          background-color: black;
+          color: white;
+        }
+        
+    </style>
 </head>
 
 <body>
@@ -48,35 +76,23 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-xl-15 col-lg-15">
+                    <div class="col-xl-7 col-lg-7 ">
                         <div class="main-menu">
                             <nav>
                                 <ul>
                                     <li class="angle-shape"><a href="adminIndex.jsp">Home </a></li>
-                                    <li> <form name="View" action="ViewProductsServlet" method="POST" >
+                                     <li> <form name="View" action="ViewProductsServlet" method="POST" >
                                             <input type="hidden" name="action" value="adminview"> <input class="btn btn-light" type="submit" value="Manage Products"></form> 
                                         </li>
-                                    <li>
-                                        <form name="View" action="ViewPromotionsServlet" method="POST" >
-                                             <input type="hidden" name="action" value="adminview">
-                                            <input class="btn btn-light" type="submit" value="Manage Promotions">
-                                        </form>
-                                    </li>
+                                    <li><a href="">Promotion <span>hot</span> </a></li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
                                             <li><a href="">Transaction History </a></li>
-                                            <li><form name="rent" action="rentController" method="POST">
-                                            <input type="hidden" name="newUser" value="<%= user.getUserName() %>">
-                                            <input type="hidden" name="option" value="ViewRent">
-                                            <input type="hidden" name="action" value="1">
-                                            <input type="submit" value="Manage Rent">
-                                                </form></li>
-                                            <li><a href="feedbackadmin.jsp">Feedback </a></li>
+                                            <li><a href="">Manage Rent</a></li>
+                                            <li><a href="">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
-                                            <li><a href="admin-register.jsp">Register new admin</a></li>                                            
-
-                                            <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
+                                            <li><a href="">Logout </a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -114,16 +130,57 @@
     
     
     <!-- Content start here -->
-                <div class="container">
-                    <div class="card-body">
-                    <div class="card text-center">
-
-                    <h5 class="card-title">Hello <%=user.getUserName()%></h5>
-                    <h1 class="card-title">Welcome to <br><b>Dress & Suits Renting System.</b></h1>
-                    <p class="card-text">Rent the best quality of dress and suits here.</p>
-                        </div>
-                    </div>
-                </div>
+    <% if (rentAL != null && (rentAL.size() > 0)) { %>
+    <div class="container" style="item-align: center" >
+        
+                        <table>
+                            <tr>
+                                <th>No</th>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Total Price</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Status</th>
+                                <th colspan="1">Action</th>
+                            </tr>
+                            <% 
+                                 for (int index=0; index < rentAL.size();index++){
+                                    rent rent= (rent) rentAL.get(index); %>
+                                    <tr>
+                                        <td><%= index+1 %></td>
+                                        <td><%= rent.getProdTitle() %></td>
+                                        <td><%= rent.getQuantity() %></td>
+                                        <td><%= rent.getPrice() %></td>
+                                        <td><%= rent.getStartdate() %></td>
+                                        <td><%= rent.getEnddate() %></td>
+                                        <td><%= rent.getStatus() %></td>
+                                        <td>
+                                            <% if(rent.getStatus().equals("REJECTED")){ %>
+                                             <form name="checkoutForm" >
+                                                 <input type="submit" value="Remove" class="btn btn-danger" disabled>
+                                            </form>
+                                                    <%} %>    
+                                        </td>
+                                    </tr>
+                                     <% } 
+                                                         } 
+                else { %>
+                                 <center><b><p>No Rent Made yet</b></center>
+                    <% } %>
+                       </table>
+                       <form name="checkoutForm" action="#" method="#">
+                        <input type="submit" value="Checkout" class="btn btn-primary"/>
+                         </form>
+                        
+                        
+                        
+    </div>
+                                                       
+                 
+      
+                
+       
     <!-- Content ends here here -->
     
     
@@ -146,32 +203,3 @@
         </div>
     </footer>
 </div>
-
-
-
-
-
-
-
-
-
-
-<!-- All JS is here
-============================================ -->
-
-<!-- jQuery JS -->
-<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
-<!-- Popper JS -->
-<script src="assets/js/popper.min.js"></script>
-<!-- Bootstrap JS -->
-<script src="assets/js/bootstrap.min.js"></script>
-<!-- Plugins JS -->
-<script src="assets/js/plugins.js"></script>
-<!-- Ajax Mail -->
-<script src="assets/js/ajax-mail.js"></script>
-<!-- Main JS -->
-<script src="assets/js/main.js"></script>
-
-</body>
-
-</html>

@@ -56,7 +56,10 @@
                                     <li class="angle-shape"><a href="userIndex.jsp">Home </a></li>
                                     <li class="angle-shape">
                                     <form name="View" action="ViewProductsServlet" method="POST">
-                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Products"></form></li>
+                                    <input type="hidden" name="action" value="userview">
+                                    <input type="hidden" name="username" value="<%= user.getUserName() %>">
+                                    <input type="submit" value="Products">
+                                    </form></li>
                                     <li class="angle-shape">
                                     <form name="View" action="ViewPromotionsServlet" method="POST">
                                     <input type="hidden" name="action" value="userview"><input type="submit" value="Promotion"></form></li>
@@ -65,7 +68,12 @@
                                             <li><a href="">About us </a></li>
                                             <li><a href="">Transaction History </a></li>
                                             <li><a href="wishlist.jsp">Wishlist</a></li>
-                                            <li><a href="">Renting Cart</a></li>
+                                            <li><form name="rent" action="rentController" method="POST">
+                                            <input type="hidden" name="newUser" value="<%= user.getUserName() %>">
+                                            <input type="hidden" name="option" value="ViewRent">
+                                            <input type="hidden" name="action" value="0">
+                                            <input type="submit" value="Manage Rent">
+                                                </form></li>
                                             <li><a href="feedbackcust.jsp">Feedback </a></li>
                                             <li><form name="profile" action="ProfileServlet" method="POST">
                                             <input type="hidden" name="username" value="<%= user.getUserName() %>"><input type="hidden" name="action" value="display"><input type="submit" value="My Profile"></form></li>

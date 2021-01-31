@@ -1,15 +1,16 @@
 <%-- 
-    Document   : dress.jsp
-    Created on : Jan 15, 2021, 3:26:03 PM
-    Author     : janic
+    Document   : adminManageRent
+    Created on : Jan 31, 2021, 5:07:48 PM
+    Author     : Anderson
 --%>
 
+<%@page import="bean.rent"%>
 <%@page import="bean.Products"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
-    ArrayList products= (ArrayList) session.getAttribute("products");
+    ArrayList rentAL= (ArrayList) session.getAttribute("rent");
 %>  
 
 
@@ -38,6 +39,27 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <style> 
+        table {
+          width: 100%;
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+
+        th, td {
+          text-align: left;
+          padding: 8px;
+          border: 1px solid black;
+        }
+
+        tr:nth-child(even){background-color: #f2f2f2}
+
+        th {
+          background-color: black;
+          color: white;
+        }
+        
+    </style>
 </head>
 
 <body>
@@ -57,8 +79,10 @@
                         <div class="main-menu">
                             <nav>
                                 <ul>
-                                    <li class="angle-shape"><a href="userIndex.jsp">Home </a></li>
-                                     <li class="angle-shape"><a href="/Darks/ViewProductsServlet"> Products <span>new</span> </a></li>
+                                    <li class="angle-shape"><a href="adminIndex.jsp">Home </a></li>
+                                     <li> <form name="View" action="ViewProductsServlet" method="POST" >
+                                            <input type="hidden" name="action" value="adminview"> <input class="btn btn-light" type="submit" value="Manage Products"></form> 
+                                        </li>
                                     <li><a href="">Promotion <span>hot</span> </a></li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
@@ -67,7 +91,6 @@
                                             <li><a href="">Manage Rent</a></li>
                                             <li><a href="">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
-                                            <li><a href="">Manage Products </a></li>
                                             <li><a href="">Logout </a></li>
                                         </ul>
                                     </li>
@@ -106,59 +129,79 @@
     
     
     <!-- Content start here -->
-    <% if (products != null && (products.size() > 0)) { %>
+    <% if (rentAL != null && (rentAL.size() > 0)) { %>
     <div class="container" style="item-align: center" >
-    <% 
-                 for (int index=0; index < products.size();index++)
-                    {
-                    	Products prod = (Products) products.get(index); %>
-    <div class="shop-list-wrap shop-list-mrg mb-30">
-        <div class="row">
-            <div class="col-lg-4 col-md-5 align-self-center">
-                <div class="product-list-img">
-                    <img src="<%= prod.getProdImage() %>" style="width: 300px; height:400px" />
-               </div>
-             </div>
-             <div class="col-lg-8 col-md-7 align-self-center">
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-12">
-                                                    <div class="shop-list-content">
-                                                        <h3><a href="product-details.html"><%= prod.getProdTitle() %></a></h3>
-                                                        <span><%= prod.getProdType() %></span>
-                                                        <div class="shop-list-paragraph">
-                                                        <p><%= prod.getProdDescription() %></p>
-                                                        
-                                                    </div>
-                                                        <div class="ht-product-list-price">
-                                                            <span class="new">RM<%= prod.getProdPrice() %></span>
-                                                        </div>
-                                                        <div class="ht-product-list-action">
-                                                            <a class="list-wishlist" title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                                                            <form   name="Rent" action="rentController">
-                                                            <input  type="hidden" name="action" value="<%= prod.getId() %>">
-                                                            <input  type="submit" name="option" value="Rent" style="background-color: red; color: white">
-                                                            </form>
-<!--                                                           <a class="list-cart" title="Rent" href="rentController" style="background-color: red; color: white"><i class="sli sli-basket-loaded"></i> Rent</a>-->
-                                                            <a class="list-refresh" title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                                        <% } 
+        
+                        <table>
+                            <tr>
+                                <th>No</th>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Total Price</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Status</th>
+                                <th colspan="2">Action</th>
+                            </tr>
+                            <% 
+                                 for (int index=0; index < rentAL.size();index++){
+                                    rent rent= (rent) rentAL.get(index); %>
+                                    <tr>
+                                        <td><%= index+1 %></td>
+                                        <td><%= rent.getProdTitle() %></td>
+                                        <td><%= rent.getQuantity() %></td>
+                                        <td><%= rent.getPrice() %></td>
+                                        <td><%= rent.getStartdate() %></td>
+                                        <td><%= rent.getEnddate() %></td>
+                                        <td><%= rent.getStatus() %></td>
+                                        <td>
+                                            <% if(rent.getStatus().equals("PENDING")){ %>
+                                             <form name="approveForm" >
+                                                 <input type="submit" value="APPROVE" class="btn btn-info" disabled>
+                                            </form>
+                                        </td>
+                                        <td>
+                                             <form name="rejectForm" >
+                                                 <input type="submit" value="REJECT" class="btn btn-danger" disabled>
+                                            </form>
+                                        </td>
+                                                    <%}
+                                            else if (rent.getStatus().equals("APPROVE")){%>
+                                            <td>
+                                            <form name="rejectForm" >
+                                                 <input type="submit" value="REJECT" class="btn btn-danger" disabled>
+                                            </form>
+                                            </td>
+                                            <%}
+                                            else if(rent.getStatus().equals("REJECTED"))
+                                            {%>
+                                            <td>
+                                            <form name="checkoutForm" >
+                                                 <input type="submit" value="APPROVE" class="btn btn-info" disabled>
+                                            </form>
+                                                </td>
+                                            <%}%>
+                                        
+                                    </tr>
+                                     <% } 
                                                          } 
                 else { %>
-                                 <center><b><p>Products Empty</b></center>
+                                 <center><b><p>No Rent Made yet</b></center>
                     <% } %>
+                       </table>
+                       
+                        
+                        
+                        
+    </div>
+                                                       
                  
       
                 
        
     <!-- Content ends here here -->
+    
+    
     <footer class="footer-area">
         <div class="footer-bottom border-top-2 pt-30">
             <div class="container">

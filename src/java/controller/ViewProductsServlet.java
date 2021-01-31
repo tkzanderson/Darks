@@ -6,8 +6,10 @@
 package controller;
 
 import bean.Products;
+import bean.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Integer.parseInt;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -50,6 +52,9 @@ public class ViewProductsServlet extends HttpServlet {
         String prodTitle, prodDescription, prodType;
         double prodPrice;
         int id, activate;
+        String username = request.getParameter("username");
+        User users = new User();
+        users.setUserName(username);
         String prodImage;
         
         String driver = "com.mysql.jdbc.Driver";
@@ -81,6 +86,7 @@ public class ViewProductsServlet extends HttpServlet {
                 products.add(new Products(prodTitle, prodDescription, prodType, prodPrice, id,prodImage, activate)); }
                     
                 session.setAttribute("products", products);
+                session.setAttribute("users", users);
                     RequestDispatcher rd = request.getRequestDispatcher("/adminViewProducts.jsp");
                     rd.forward(request, response);
                 }
@@ -96,6 +102,7 @@ public class ViewProductsServlet extends HttpServlet {
                      
                 products.add(new Products(prodTitle, prodDescription, prodType, prodPrice, id, prodImage)); }
                 session.setAttribute("products", products);
+                session.setAttribute("users", users);
                     RequestDispatcher rd = request.getRequestDispatcher("/products.jsp");
                     rd.forward(request, response);
                 }
