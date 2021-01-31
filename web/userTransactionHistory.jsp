@@ -18,6 +18,7 @@
  
  <%  ArrayList payment= (ArrayList) session.getAttribute("payment"); %>
  <%  ArrayList product= (ArrayList) session.getAttribute("products"); %>
+  <%  ArrayList paymentDate= (ArrayList) session.getAttribute("paymentDate"); %>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -133,14 +134,15 @@
                     <th>Product Description</th>
                     <th>Product Type</th>
                     <th>Size</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
+                    <th>Paid Date</th>
+                      <th>Quantity</th>
                 </tr>    
                
                  <% if (payment != null && (payment.size() > 0)) { 
                        for (int i=0; i < payment.size();i++){
                       Payment payments = (Payment) payment.get(i);
                        Products products = (Products) product.get(i);
+                        Payment paydates = (Payment) paymentDate.get(i);
                  %>
                    <tr style="background-color: cornsilk">
                     <td><%= i+1 %></td>
@@ -148,10 +150,11 @@
                     <td><%= products.getProdTitle() %></td>
                     <td><%= products.getProdDescription() %></td>
                     <td><%= products.getProdType() %></td>
+                    
                    
                     <td><%= payments.getSize() %></td>
-                    <td><%= payments.getStartDate() %></td>
-                    <td><%= payments.getEndDate() %></td>
+                   <td><%= paydates.getPaidDate() %></td>
+                    <td><%= payments.getQuantity() %></td>
                      </tr>
                        <%}%>
                

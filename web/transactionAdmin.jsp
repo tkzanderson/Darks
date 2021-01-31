@@ -1,11 +1,18 @@
 <%-- 
-    Document   : index
-    Created on : Jan 15, 2021, 1:29:46 PM
-    Author     : janic
+    Document   : transactionAdmin
+    Created on : Jan 31, 2021, 9:56:38 PM
+    Author     : user
 --%>
-    <%User user = (User)session.getAttribute("User");%>
+
+
+<%@page import="bean.Products"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="bean.Payment"%>
 <%@page import="bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+ <%  ArrayList payment= (ArrayList) session.getAttribute("payment"); %>
+ <%  ArrayList product= (ArrayList) session.getAttribute("products"); %>
+  <%  ArrayList paymentDate= (ArrayList) session.getAttribute("paymentDate"); %>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
     
@@ -67,11 +74,11 @@
                                             <li><a href="">About us </a></li>
                                             <li> <form name="View" action="transactionController" method="POST">
                                                 <input type="hidden" name="view" value="admin">
-                                                 <input type="hidden" name="userID" value=" <%=user.getId()%>">
+                                                 
                                                 <input type="submit" value="Transaction">
                                            </form></li>
                                             <li><form name="rent" action="rentController" method="POST">
-                                            <input type="hidden" name="newUser" value="<%= user.getUserName() %>">
+                                            
                                             <input type="hidden" name="option" value="ViewRent">
                                             <input type="hidden" name="action" value="1">
                                             <input type="submit" value="Manage Rent">
@@ -116,21 +123,68 @@
         </div>
     </header>
     
-    
-    <!-- Content start here -->
-                <div class="container">
+       <!-- Content start here -->
+     
+                 <div class="container">
                     <div class="card-body">
                     <div class="card text-center">
-
-                    <h5 class="card-title">Hello <%=user.getUserName()%></h5>
-                    <h1 class="card-title">Welcome to <br><b>Dress & Suits Renting System.</b></h1>
-                    <p class="card-text">Rent the best quality of dress and suits here.</p>
+                    <h1 class="card-title"><b>Transaction History</b></h1>
+                   
                         </div>
                     </div>
                 </div>
+                    
+            <div>
+            <table border="1" cellpadding="10" cellspacing="10" width="100%">
+                <tr style="background-color: peachpuff">
+                    <th>No.</th>
+                    <th>Price</th>
+                    <th>Product Name</th>
+                    <th>Product Description</th>
+                    <th>Product Type</th>
+                    <th>Size</th>
+                    <th>Payment Date</th>
+                    <th>Quantity</th>
+                </tr>    
+               
+                 <% if (payment != null && (payment.size() > 0)) { 
+                       for (int i=0; i < payment.size();i++){
+                      Payment payments = (Payment) payment.get(i);
+                       Products products = (Products) product.get(i);
+                           Payment paydates = (Payment) paymentDate.get(i);
+                 %>
+                   <tr style="background-color: cornsilk">
+                    <td><%= i+1 %></td>
+                    <td><%= payments.getTotal() %></td>
+                    <td><%= products.getProdTitle() %></td>
+                    <td><%= products.getProdDescription() %></td>
+                    <td><%= products.getProdType() %></td>
+                   
+                    <td><%= payments.getSize() %></td>
+                      <td><%= paydates.getPaidDate() %></td>
+                      <td><%= payments.getQuantity() %></td>
+                     </tr>
+                       <%}%>
+               
+                <%}else{%>
+                
+                        <div class="container">
+                    <div class="card-body">
+                    <div class="card text-center">
+                    <h5 class="card-title"></h5>
+                    <h5 class="card-title">Hi there</h5>
+                    <p class="card-text">Its look like you havent start renting any product yet</p>
+                        </div>
+                    </div>
+                </div>
+                             <%}%>
+
+            </table>
+            </div>
+                    
     <!-- Content ends here here -->
     
-    
+
     <footer class="footer-area">
         <div class="footer-bottom border-top-2 pt-30">
             <div class="container">
@@ -150,32 +204,4 @@
         </div>
     </footer>
 </div>
-
-
-
-
-
-
-
-
-
-
-<!-- All JS is here
-============================================ -->
-
-<!-- jQuery JS -->
-<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
-<!-- Popper JS -->
-<script src="assets/js/popper.min.js"></script>
-<!-- Bootstrap JS -->
-<script src="assets/js/bootstrap.min.js"></script>
-<!-- Plugins JS -->
-<script src="assets/js/plugins.js"></script>
-<!-- Ajax Mail -->
-<script src="assets/js/ajax-mail.js"></script>
-<!-- Main JS -->
-<script src="assets/js/main.js"></script>
-
-</body>
-
-</html>
+    </body>

@@ -6,6 +6,7 @@
 package bean;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
  *
@@ -13,6 +14,8 @@ import java.io.Serializable;
  */
 public class Payment  implements Serializable{
         private int id;
+
+
         private double  total;
         private int productID;
         private String size;
@@ -21,8 +24,9 @@ public class Payment  implements Serializable{
         private String startDate;
         private String endDate;
         private String paymentStatus;
-
-    public Payment(double total, int productID, String size, int userID, String status, String startDate, String endDate, String paymentStatus) {
+        private Timestamp  paidDate;
+        private int quantity;
+    public Payment(double total, int productID, String size, int userID, String status, String startDate, String endDate, String paymentStatus, int quantity) {
         this.total = total;
         this.productID = productID;
         this.size = size;
@@ -31,6 +35,20 @@ public class Payment  implements Serializable{
         this.startDate = startDate;
         this.endDate = endDate;
         this.paymentStatus = paymentStatus;
+        this.quantity = quantity;
+        
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public Payment(Timestamp  paidDate) {
+        this.paidDate = paidDate;
     }
 
   
@@ -40,6 +58,14 @@ public class Payment  implements Serializable{
 
     public void setId(int id) {
         this.id = id;
+    }
+    
+        public Timestamp getPaidDate() {
+        return paidDate;
+    }
+
+    public void setPaidDate(Timestamp paidDate) {
+        this.paidDate = paidDate;
     }
 
     public double getTotal() {

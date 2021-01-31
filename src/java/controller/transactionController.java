@@ -15,6 +15,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,8 +47,8 @@ public class transactionController extends HttpServlet {
          HttpSession session = request.getSession(true);
         String view = request.getParameter("view");
         String userIDValue = request.getParameter("userID");
-        
-        
+          ArrayList<Payment> paymentDate = new ArrayList<Payment>();
+         Timestamp  paidDate;
         double  total;
         int productID;
         String size;
@@ -56,6 +57,7 @@ public class transactionController extends HttpServlet {
         String startDate;
         String endDate;
         String paymentStatus;
+        int quantity;
         ArrayList<Payment> payment = new ArrayList<Payment>();
         ArrayList<Products> product = new ArrayList<Products>();
         String prodTitle, prodType, prodDescription;
@@ -64,12 +66,20 @@ public class transactionController extends HttpServlet {
         String url = "jdbc:mysql://localhost/" + dbName + "?";
         String userName = "root";
         String password = "";
-        String query="SELECT * FROM rent WHERE paymentStatus='Paid' AND userID = " +  userIDValue;
+        String query2="SELECT * FROM payment WHERE userID = " +  userIDValue;
+         String query4="SELECT * FROM payment";
           Class.forName(driver); 
         Connection con = DriverManager.getConnection(url, userName, password); 
-        Statement st = con.createStatement(); 
-        ResultSet rs = st.executeQuery(query);
+       Statement st2 = con.createStatement(); 
+        ResultSet rs2 = st2.executeQuery(query2);
+             Statement st4 = con.createStatement(); 
+        ResultSet rs4 = st4.executeQuery(query4);
+ 
+      
         if(view.equals("user")){
+             String query="SELECT * FROM rent WHERE paymentStatus='Paid' AND userID = " +  userIDValue;
+              Statement st = con.createStatement(); 
+        ResultSet rs = st.executeQuery(query);
             while(rs.next()){
                 total = rs.getInt(2);
                 productID = rs.getInt(3);
@@ -83,7 +93,12 @@ public class transactionController extends HttpServlet {
                              prodType = rsProduct.getString(5);
                             
                               product.add(new Products(prodTitle, prodDescription, prodType));
-                        } 
+                        }
+                              while(rs2.next()){
+                         paidDate=rs2.getTimestamp(5);
+                          paymentDate.add(new Payment(paidDate));
+                        }
+                         
                 }
                 size = rs.getString(4);
                 userID = rs.getInt(5);
@@ -91,7 +106,8 @@ public class transactionController extends HttpServlet {
                 startDate = rs.getString(7);
                 endDate = rs.getString(8);
                 paymentStatus= rs.getString(9);
-                payment.add(new Payment(total, productID, size, userID, status, startDate, endDate, paymentStatus));
+                quantity = rs.getInt(10);
+                payment.add(new Payment(total, productID, size, userID, status, startDate, endDate, paymentStatus, quantity));
                 
                 
                
@@ -99,13 +115,53 @@ public class transactionController extends HttpServlet {
             }
             session.setAttribute("products", product);
              session.setAttribute("payment", payment);
-         
+           session.setAttribute("paymentDate", paymentDate);
             
             RequestDispatcher rd = request.getRequestDispatcher("/userTransactionHistory.jsp");
             rd.forward(request, response);
         }
         if(view.equals("admin")){
+            String query1="SELECT * FROM rent WHERE paymentStatus='Paid' ";
+                 Statement st1 = con.createStatement(); 
+        ResultSet rs1 = st1.executeQuery(query1);
+        while(rs1.next()){
+                total = rs1.getInt(2);
+                productID = rs1.getInt(3);
+                if(productID!=0){
+                      String queryProduct="SELECT * FROM products WHERE id="+productID;
+                      Statement stProduct = con.createStatement(); 
+                      ResultSet rsProduct = stProduct.executeQuery(queryProduct);
+                        while(rsProduct.next()){
+                            prodTitle = rsProduct.getString(2);
+                              prodDescription = rsProduct.getString(3);
+                             prodType = rsProduct.getString(5);
+                            
+                              product.add(new Products(prodTitle, prodDescription, prodType));
+                        } 
+                         while(rs4.next()){
+                         paidDate=rs4.getTimestamp(5);
+                          paymentDate.add(new Payment(paidDate));
+                        }
+                }
+                size = rs1.getString(4);
+                userID = rs1.getInt(5);
+                status = rs1.getString(6);
+                startDate = rs1.getString(7);
+                endDate = rs1.getString(8);
+                paymentStatus= rs1.getString(9);
+                quantity = rs1.getInt(10);
+                payment.add(new Payment(total, productID, size, userID, status, startDate, endDate, paymentStatus, quantity));
+                
+                
+               
+                 
+            }
+            session.setAttribute("products", product);
+             session.setAttribute("payment", payment);
+           session.setAttribute("paymentDate", paymentDate);
             
+            RequestDispatcher rd = request.getRequestDispatcher("/transactionAdmin.jsp");
+            rd.forward(request, response);
         }
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
