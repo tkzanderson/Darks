@@ -122,7 +122,6 @@ public class WishlistController extends HttpServlet {
                 String query = "SELECT * FROM products where id="+id;
                 
                 if(products != null && (products.size() > 0)){
-                    for(int i=0; i<products.size(); i++){
                         try {
                         Class.forName(driver); //2. load and register the driver
                     } catch (ClassNotFoundException ex) {
@@ -154,15 +153,14 @@ public class WishlistController extends HttpServlet {
                             products.add(new Products(id, prodTitle, prodPrice, prodImage));
                         }
 
-                        session.setAttribute("wishlist", products);
-                        out.println("Product has been added to your wishlist!");
-                        RequestDispatcher rd= request.getRequestDispatcher("wishlist.jsp");
-                        rd.include(request, response);
-
                     } catch (SQLException ex) {
                         Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    }
+                    
+                    session.setAttribute("wishlist", products);
+                    out.println("Product has been added to your wishlist!");
+                    RequestDispatcher rd= request.getRequestDispatcher("wishlist.jsp");
+                    rd.include(request, response);
                 }else{
                     ArrayList<Products> wishlist = new ArrayList<Products>();
     
@@ -195,14 +193,13 @@ public class WishlistController extends HttpServlet {
                             wishlist.add(new Products(id, prodTitle, prodPrice, prodImage));
                         }
 
+                    } catch (SQLException ex) {
+                        Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                         session.setAttribute("wishlist", wishlist);
                         out.println("Product has been added to your wishlist!");
                         RequestDispatcher rd= request.getRequestDispatcher("wishlist.jsp");
                         rd.include(request, response);
-
-                    } catch (SQLException ex) {
-                        Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
                 }
                 
             }else if (output.equals("REMOVE"))
