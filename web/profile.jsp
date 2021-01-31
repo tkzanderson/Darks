@@ -119,28 +119,31 @@
                                                     <div class="row">
                                                     <div class="single-input-item">
                                                         <label for="display-name" class="required">UserName</label>
-                                                        <input type="text" name="userName" value="<%=users.getUserName()%>"/>
+                                                        <input type="text" name="userName" value="<%=users.getUserName()%>" required/>
                                                     </div>    
                                                     <div class="single-input-item">
                                                         <label for="email" class="required">Email Address</label>
-                                                        <input type="email" name="email" value="<%=users.getEmail() %>" />
+                                                        <input type="email" name="email" value="<%=users.getEmail() %>" required/>
                                                     </div>    
-                                                        <div class="single-input-item">
+                                                        <div class="">
                                                         <label for="gender" class="required">Gender</label>
-                                                        <input type="text" name="gender" value="<%=users.getGender() %>" />
+                                                        <select name="gender">
+                                                            <option>Male</option>
+                                                            <option>Female</option>
+                                                        </select><br><br>
                                                     </div>   
                                                         <div class="single-input-item">
                                                         <label for="shipping" class="required">Shipping Address</label>
-                                                        <textarea name="shippingAddress"><%=users.getShippingAddress() %></textarea>
+                                                        <textarea name="shippingAddress"><%=users.getShippingAddress() %> required></textarea>
                                                     </div>   
                                                         <div class="single-input-item">
                                                         <label for="phone" class="required">Phone Number</label>
-                                                        <input type="text" name="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="<%=users.getPhoneNumber() %>"/>
+                                                        <input type="text" name="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="<%=users.getPhoneNumber() %>" required/>
                                                     </div>   
                                                     <hr>
                                                     <div class="single-input-item">
                                                         
-                                                        <button type="submit" class="check-btn sqr-btn ">Save Changes</button>
+                                                        <button type="submit" class="check-btn sqr-btn" onclick="return confirm('Are you sure you wish to change your details?')">Save Changes</button>
                                                         <input type="hidden" name="action" value="update"><input type="hidden" name="userid" value="<%= users.getId() %>">
                                                     </div>
                                                 </form>

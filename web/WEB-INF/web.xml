@@ -48,6 +48,10 @@
         <servlet-name>ProfileServlet</servlet-name>
         <servlet-class>controller.ProfileServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>WishlistController</servlet-name>
+        <servlet-class>controller.WishlistController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/RegisterController</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>ProfileServlet</servlet-name>
         <url-pattern>/ProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WishlistController</servlet-name>
+        <url-pattern>/WishlistController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -64,11 +64,12 @@
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
                                             <li><a href="">Transaction History </a></li>
+                                            <li><a href="wishlist.jsp">Wishlist</a></li>
                                             <li><a href="">Manage Rent</a></li>
                                             <li><a href="">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
                                             <li><a href="">Manage Products </a></li>
-                                            <li><a href="">Logout </a></li>
+                                            <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -133,8 +134,15 @@
                                                             <span class="new">RM<%= prod.getProdPrice() %></span>
                                                         </div>
                                                         <div class="ht-product-list-action">
-                                                            <a class="list-wishlist" title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                                                            <form   name="Rent" action="rentController">
+                                                            <form   name="Wishlist" action="WishlistController" method="POST">
+                                                            <input  type="hidden" name="action" value="ADD">
+                                                            <input  type="hidden" name="title" value="<%= prod.getProdTitle() %>">
+                                                            <input  type="hidden" name="image" value="<%= prod.getProdTitle() %>">
+                                                            <input  type="hidden" name="price" value="<%= prod.getProdPrice() %>">
+                                                            <input  type="submit" name="option" value="Add to Wishlist" style="background-color: red; color: white">
+                                                            </form>
+                                                            
+                                                            <form   name="Rent" action="rentController" method="POST">
                                                             <input  type="hidden" name="action" value="<%= prod.getId() %>">
                                                             <input  type="submit" name="option" value="Rent" style="background-color: red; color: white">
                                                             </form>

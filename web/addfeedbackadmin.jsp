@@ -1,14 +1,11 @@
 <%-- 
-    Document   : userIndex
-    Created on : Jan 15, 2021, 2:38:33 PM
-    Author     : janic
+    Document   : addfeedbackadmin
+    Created on : Jan 28, 2021, 1:11:11 PM
+    Author     : User
 --%>
 
 <%@page import="bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<%User user = (User)session.getAttribute("User");%>
-
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -56,27 +53,16 @@
                                     <li class="angle-shape"><a href="userIndex.jsp">Home </a></li>
                                     <li class="angle-shape">
                                     <form name="View" action="ViewProductsServlet" method="POST">
-                                    <input type="hidden" name="action" value="userview">
-                                    <input type="hidden" name="username" value="<%= user.getUserName() %>">
-                                    <input type="submit" value="Products">
-                                    </form></li>
-                                    <li class="angle-shape">
-                                    <form name="View" action="ViewPromotionsServlet" method="POST">
-                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Promotion"></form></li>
+                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Products"></form></li>
+                                    <li><a href="">Promotion <span>hot</span> </a></li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
                                             <li><a href="">Transaction History </a></li>
-                                            <li><a href="wishlist.jsp">Wishlist</a></li>
-                                            <li><form name="rent" action="rentController" method="POST">
-                                            <input type="hidden" name="newUser" value="<%= user.getUserName() %>">
-                                            <input type="hidden" name="option" value="ViewRent">
-                                            <input type="hidden" name="action" value="0">
-                                            <input type="submit" value="Manage Rent">
-                                                </form></li>
+                                            <li><a href="">Wishlist</a></li>
+                                            <li><a href="">Renting Cart</a></li>
                                             <li><a href="feedbackcust.jsp">Feedback </a></li>
-                                            <li><form name="profile" action="ProfileServlet" method="POST">
-                                            <input type="hidden" name="id" value="<%= user.getId()%>"><input type="hidden" name="action" value="display"><input type="submit" value="My Profile"></form></li>
+                                            <li><a href="">My Profile </a></li>
                                             <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
                                         </ul>
                                     </li>
@@ -115,15 +101,71 @@
     
     
     <!-- Content start here -->
-                 <div class="container">
-                    <div class="card-body">
-                    <div class="card text-center">
-                    <h5 class="card-title">Hello <%=user.getUserName()%></h5>
-                    <h1 class="card-title">Welcome to <br><b>Dress & Suits Renting System.</b></h1>
-                    <p class="card-text">Rent the best quality of dress and suits here.</p>
+    <div class="breadcrumb-area pt-35 pb-35 bg-gray">
+        <div class="container">
+            <div class="breadcrumb-content text-center">
+                <ul>
+                    <li>
+                        <a href="/userIndex.jsp">Home</a>
+                    </li>
+                    <li class="active">Add a Feedback</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="contact-area pt-100 pb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-6">
+                    <div class="contact-info-area">
+                        <h2>Give us a feedback</h2>
+                        <p>
+                            Let us know about your rental experience with us. 
+                        </p>
+                        <div class="contact-info-wrap">
+                            <div class="single-contact-info">
+                                <div class="contact-info-icon">
+                                    <i class="sli sli-location-pin"></i>
+                                </div>
+                                <div class="contact-info-content">
+                                    <p>Address goes here,  street, Crossroad 123.</p>
+                                </div>
+                            </div>
+                            <div class="single-contact-info">
+                                <div class="contact-info-icon">
+                                    <i class="sli sli-envelope"></i>
+                                </div>
+                                <div class="contact-info-content">
+                                    <p><a href="#">info@example.com</a> / <a href="#">info@example.com</a></p>
+                                </div>
+                            </div>
+                            <div class="single-contact-info">
+                                <div class="contact-info-icon">
+                                    <i class="sli sli-screen-smartphone"></i>
+                                </div>
+                                <div class="contact-info-content">
+                                    <p>+1 35 776 859 000  /  +1 35 776 859 011</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-7 col-md-6">
+                    <div class="contact-from contact-shadow">
+                        <form name="feedbackform" action="FeedbackController" method="post">
+                            <input type="hidden" name="action" value="ADMININSERT">
+                            <input name="name" type="text" placeholder="Your Name">
+                            <textarea name="feedback" placeholder="Your Feedback"></textarea>
+                            <input class="btn btn-danger" type="submit" value="Send Feedback">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-map pt-100">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
     <!-- Content ends here here -->
     
     
@@ -175,3 +217,4 @@
 </body>
 
 </html>
+

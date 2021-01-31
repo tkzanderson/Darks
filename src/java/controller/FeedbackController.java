@@ -78,6 +78,31 @@ public class FeedbackController extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("feedbackcust.jsp");
                 rd.include(request, response);
             }
+            else if (action.equals("ADMININSERT"))
+            {
+                query = "INSERT INTO feedback(name, feedback) VALUES(?, ?)";
+                PreparedStatement st = con.prepareStatement(query);  //4. create the statement
+        
+                String name = request.getParameter("name");
+                String feedback = request.getParameter("feedback");
+
+                st.setString(1, name);
+                st.setString(2, feedback);
+
+                int insertStatus = 0;
+
+                //st.executeUpdate(query); //5. execute the query(normal statement
+
+                st.executeUpdate(); //prepared statement
+                System.out.println(insertStatus + "row affected"); //6. process the result
+
+                st.close(); // 7. close the connection
+                con.close();
+        
+                out.println("Successfully inserted feedback !");
+                RequestDispatcher rd = request.getRequestDispatcher("feedbackadmin.jsp");
+                rd.include(request, response);
+            }
             else if (action.equals("UPDATE"))
             {
                 int id = Integer.parseInt(request.getParameter("id"));
