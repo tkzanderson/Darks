@@ -4,10 +4,17 @@
     Author     : User
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Vector"%>
 <%@page import="bean.Products"%>
 <%@page import="bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<% 
+    //Products prod = (Products)session.getAttribute("wishlist"); 
+    ArrayList products= (ArrayList) session.getAttribute("wishlist");
+%>
+
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -118,56 +125,60 @@
         </div>
     </div>
     
-        <%
-        String output=(String)request.getAttribute("output");
-        Products p = (Products)request.getAttribute("VCD");
-        Vector wish = (Vector) session.getAttribute("wishlist");
-        
-        if(wish != null && (wish.size() > 0)){
-            out.println("<div class=\"cart-main-area pt-95 pb-100\">\n" +
-"        <div class=\"container\">\n" +
-"            <h3 class=\"cart-page-title\">Your Wishlist</h3>\n" +
-"            <div class=\"row\">\n" +
-"                <div class=\"col-lg-12 col-md-12 col-sm-12 col-12\">\n" +
-"                    <form action=\"#\">\n" +
-"                        <div class=\"table-content table-responsive cart-table-content\">\n" +
-"                            <table>\n" +
-"                                <thead>\n" +
-"                                    <tr>\n" +
-"                                        <th>Image</th>\n" +
-"                                        <th>Product Name</th>\n" +
-//"                                        <th>Until Price</th>\n" +
-//"                                        <th>Qty</th>\n" +
-"                                        <th>Subtotal</th>\n" +
-"                                        <th>Add To Cart</th>\n" +
-"                                    </tr>\n" +
-"                                </thead>\n" +
-"                                <tbody>");
-            
-            out.println("LOOP TR CONTENTS HERE");
-            
-            out.println("</tbody>\n" +
-"                            </table>\n" +
-"                        </div>\n" +
-"                    </form>\n" +
-"                </div>\n" +
-"            </div>\n" +
-"        </div>\n" +
-"    </div>");
-        }else{
-            out.println("<br></br><div class=\"container\">\n" +
-"        <div class=\"card-body\">\n" +
-"            <div class=\"card text-center\">\n" +
-"                <br></br>\n" +
-"                <h1 class=\"card-title\">Your wishlist is currently <b>EMPTY</b></h1>\n" +
-"                <br></br>\n" +
-"            </div>\n" +
-"        </div>\n" +
-"    </div>");
-        }
-    %>
-    
-    <!--
+<% if (products != null && (products.size() > 0)) { %>
+    <div class="cart-main-area pt-95 pb-100">
+        <div class="container">
+            <h3 class="cart-page-title">Your Wishlist</h3>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12 align-self-center">
+                    <form action="#">
+                        <div class="table-content table-responsive cart-table-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Product Name</th>
+                                        <th>Subtotal</th>
+                                        <th>Remove</th>
+                                        <th>Rent</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% 
+                                    for (int index=0; index < products.size();index++)
+                                       {
+                                           Products prod = (Products) products.get(index); %>
+                                    <tr>
+                                        <td class="product-thumbnail">
+                                            <img src="<%= prod.getProdImage() %>" alt="<%= index %>"></a>
+                                        </td>
+                                        <td class="product-name"><a href="#"><%= prod.getProdTitle() %></a></td>
+                                        
+                                        <td class="product-subtotal">RM<%= prod.getProdPrice() %></td>
+                                        <td class="product-wishlist-cart">
+                                            <form   name="delwish" action="WishlistController" method="POST">
+                                            <input  type="hidden" name="output" value="REMOVE">
+                                            <input  type="hidden" name="id" value="<%= prod.getId() %>">
+                                            <input  type="submit" class="btn btn-outline-danger" name="option" value="Remove">
+                                            </form>
+                                       </td>
+                                        <td class="product-wishlist-cart">
+                                            <form   name="rent" action="rentController" method="POST">
+                                            <input  type="hidden" name="action" value="<%= prod.getId() %>">
+                                            <input  type="submit" class="btn btn-outline-danger" name="option" value="Rent">
+                                            </form>
+                                       </td>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% }else { %>
     <br></br>
     <div class="container">
         <div class="card-body">
@@ -178,60 +189,7 @@
             </div>
         </div>
     </div>
-    -->
-    <!--
-    <div class="cart-main-area pt-95 pb-100">
-        <div class="container">
-            <h3 class="cart-page-title">Your Wishlist</h3>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <form action="#">
-                        <div class="table-content table-responsive cart-table-content">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Image</th>
-                                        <th>Product Name</th>
-                                        <th>Until Price</th>
-                                        <th>Qty</th>
-                                        <th>Subtotal</th>
-                                        <th>Add To Cart</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    -->
-                                    <!--
-                                    <tr>
-                                        <td class="product-thumbnail">
-                                            <a href="#"><img src="assets/img/cart/cart-3.svg" alt=""></a>
-                                        </td>
-                                        <td class="product-name"><a href="#">Product Name</a></td>
-                                        <td class="product-price-cart"><span class="amount">RM260.00</span></td>
-                                        <td class="product-quantity">
-                                            <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="2">
-                                            </div>
-                                        </td>
-                                        <td class="product-subtotal">RM110.00</td>
-                                        <td class="product-wishlist-cart">
-                                            <a href="#">add to cart</a>
-                                            <form   name="Rent" action="rentController" method="POST">
-                                            <input  type="hidden" name="action" value="prod.getId()">
-                                            <input  type="submit" name="option" value="Rent" style="background-color: red; color: white">
-                                            </form>
-                                       </td>
-                                    </tr>
-                                    -->
-                                    <!--
-                                </tbody>
-                            </table>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    -->
+    <% } %>
     
     <!-- Content ends here here -->
     

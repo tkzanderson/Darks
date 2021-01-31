@@ -76,8 +76,18 @@ public class Products implements Serializable{
     }
 
     public Products() {
+        prodTitle = "";
+        prodImage = "";
+        prodPrice = 0;
     }
 
+    public Products(int id, String prodTitle, double prodPrice, String prodImage) {
+        this.id = id;
+        this.prodTitle = prodTitle;
+        this.prodPrice = prodPrice;
+        this.prodImage = prodImage;
+    }
+    
     public String getProdTitle() {
         return prodTitle;
     }
