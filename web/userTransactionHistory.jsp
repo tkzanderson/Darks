@@ -4,6 +4,9 @@
     Author     : user
 --%>
 
+<%@page import="bean.Products"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="bean.Payment"%>
 <%-- 
     Document   : userIndex
     Created on : Jan 15, 2021, 2:38:33 PM
@@ -12,6 +15,9 @@
 
 <%@page import="bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+ 
+ <%  ArrayList payment= (ArrayList) session.getAttribute("payment"); %>
+ <%  ArrayList product= (ArrayList) session.getAttribute("products"); %>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -108,11 +114,12 @@
     
     
     <!-- Content start here -->
+     
                  <div class="container">
                     <div class="card-body">
                     <div class="card text-center">
-                    <h1 class="card-title">Welcome to <br><b>Dress & Suits Renting System.</b></h1>
-                    <p class="card-text">Rent the best quality of dress and suits here.</p>
+                    <h1 class="card-title"><b>Transaction History</b></h1>
+                   
                         </div>
                     </div>
                 </div>
@@ -120,50 +127,46 @@
             <div>
             <table border="1" cellpadding="10" cellspacing="10" width="100%">
                 <tr style="background-color: peachpuff">
-                    <th>Item name</th>
-                    <th>Amount Paid</th>
-                    <th>Date</th>
-                </tr>
-                <tr style="background-color: cornsilk">
-                    <td>Dress 1</td>
-                    <td>RM 100</td>
-                    <td>3 Feb 2021</td>
-                </tr>
-               <tr style="background-color: cornsilk">
-                    <td>Dress 1</td>
-                    <td>RM 100</td>
-                    <td>3 Feb 2021</td>
-                </tr>
-              <tr style="background-color: cornsilk">
-                    <td>Dress 1</td>
-                    <td>RM 100</td>
-                    <td>3 Feb 2021</td>
-                </tr>
-                <tr style="background-color: cornsilk">
-                    <td>Dress 1</td>
-                    <td>RM 100</td>
-                    <td>3 Feb 2021</td>
-                </tr>
-             <tr style="background-color: cornsilk">
-                    <td>Dress 1</td>
-                    <td>RM 100</td>
-                    <td>3 Feb 2021</td>
-                </tr>
-               <tr style="background-color: cornsilk">
-                    <td>Dress 1</td>
-                    <td>RM 100</td>
-                    <td>3 Feb 2021</td>
-                </tr>
-            <tr style="background-color: cornsilk">
-                    <td>Dress 1</td>
-                    <td>RM 100</td>
-                    <td>3 Feb 2021</td>
-                </tr>
-              <tr style="background-color: cornsilk">
-                    <td>Dress 1</td>
-                    <td>RM 100</td>
-                    <td>3 Feb 2021</td>
-                </tr>
+                    <th>No.</th>
+                    <th>Price</th>
+                    <th>Product Name</th>
+                    <th>Product Description</th>
+                    <th>Product Type</th>
+                    <th>Size</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                </tr>    
+               
+                 <% if (payment != null && (payment.size() > 0)) { 
+                       for (int i=0; i < payment.size();i++){
+                      Payment payments = (Payment) payment.get(i);
+                       Products products = (Products) product.get(i);
+                 %>
+                   <tr style="background-color: cornsilk">
+                    <td><%= i+1 %></td>
+                    <td><%= payments.getTotal() %></td>
+                    <td><%= products.getProdTitle() %></td>
+                    <td><%= products.getProdDescription() %></td>
+                    <td><%= products.getProdType() %></td>
+                   
+                    <td><%= payments.getSize() %></td>
+                    <td><%= payments.getStartDate() %></td>
+                    <td><%= payments.getEndDate() %></td>
+                     </tr>
+                       <%}%>
+               
+                <%}else{%>
+                
+                        <div class="container">
+                    <div class="card-body">
+                    <div class="card text-center">
+                    <h5 class="card-title"></h5>
+                    <h5 class="card-title">Hi there</h5>
+                    <p class="card-text">Its look like you havent start renting any product yet</p>
+                        </div>
+                    </div>
+                </div>
+                             <%}%>
 
             </table>
             </div>
