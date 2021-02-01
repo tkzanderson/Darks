@@ -74,7 +74,7 @@ public class rentController extends HttpServlet {
         String query="SELECT * FROM products WHERE id="+id+"";
         String query2 = "INSERT INTO rent(total, productID, size, userID, status, startDate, endDate, quantity) VALUES(?,?,?,?,?,?,?,?)";
         String query3="SELECT * FROM users WHERE userName=?";
-        String query4="SELECT * FROM rent WHERE userID=?";
+        String query4="SELECT * FROM rent WHERE userID=? AND activestate=1";
         String query5="SELECT * FROM products WHERE id=?";
         String query6="SELECT * FROM rent";
         String query7="UPDATE rent SET status=? WHERE id=?";

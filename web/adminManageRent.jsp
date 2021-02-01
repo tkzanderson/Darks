@@ -305,9 +305,9 @@
                                             </td>
                                             <td>
                                             <form name="checkoutForm" action="rentController">
-                                                <input type="hidden" name="option" value="remove" class="btn btn-info">
+                                                <input type="hidden" name="option" value="hide" class="btn btn-info">
                                                 <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
-                                                 <input type="submit" value="REMOVE" class="btn btn-info">
+                                                 <input type="submit" value="REMOVE" class="btn" disabled>
                                             </form>
                                                 </td>
                                             <%}%>
