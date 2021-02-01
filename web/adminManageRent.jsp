@@ -141,7 +141,7 @@
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Status</th>
-                                <th colspan="3">Action</th>
+                                <th colspan="4">Action</th>
                             </tr>
                             <% 
                                  for (int index=0; index < rentAL.size();index++){
@@ -154,40 +154,95 @@
                                         <td><%= rent.getStartdate() %></td>
                                         <td><%= rent.getEnddate() %></td>
                                         <td><%= rent.getStatus() %></td>
-                                        <td>
+                                        
                                             <% if(rent.getStatus().equals("PENDING")){ %>
+                                        <td>
                                              <form name="approveForm" action="rentController">
                                                  <input type="hidden" name="option" value="approve" class="btn btn-info">
+                                                 <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="APPROVE" class="btn btn-info">
                                             </form>
                                         </td>
                                         <td>
                                              <form name="rejectForm" action="rentController">
                                                  <input type="hidden" name="option" value="reject" class="btn btn-info">
+                                                 <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="REJECT" class="btn btn-danger">
                                             </form>
                                         </td>
+                                        <td>
+                                            <form name="checkoutForm" action="rentController">
+                                                <input type="hidden" name="option" value="return" class="btn btn-info">
+                                                <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
+                                                 <input type="submit" value="RETURN" class="btn" disabled>
+                                            </form>
+                                       </td>
+                                       <td>
+                                            <form name="checkoutForm" action="rentController">
+                                                <input type="hidden" name="option" value="remove" class="btn btn-info">
+                                                <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
+                                                 <input type="submit" value="REMOVE" class="btn" disabled>
+                                            </form>
+                                        </td>
                                                     <%}
-                                            else if (rent.getStatus().equals("APPROVE")){%>
+                                            else if (rent.getStatus().equals("APPROVED")){%>
+                                        <td>
+                                             <form name="approveForm" action="rentController">
+                                                 <input type="hidden" name="option" value="approve" class="btn btn-info">
+                                                 <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
+                                                 <input type="submit" value="APPROVE" class="btn" disabled>
+                                            </form>
+                                        </td>
                                             <td>
                                             <form name="rejectForm" action="rentController">
-                                                <input type="hidden" name="option" value="reject" class="btn btn-info">
+                                                 <input type="hidden" name="option" value="reject" class="btn btn-info">
+                                                 <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="REJECT" class="btn btn-danger">
                                             </form>
                                             </td>
+                                            <td>
+                                            <form name="checkoutForm" action="rentController">
+                                                <input type="hidden" name="option" value="return" class="btn btn-info">
+                                                <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
+                                                 <input type="submit" value="RETURN" class="btn" disabled>
+                                            </form>
+                                       </td>
+                                       <td>
+                                            <form name="checkoutForm" action="rentController">
+                                                <input type="hidden" name="option" value="remove" class="btn btn-info">
+                                                <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
+                                                 <input type="submit" value="REMOVE" class="btn" disabled>
+                                            </form>
+                                        </td>
                                             <%}
                                             else if(rent.getStatus().equals("REJECTED"))
                                             {%>
                                             <td>
-                                            <form name="checkoutForm" action="rentController">
-                                                <input type="hidden" name="option" value="approve" class="btn btn-info">
+                                            <form name="approveForm" action="rentController">
+                                                 <input type="hidden" name="option" value="approve" class="btn btn-info">
+                                                 <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="APPROVE" class="btn btn-info">
                                             </form>
                                                 </td>
+                                            <td>
+                                            <form name="rejectForm" action="rentController">
+                                                 <input type="hidden" name="option" value="reject" class="btn btn-info">
+                                                 <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
+                                                 <input type="submit" value="REJECT" class="btn" disabled>
+                                            </form>
+                                            </td>
+                                            <td>
+                                            <form name="checkoutForm" action="rentController">
+                                                <input type="hidden" name="option" value="return" class="btn btn-info">
+                                                <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
+                                                 <input type="submit" value="RETURN" class="btn" disabled>
+                                            </form>
+                                       </td>
                                                 
                                                 <td>
                                             <form name="checkoutForm" action="rentController">
                                                 <input type="hidden" name="option" value="remove" class="btn btn-info">
+                                                <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="REMOVE" class="btn btn-danger">
                                             </form>
                                                 </td>
@@ -195,17 +250,62 @@
                                             else if(rent.getStatus().equals("PAID"))
                                             {%>
                                             <td>
-                                            <form name="checkoutForm" action="rentController">
-                                                <input type="hidden" name="option" value="remove" class="btn btn-info">
-                                                 <input type="submit" value="RETURN" class="btn btn-info">
+                                            <form name="approveForm" action="rentController">
+                                                 <input type="hidden" name="option" value="approve" class="btn btn-info">
+                                                 <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
+                                                 <input type="submit" value="APPROVE" class="btn" disabled>
                                             </form>
                                                 </td>
+                                            <td>
+                                            <form name="rejectForm" action="rentController">
+                                                 <input type="hidden" name="option" value="reject" class="btn btn-info">
+                                                 <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
+                                                 <input type="submit" value="REJECT" class="btn" disabled>
+                                            </form>
+                                            </td>
+                                            <td>
+                                            <form name="checkoutForm" action="rentController">
+                                                <input type="hidden" name="option" value="return" class="btn btn-info">
+                                                <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
+                                                 <input type="submit" value="RETURN" class="btn btn-info">
+                                            </form>
+                                            </td>
+                                            <td>
+                                            <form name="checkoutForm" action="rentController">
+                                                <input type="hidden" name="option" value="remove" class="btn btn-info">
+                                                <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
+                                                 <input type="submit" value="REMOVE" class="btn" disabled>
+                                            </form>
+                                                </td>
+                                            
                                             <%}
                                             else if(rent.getStatus().equals("COMPLETED"))
                                             {%>
                                             <td>
+                                            <form name="approveForm" action="rentController">
+                                                 <input type="hidden" name="option" value="approve" class="btn btn-info">
+                                                 <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
+                                                 <input type="submit" value="APPROVE" class="btn" disabled>
+                                            </form>
+                                                </td>
+                                            <td>
+                                            <form name="rejectForm" action="rentController">
+                                                 <input type="hidden" name="option" value="reject" class="btn btn-info">
+                                                 <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
+                                                 <input type="submit" value="REJECT" class="btn" disabled>
+                                            </form>
+                                            </td>
+                                            <td>
+                                            <form name="checkoutForm" action="rentController">
+                                                <input type="hidden" name="option" value="return" class="btn btn-info">
+                                                <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
+                                                 <input type="submit" value="RETURN" class="btn" disabled>
+                                            </form>
+                                            </td>
+                                            <td>
                                             <form name="checkoutForm" action="rentController">
                                                 <input type="hidden" name="option" value="remove" class="btn btn-info">
+                                                <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="REMOVE" class="btn btn-info">
                                             </form>
                                                 </td>

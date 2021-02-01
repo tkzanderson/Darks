@@ -76,6 +76,8 @@ public class rentController extends HttpServlet {
         String query4="SELECT * FROM rent WHERE userID=?";
         String query5="SELECT * FROM products WHERE id=?";
         String query6="SELECT * FROM rent";
+        String query7="UPDATE rent SET status=? WHERE id=?";
+        String query8="DELETE FROM rent WHERE id=?";
         Class.forName(driver); 
         Connection con = DriverManager.getConnection(url, userName, password); 
         Connection con2 = DriverManager.getConnection(url, userName, password); 
@@ -89,6 +91,8 @@ public class rentController extends HttpServlet {
         PreparedStatement pst2 = con3.prepareStatement(query3);
         PreparedStatement pst3 = con4.prepareStatement(query4);
         PreparedStatement pst4 = con4.prepareStatement(query5);
+        PreparedStatement pst5 = con4.prepareStatement(query7);
+        PreparedStatement pst6 = con4.prepareStatement(query8);
         
         
         
@@ -199,6 +203,7 @@ public class rentController extends HttpServlet {
 
             while(rs2.next()){
              users.setId(rs2.getInt(1));
+             users.setUserName(rs2.getString(2));
             }  
             con3.close();
             userid = users.getId();
@@ -227,7 +232,8 @@ public class rentController extends HttpServlet {
                     products.setProdImage(rs4.getString(6));
                     
                 }
-                 
+                
+                rent.setId(rs3.getInt(1));
                 rent.setPrice(total);
                 rent.setProdTitle(products.getProdTitle());
                 rent.setProdImage(products.getProdImage());
@@ -243,17 +249,26 @@ public class rentController extends HttpServlet {
              
              con4.close();
              session.setAttribute("rent", rentAL);
+             session.setAttribute("User", users);
              RequestDispatcher rd = request.getRequestDispatcher("/ManageRent.jsp");
               rd.forward(request, response);
         }
         
         else if(option.equals("ViewRent")&& id==1)
         {
+            String newUser=request.getParameter("newUser");
             int quantity;
             String size;
              ResultSet rs4;
+             pst2.setString(1,newUser);
+             ResultSet rs2 = pst2.executeQuery();
 
             User users = new User();
+            while(rs2.next()){
+             users.setId(rs2.getInt(1));
+             users.setUserName(rs2.getString(2));
+            } 
+            
             
             Products products = new Products();
             while(rs5.next())
@@ -278,7 +293,8 @@ public class rentController extends HttpServlet {
                     products.setProdImage(rs4.getString(6));
                     
                 }
-                 
+                
+                rent.setId(rs5.getInt(1));
                 rent.setPrice(total);
                 rent.setProdTitle(products.getProdTitle());
                 rent.setProdImage(products.getProdImage());
@@ -294,9 +310,175 @@ public class rentController extends HttpServlet {
             }
              con4.close();
              session.setAttribute("rent", rentAL);
+             session.setAttribute("User", users);
              RequestDispatcher rd = request.getRequestDispatcher("/adminManageRent.jsp");
              rd.forward(request, response);
         }
+        
+        else if(option.equals("approve"))
+        {
+            String newUser=request.getParameter("newUser");
+            pst2.setString(1,newUser);
+             ResultSet rs2 = pst2.executeQuery();
+
+            User users = new User();
+            while(rs2.next()){
+             users.setId(rs2.getInt(1));
+             users.setUserName(rs2.getString(2));
+            } 
+            session.setAttribute("User", users);
+            pst5.setString(1, "APPROVED");
+            pst5.setInt(2, id);
+            
+            int count = pst5.executeUpdate();
+            con4.close();
+
+        try (PrintWriter out = response.getWriter()) {
+            if(count>0)
+            {
+                RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
+                rd.include(request, response);
+                out.println("<script type=\"text/javascript\">");
+                     out.println("alert('Rent Status Updated');");
+                     out.println("</script>"); 
+                      
+            }
+            
+            else{
+                    RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
+                    rd.include(request, response);
+                     out.println("<script type=\"text/javascript\">");
+                     out.println("alert('Rent Status Update Fail');");
+                     out.println("</script>"); 
+                     
+            }
+                     
+        }   
+        }
+        
+        else if(option.equals("reject"))
+        {
+            String newUser=request.getParameter("newUser");
+            pst2.setString(1,newUser);
+             ResultSet rs2 = pst2.executeQuery();
+
+            User users = new User();
+            while(rs2.next()){
+             users.setId(rs2.getInt(1));
+             users.setUserName(rs2.getString(2));
+            } 
+            session.setAttribute("User", users);
+            pst5.setString(1, "REJECTED");
+            pst5.setInt(2, id);
+            
+            int count = pst5.executeUpdate();
+            con4.close();
+
+        try (PrintWriter out = response.getWriter()) {
+            if(count>0)
+            {
+                RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
+                rd.include(request, response);
+                out.println("<script type=\"text/javascript\">");
+                     out.println("alert('Rent Status Updated');");
+                     out.println("</script>"); 
+                      
+            }
+            
+            else{
+                    RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
+                    rd.include(request, response);
+                     out.println("<script type=\"text/javascript\">");
+                     out.println("alert('Rent Status Update Fail');");
+                     out.println("</script>"); 
+                     
+            }
+                     
+        }   
+        }
+        
+        else if(option.equals("return"))
+        {
+            String newUser=request.getParameter("newUser");
+            pst2.setString(1,newUser);
+             ResultSet rs2 = pst2.executeQuery();
+
+            User users = new User();
+            while(rs2.next()){
+             users.setId(rs2.getInt(1));
+             users.setUserName(rs2.getString(2));
+            } 
+            session.setAttribute("User", users);
+            pst5.setString(1, "COMPLETED");
+            pst5.setInt(2, id);
+            
+            int count = pst5.executeUpdate();
+            con4.close();
+
+        try (PrintWriter out = response.getWriter()) {
+            if(count>0)
+            {
+                RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
+                rd.include(request, response);
+                out.println("<script type=\"text/javascript\">");
+                     out.println("alert('Rent Status Updated');");
+                     out.println("</script>"); 
+                      
+            }
+            
+            else{
+                    RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
+                    rd.include(request, response);
+                     out.println("<script type=\"text/javascript\">");
+                     out.println("alert('Rent Status Update Fail');");
+                     out.println("</script>"); 
+                     
+            }
+                     
+        }   
+        }
+        
+         else if(option.equals("remove"))
+        {
+            String newUser=request.getParameter("newUser");
+            pst2.setString(1,newUser);
+             ResultSet rs2 = pst2.executeQuery();
+
+            User users = new User();
+            while(rs2.next()){
+             users.setId(rs2.getInt(1));
+             users.setUserName(rs2.getString(2));
+            } 
+            session.setAttribute("User", users);
+            pst6.setInt(1, id);
+            
+            int count = pst6.executeUpdate();
+            con4.close();
+
+        try (PrintWriter out = response.getWriter()) {
+            if(count>0)
+            {
+                RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
+                rd.include(request, response);
+                out.println("<script type=\"text/javascript\">");
+                     out.println("alert('Rent Record Delete');");
+                     out.println("</script>"); 
+                      
+            }
+            
+            else{
+                    RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
+                    rd.include(request, response);
+                     out.println("<script type=\"text/javascript\">");
+                     out.println("alert('Rent Deletion Fail');");
+                     out.println("</script>"); 
+                     
+            }
+                     
+        }   
+        }
+        
+        
         
            
        

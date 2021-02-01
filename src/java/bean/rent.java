@@ -13,14 +13,15 @@ import java.util.Date;
  * @author Anderson
  */
 public class rent {
-    private int quantity, userID, prodID;
+    private int quantity, userID, prodID, id;
     private double price, totalprice;
-    private String prodImage, prodTitle, size, status;
+    private String prodImage, prodTitle, size, status, username;
     private Date startdate= new Date();
     private Date enddate= new Date();
 
     public rent() {
     }
+    
 
     public rent(int quantity, int userID, int prodID, double price, double totalprice, String prodImage, String prodTitle, String size) {
         this.quantity = quantity;
@@ -32,6 +33,26 @@ public class rent {
         this.prodTitle = prodTitle;
         this.size = size;
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+    
+    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
 
     public void setStatus(String status) {
         this.status = status;
