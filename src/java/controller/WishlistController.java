@@ -151,14 +151,14 @@ public class WishlistController extends HttpServlet {
                             prodImage = rs.getString(6);
 
                             products.add(new Products(id, prodTitle, prodPrice, prodImage));
+                            session.setAttribute("wishlist", products);
+                            out.println(prodTitle + " has been added to your wishlist!");
                         }
 
                     } catch (SQLException ex) {
                         Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
-                    session.setAttribute("wishlist", products);
-                    out.println("Product has been added to your wishlist!");
                     RequestDispatcher rd= request.getRequestDispatcher("wishlist.jsp");
                     rd.include(request, response);
                 }else{
@@ -191,61 +191,45 @@ public class WishlistController extends HttpServlet {
                             prodImage = rs.getString(6);
 
                             wishlist.add(new Products(id, prodTitle, prodPrice, prodImage));
+                            session.setAttribute("wishlist", wishlist);
+                            out.println(prodTitle + " has been added to your wishlist!");
                         }
 
                     } catch (SQLException ex) {
                         Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                        session.setAttribute("wishlist", wishlist);
-                        out.println("Product has been added to your wishlist!");
+                        
                         RequestDispatcher rd= request.getRequestDispatcher("wishlist.jsp");
                         rd.include(request, response);
                 }
                 
-            }else if (output.equals("REMOVE"))
+            }else if (output.equals("Remove"))
             {
-                id = Integer.parseInt(request.getParameter("id"));
+                //id = Integer.parseInt(request.getParameter("id"));
+                prodTitle = request.getParameter("title");
+                int index = Integer.parseInt(request.getParameter("index"));
                 
-                String query = "SELECT * FROM products where id="+id;
+                products.remove(index);
+                /*
+                if(index <= 0 || "0".equals(zero)){
+                    products.remove(0);
+                }
+                else{
+                    products.remove(index);
+                }*/
                 
-                try {
-                        Class.forName(driver); //2. load and register the driver
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                        Connection con = null;
-                    try {
-                        con = DriverManager.getConnection(url, userNameDB, password); //3. establish the connection
-                    } catch (SQLException ex) {
-                        Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                        Statement st = null;
-                    try {
-                        st = con.createStatement(); //4. create the statement
-                    } catch (SQLException ex) {
-                        Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    try {
-                        ResultSet rs = st.executeQuery(query); //5.execute the query
-                        while(rs.next()){
-                            id = rs.getInt(1);
-                            prodTitle = rs.getString(2);
-                            prodPrice = rs.getDouble(4);
-                            prodImage = rs.getString(6);
-
-                            products.remove(new Products(id, prodTitle, prodPrice, prodImage));
-                        }
-
-                        session.setAttribute("wishlist", products);
-                        out.println("Product has been removed from your wishlist!");
-                        RequestDispatcher rd= request.getRequestDispatcher("wishlist.jsp");
-                        rd.include(request, response);
-
-                    } catch (SQLException ex) {
-                        Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                session.setAttribute("wishlist", products);
+                out.println(prodTitle + " has been removed from your wishlist!");
+                RequestDispatcher rd= request.getRequestDispatcher("wishlist.jsp");
+                rd.include(request, response);
+               
+            }else if (output.equals("RESET"))
+            {
+                session.removeAttribute("wishlist");
                 
+                out.println("ALL products have been removed from your wishlist!");
+                RequestDispatcher rd= request.getRequestDispatcher("wishlist.jsp");
+                rd.include(request, response);
             }
     }
 

@@ -63,7 +63,7 @@
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
                                             <li><a href="">Transaction History </a></li>
-                                            <li><a href="">Wishlist</a></li>
+                                            <li><a href="wishlist.jsp">Wishlist</a></li>
                                             <li><a href="">Renting Cart</a></li>
                                             <li><a href="feedbackcust.jsp">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
@@ -105,7 +105,7 @@
     
     
     <!-- Content start here -->
-    <div class="team-area pt-95 pb-70">
+    <div class="team-area pt-50 pb-0">
         <div class="container">
             <div class="section-title text-center pb-60">
                 <h2>Customer Feedbacks</h2>
