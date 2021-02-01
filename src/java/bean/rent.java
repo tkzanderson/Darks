@@ -16,8 +16,8 @@ public class rent {
     private int quantity, userID, prodID, id;
     private double price, totalprice;
     private String prodImage, prodTitle, size, status, username;
-    private Date startdate= new Date();
-    private Date enddate= new Date();
+    private String startdate;
+    private String enddate;
 
     public rent() {
     }
@@ -64,19 +64,19 @@ public class rent {
     
     
 
-    public Date getStartdate() {
+    public String getStartdate() {
         return startdate;
     }
 
-    public Date getEnddate() {
+    public String getEnddate() {
         return enddate;
     }
 
-    public void setStartdate(Date startdate) {
+    public void setStartdate(String startdate) {
         this.startdate = startdate;
     }
 
-    public void setEnddate(Date enddate) {
+    public void setEnddate(String enddate) {
         this.enddate = enddate;
     }
 

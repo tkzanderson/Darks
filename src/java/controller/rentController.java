@@ -54,6 +54,7 @@ public class rentController extends HttpServlet {
         int id = parseInt(request.getParameter("action"));
         int prodid;
         int userid;
+        String startdate, enddate;
         String option=request.getParameter("option");
         ArrayList<rent> rentAL = new ArrayList<rent>();
         
@@ -140,8 +141,8 @@ public class rentController extends HttpServlet {
             con3.close();
             userid = users.getId();
 
-            String startdate = request.getParameter("from");
-            String enddate = request.getParameter("to"); 
+            startdate = request.getParameter("from");
+            enddate = request.getParameter("to"); 
             pst.setDouble(1, total);
             pst.setInt(2, id);
             
@@ -151,11 +152,10 @@ public class rentController extends HttpServlet {
             
             pst.setString(5, status);
             
-           pst.setString(6, startdate);
+           pst.setString(7, startdate);
            
-            pst.setString(7, enddate);
-            
-            pst.setString(8, "PENDING");
+            pst.setString(8, enddate);
+           
             
             pst.setInt(9, quantity);
             
@@ -218,9 +218,9 @@ public class rentController extends HttpServlet {
                  prodid=rs3.getInt(3);
                  status=rs3.getString(6);
                  
-                 //startdate = rs3.getString(6);
-                 //enddate = rs3.getString(7);
-                 quantity = rs3.getInt(10);
+                 startdate = rs3.getString(7);
+                 enddate = rs3.getString(8);
+                 quantity = rs3.getInt(9);
                  
                  pst4.setInt(1,prodid);
                  
@@ -279,9 +279,9 @@ public class rentController extends HttpServlet {
                  prodid=rs5.getInt(3);
                  status=rs5.getString(6);
                  
-                 //startdate = rs3.getString(6);
-                 //enddate = rs3.getString(7);
-                 quantity = rs5.getInt(10);
+                 startdate = rs5.getString(7);
+                 enddate = rs5.getString(8);
+                 quantity = rs5.getInt(9);
                  
                  pst4.setInt(1,prodid);
                  
@@ -299,8 +299,8 @@ public class rentController extends HttpServlet {
                 rent.setProdTitle(products.getProdTitle());
                 rent.setProdImage(products.getProdImage());
                 rent.setSize(size);
-                //rent.setStartdate(startdate);
-                //rent.setEnddate(enddate);
+                rent.setStartdate(startdate);
+                rent.setEnddate(enddate);
                 
                 rent.setStatus(status);
                 rent.setQuantity(quantity);
