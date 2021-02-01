@@ -17,6 +17,10 @@ public class Payment implements Serializable{
     String filename, path;
     Timestamp paidDate;
 
+    public Payment(Timestamp paidDate) {
+        this.paidDate = paidDate;
+    }
+
     public int getRentID() {
         return rentID;
     }

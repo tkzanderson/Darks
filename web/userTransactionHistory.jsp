@@ -4,6 +4,7 @@
     Author     : user
 --%>
 
+<%@page import="bean.rent"%>
 <%@page import="bean.Products"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="bean.Payment"%>
@@ -18,7 +19,7 @@
  
  <%  ArrayList payment= (ArrayList) session.getAttribute("payment"); %>
  <%  ArrayList product= (ArrayList) session.getAttribute("products"); %>
-  <%  ArrayList paymentDate= (ArrayList) session.getAttribute("paymentDate"); %>
+ <%  ArrayList renting= (ArrayList) session.getAttribute("renting"); %>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -138,23 +139,23 @@
                       <th>Quantity</th>
                 </tr>    
                
-                 <% if (payment != null && (payment.size() > 0)) { 
+                 <% if (renting != null && (renting.size() > 0)) { 
                        for (int i=0; i < payment.size();i++){
                       Payment payments = (Payment) payment.get(i);
                        Products products = (Products) product.get(i);
-                        Payment paydates = (Payment) paymentDate.get(i);
+                        rent rentings = (rent) renting.get(i);
                  %>
                    <tr style="background-color: cornsilk">
                     <td><%= i+1 %></td>
-                    <td><%= payments.getTotal() %></td>
+                    <td><%= rentings.getTotalprice() %></td>
                     <td><%= products.getProdTitle() %></td>
                     <td><%= products.getProdDescription() %></td>
                     <td><%= products.getProdType() %></td>
                     
                    
-                    <td><%= payments.getSize() %></td>
-                   <td><%= paydates.getPaidDate() %></td>
-                    <td><%= payments.getQuantity() %></td>
+                    <td><%= rentings.getSize() %></td>
+                   <td><%= payments.getPaidDate() %></td>
+                    <td><%= rentings.getQuantity() %></td>
                      </tr>
                        <%}%>
                

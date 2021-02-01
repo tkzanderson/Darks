@@ -34,6 +34,17 @@ public class rent {
         this.size = size;
     }
 
+    public rent(int quantity, int userID, int id, double totalprice, String size, String status, String startdate, String enddate) {
+        this.quantity = quantity;
+        this.userID = userID;
+        this.id = id;
+        this.totalprice = totalprice;
+        this.size = size;
+        this.status = status;
+        this.startdate = startdate;
+        this.enddate = enddate;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
