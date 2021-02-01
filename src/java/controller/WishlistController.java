@@ -209,9 +209,7 @@ public class WishlistController extends HttpServlet {
                 prodTitle = request.getParameter("title");
                 int index = Integer.parseInt(request.getParameter("index"));
                 
-                Products prod = (Products) products.remove(index);
-                //products.remove(index);
-                
+                products.remove(index);
                 /*
                 if(index <= 0 || "0".equals(zero)){
                     products.remove(0);
@@ -225,6 +223,13 @@ public class WishlistController extends HttpServlet {
                 RequestDispatcher rd= request.getRequestDispatcher("wishlist.jsp");
                 rd.include(request, response);
                
+            }else if (output.equals("RESET"))
+            {
+                session.removeAttribute("wishlist");
+                
+                out.println("ALL products have been removed from your wishlist!");
+                RequestDispatcher rd= request.getRequestDispatcher("wishlist.jsp");
+                rd.include(request, response);
             }
     }
 

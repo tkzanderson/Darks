@@ -112,30 +112,28 @@
     
     
     <!-- Content start here -->
-    <div class="breadcrumb-area pt-35 pb-35 bg-gray">
+    
+<% if (products != null && (products.size() > 0)) { %>
+<div class="team-area pt-15 pb-0">
         <div class="container">
-            <div class="breadcrumb-content text-center">
-                <ul>
-                    <li>
-                        <a href="userIndex.jsp">Home</a>
-                    </li>
-                    <li class="active">wishlist </li>
-                </ul>
+            <div class="section-title text-center pb-60"> 
+                <form name="resetwish" action="WishlistController" method="POST">
+                    <input  type="hidden" name="output" value="RESET">
+                    <input  type="submit" class="btn btn-outline-danger" value="Clear Wishlist">
+                </form>
             </div>
         </div>
     </div>
-    
-<% if (products != null && (products.size() > 0)) { %>
-    <div class="cart-main-area pt-95 pb-100">
+    <div class="cart-main-area pt-0 pb-100">
         <div class="container">
             <h3 class="cart-page-title">Your Wishlist</h3>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12 align-self-center">
-                    <form action="#">
                         <div class="table-content table-responsive cart-table-content">
                             <table>
                                 <thead>
                                     <tr>
+                                        <th>Product ID</th>
                                         <th>Image</th>
                                         <th>Product Name</th>
                                         <th>Subtotal</th>
@@ -149,10 +147,11 @@
                                        {
                                            Products prod = (Products) products.get(index); %>
                                     <tr>
+                                        <td class="product-subtotal"><%= prod.getId() %></td>
                                         <td class="product-thumbnail">
-                                            <img src="<%= prod.getProdImage() %>" alt="<%= index %>"></a>
+                                            <img src="<%= prod.getProdImage() %>" alt="Image <%= index %>">
                                         </td>
-                                        <td class="product-name"><a href="#"><%= prod.getProdTitle() %></a></td>
+                                        <td class="product-name"><%= prod.getProdTitle() %></td>
                                         
                                         <td class="product-subtotal">RM<%= prod.getProdPrice() %></td>
                                         
@@ -175,7 +174,6 @@
                                 </tbody>
                             </table>
                         </div>
-                    </form>
                 </div>
             </div>
         </div>
