@@ -155,13 +155,15 @@
                                         <td class="product-name"><a href="#"><%= prod.getProdTitle() %></a></td>
                                         
                                         <td class="product-subtotal">RM<%= prod.getProdPrice() %></td>
+                                        
                                         <td class="product-wishlist-cart">
                                             <form   name="delwish" action="WishlistController" method="POST">
-                                            <input  type="hidden" name="output" value="REMOVE">
-                                            <input  type="hidden" name="id" value="<%= prod.getId() %>">
-                                            <input  type="submit" class="btn btn-outline-danger" name="option" value="Remove">
+                                            <input  type="hidden" name="title" value="<%= prod.getProdTitle() %>">
+                                            <input  type="hidden" name="index" value="<%= index %>">
+                                            <input  type="submit" class="btn btn-outline-danger" name="output" value="Remove">
                                             </form>
                                        </td>
+                                       
                                         <td class="product-wishlist-cart">
                                             <form   name="rent" action="rentController" method="POST">
                                             <input  type="hidden" name="action" value="<%= prod.getId() %>">
