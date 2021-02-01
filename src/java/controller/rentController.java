@@ -238,8 +238,8 @@ public class rentController extends HttpServlet {
                 rent.setProdTitle(products.getProdTitle());
                 rent.setProdImage(products.getProdImage());
                 rent.setSize(size);
-                //rent.setStartdate(startdate);
-                //rent.setEnddate(enddate);
+                rent.setStartdate(startdate);
+                rent.setEnddate(enddate);
                 
                 rent.setStatus(status);
                 rent.setQuantity(quantity);

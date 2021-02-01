@@ -142,7 +142,7 @@
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Status</th>
-                                <th colspan="1">Action</th>
+                                <th colspan="2">Action</th>
                             </tr>
                             <% 
                                  for (int index=0; index < rentAL.size();index++){
@@ -155,23 +155,67 @@
                                         <td><%= rent.getStartdate() %></td>
                                         <td><%= rent.getEnddate() %></td>
                                         <td><%= rent.getStatus() %></td>
-                                        <td>
+                                       
                                             <% if(rent.getStatus().equals("REJECTED")){ %>
-                                             <form name="checkoutForm" >
-                                                 <input type="submit" value="Remove" class="btn btn-danger" disabled>
-                                            </form>
-                                                    <%} %>    
+                                        <td>
+                                            <form name="checkoutForm" action="#" method="#">
+                                            <input type="submit" value="Checkout" class="btn" disabled/>
+                                             </form>
                                         </td>
+                                        <td>
+                                             <form name="checkoutForm" >
+                                                 <input type="submit" value="Remove" class="btn btn-danger">
+                                            </form>
+                                        </td>
+                                        <%}    
+                                        
+                                        else if(rent.getStatus().equals("APPROVED")){%>
+                                        <td>
+                                            <form name="checkoutForm" action="#" method="#">
+                                            <input type="submit" value="Checkout" class="btn btn-primary"/>
+                                             </form>
+                                        </td>
+                                        <td>
+                                             <form name="checkoutForm" >
+                                                 <input type="submit" value="Remove" class="btn" disabled>
+                                            </form>
+                                        </td>
+                                        <%}
+                                            else if(rent.getStatus().equals("PENDING")){
+                                        %>
+                                        <td>
+                                            <form name="checkoutForm" action="#" method="#">
+                                            <input type="submit" value="Checkout" class="btn" disabled/>
+                                             </form>
+                                        </td>
+                                        <td>
+                                             <form name="checkoutForm" >
+                                                 <input type="submit" value="Remove" class="btn btn-danger">
+                                            </form>
+                                        </td> 
+                                        <%}
+                                            else{
+                                        %>
+                                        <td>
+                                            <form name="checkoutForm" action="#" method="#">
+                                            <input type="submit" value="Checkout" class="btn" disabled/>
+                                             </form>
+                                        </td>
+                                        <td>
+                                             <form name="checkoutForm" >
+                                                 <input type="submit" value="Remove" class="btn" disabled>
+                                            </form>
+                                        </td> 
                                     </tr>
-                                     <% } 
-                                                         } 
-                else { %>
+                                     <% }  
+                                                         }
+                                }
+
+                            else { %>
                                  <center><b><p>No Rent Made yet</b></center>
                     <% } %>
                        </table>
-                       <form name="checkoutForm" action="#" method="#">
-                        <input type="submit" value="Checkout" class="btn btn-primary"/>
-                         </form>
+                       
                         
                         
                         
