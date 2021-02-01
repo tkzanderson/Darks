@@ -52,6 +52,10 @@
         <servlet-name>WishlistController</servlet-name>
         <servlet-class>controller.WishlistController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>transactionController</servlet-name>
+        <servlet-class>controller.transactionController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/RegisterController</url-pattern>
@@ -103,6 +107,10 @@
     <servlet-mapping>
         <servlet-name>WishlistController</servlet-name>
         <url-pattern>/WishlistController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>transactionController</servlet-name>
+        <url-pattern>/transactionController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

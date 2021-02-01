@@ -46,6 +46,12 @@ public class Products implements Serializable{
         this.prodImage = prodImage;
         this.activate = activate;
     }
+
+    public Products(String prodTitle, String prodDescription, String prodType) {
+        this.prodTitle = prodTitle;
+        this.prodDescription = prodDescription;
+        this.prodType = prodType;
+    }
     
      public Products(String prodTitle, String prodDescription, String prodType, double prodPrice, int id, String prodImage, int activate, double promotionPrice, int promotionStatus) {
         this.prodTitle = prodTitle;
@@ -76,8 +82,18 @@ public class Products implements Serializable{
     }
 
     public Products() {
+        prodTitle = "";
+        prodImage = "";
+        prodPrice = 0;
     }
 
+    public Products(int id, String prodTitle, double prodPrice, String prodImage) {
+        this.id = id;
+        this.prodTitle = prodTitle;
+        this.prodPrice = prodPrice;
+        this.prodImage = prodImage;
+    }
+    
     public String getProdTitle() {
         return prodTitle;
     }

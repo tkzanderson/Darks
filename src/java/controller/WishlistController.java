@@ -8,8 +8,16 @@ package controller;
 import bean.Products;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Integer.parseInt;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
-import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -66,13 +74,13 @@ public class WishlistController extends HttpServlet {
         PrintWriter out = response.getWriter();
         response.setContentType("text/html");
 
-        Vector wish = (Vector) session.getAttribute("wishlist");
+        ArrayList products= (ArrayList) session.getAttribute("wishlist");
 
         String action = request.getParameter("action");
         if (action.equals("VIEW"))
         {
             request.setAttribute("output", "VIEW");
-            session.setAttribute("wishlist", wish);
+            session.setAttribute("wishlist", products);
               
             RequestDispatcher rd= request.getRequestDispatcher("wishlist.jsp");
             rd.forward(request, response);
@@ -95,50 +103,149 @@ public class WishlistController extends HttpServlet {
             response.setContentType("text/html");
 
             HttpSession session = request.getSession(true);
-            String action = request.getParameter("action");
-
-            Vector wish = (Vector)session.getAttribute("wishlist");
-
-            boolean match = false;
+            ArrayList products= (ArrayList) session.getAttribute("wishlist");
+            String output = request.getParameter("output");
             
-            if (action.equals("ADD"))
+            String driver = "com.mysql.jdbc.Driver";
+            String dbName = "darks";
+            String url = "jdbc:mysql://localhost/" + dbName + "?";
+            String userNameDB = "root";
+            String password = "";
+            String prodTitle, prodImage;
+            double prodPrice;
+            int id;
+            
+            if (output.equals("ADD"))
             {
-        	Products p = getProducts(request);
-        	if (wish == null)
-        	{
-                    //add first product to the wishlist
-                    wish = new Vector();
-                    wish.addElement(p);
-        	}
-        	else
-        	{
-                    for(int i=0; i<wish.size(); i++)
-                    {
-                        Products pro = (Products)wish.elementAt(i);
-                        
-                        if (pro.getProdTitle().equals(p.getProdTitle()))
-			{
-                            
-                            wish.setElementAt(pro, i);
-                            match = true;
-			}
+                id = Integer.parseInt(request.getParameter("id"));
+                
+                String query = "SELECT * FROM products where id="+id;
+                
+                if(products != null && (products.size() > 0)){
+                        try {
+                        Class.forName(driver); //2. load and register the driver
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    if (!match)
-                        wish.addElement(p);
-		}
-                
-		session.setAttribute("wishlist", wish);
-                request.setAttribute("p", p);
-                RequestDispatcher rd= request.getRequestDispatcher("wishlist.jsp");
-                rd.forward(request, response);
+                        Connection con = null;
+                    try {
+                        con = DriverManager.getConnection(url, userNameDB, password); //3. establish the connection
+                    } catch (SQLException ex) {
+                        Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
-            }else if (action.equals("REMOVE"))
-            {
-		
-                RequestDispatcher rd= request.getRequestDispatcher("wishlist.jsp");
-                rd.forward(request, response);
+                        Statement st = null;
+                    try {
+                        st = con.createStatement(); //4. create the statement
+                    } catch (SQLException ex) {
+                        Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        ResultSet rs = st.executeQuery(query); //5.execute the query
+                        
+                        
+                        while(rs.next()){
+                            id = rs.getInt(1);
+                            prodTitle = rs.getString(2);
+                            prodPrice = rs.getDouble(4);
+                            prodImage = rs.getString(6);
+
+                            products.add(new Products(id, prodTitle, prodPrice, prodImage));
+                        }
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    session.setAttribute("wishlist", products);
+                    out.println("Product has been added to your wishlist!");
+                    RequestDispatcher rd= request.getRequestDispatcher("wishlist.jsp");
+                    rd.include(request, response);
+                }else{
+                    ArrayList<Products> wishlist = new ArrayList<Products>();
+    
+                    try {
+                        Class.forName(driver); //2. load and register the driver
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                        Connection con = null;
+                    try {
+                        con = DriverManager.getConnection(url, userNameDB, password); //3. establish the connection
+                    } catch (SQLException ex) {
+                        Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                        Statement st = null;
+                    try {
+                        st = con.createStatement(); //4. create the statement
+                    } catch (SQLException ex) {
+                        Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        ResultSet rs = st.executeQuery(query); //5.execute the query
+                        while(rs.next()){
+                            id = rs.getInt(1);
+                            prodTitle = rs.getString(2);
+                            prodPrice = rs.getDouble(4);
+                            prodImage = rs.getString(6);
+
+                            wishlist.add(new Products(id, prodTitle, prodPrice, prodImage));
+                        }
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                        session.setAttribute("wishlist", wishlist);
+                        out.println("Product has been added to your wishlist!");
+                        RequestDispatcher rd= request.getRequestDispatcher("wishlist.jsp");
+                        rd.include(request, response);
+                }
                 
-		
+            }else if (output.equals("REMOVE"))
+            {
+                id = Integer.parseInt(request.getParameter("id"));
+                
+                String query = "SELECT * FROM products where id="+id;
+                
+                try {
+                        Class.forName(driver); //2. load and register the driver
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                        Connection con = null;
+                    try {
+                        con = DriverManager.getConnection(url, userNameDB, password); //3. establish the connection
+                    } catch (SQLException ex) {
+                        Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                        Statement st = null;
+                    try {
+                        st = con.createStatement(); //4. create the statement
+                    } catch (SQLException ex) {
+                        Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        ResultSet rs = st.executeQuery(query); //5.execute the query
+                        while(rs.next()){
+                            id = rs.getInt(1);
+                            prodTitle = rs.getString(2);
+                            prodPrice = rs.getDouble(4);
+                            prodImage = rs.getString(6);
+
+                            products.remove(new Products(id, prodTitle, prodPrice, prodImage));
+                        }
+
+                        session.setAttribute("wishlist", products);
+                        out.println("Product has been removed from your wishlist!");
+                        RequestDispatcher rd= request.getRequestDispatcher("wishlist.jsp");
+                        rd.include(request, response);
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(WishlistController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                
             }
     }
 
@@ -148,20 +255,4 @@ public class WishlistController extends HttpServlet {
      * @return a String containing servlet description
      */
     
-    //Constructor for bean
-    Products getProducts(HttpServletRequest request)
-  	{
-            String title = request.getParameter("prodTitle");
-            String image = request.getParameter("prodImage");
-            double price = Double.parseDouble(request.getParameter("prodPrice"));
-            
-            Products products = new Products();
-            products.setProdTitle(title);
-            products.setProdImage(image);
-            products.setProdPrice((new Double(price)).floatValue());
-            
-            return products;
-  	}
-
-
 }
