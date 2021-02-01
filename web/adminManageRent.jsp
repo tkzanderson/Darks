@@ -141,7 +141,7 @@
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Status</th>
-                                <th colspan="2">Action</th>
+                                <th colspan="3">Action</th>
                             </tr>
                             <% 
                                  for (int index=0; index < rentAL.size();index++){
@@ -156,28 +156,57 @@
                                         <td><%= rent.getStatus() %></td>
                                         <td>
                                             <% if(rent.getStatus().equals("PENDING")){ %>
-                                             <form name="approveForm" >
-                                                 <input type="submit" value="APPROVE" class="btn btn-info" disabled>
+                                             <form name="approveForm" action="rentController">
+                                                 <input type="hidden" name="option" value="approve" class="btn btn-info">
+                                                 <input type="submit" value="APPROVE" class="btn btn-info">
                                             </form>
                                         </td>
                                         <td>
-                                             <form name="rejectForm" >
-                                                 <input type="submit" value="REJECT" class="btn btn-danger" disabled>
+                                             <form name="rejectForm" action="rentController">
+                                                 <input type="hidden" name="option" value="reject" class="btn btn-info">
+                                                 <input type="submit" value="REJECT" class="btn btn-danger">
                                             </form>
                                         </td>
                                                     <%}
                                             else if (rent.getStatus().equals("APPROVE")){%>
                                             <td>
-                                            <form name="rejectForm" >
-                                                 <input type="submit" value="REJECT" class="btn btn-danger" disabled>
+                                            <form name="rejectForm" action="rentController">
+                                                <input type="hidden" name="option" value="reject" class="btn btn-info">
+                                                 <input type="submit" value="REJECT" class="btn btn-danger">
                                             </form>
                                             </td>
                                             <%}
                                             else if(rent.getStatus().equals("REJECTED"))
                                             {%>
                                             <td>
-                                            <form name="checkoutForm" >
-                                                 <input type="submit" value="APPROVE" class="btn btn-info" disabled>
+                                            <form name="checkoutForm" action="rentController">
+                                                <input type="hidden" name="option" value="approve" class="btn btn-info">
+                                                 <input type="submit" value="APPROVE" class="btn btn-info">
+                                            </form>
+                                                </td>
+                                                
+                                                <td>
+                                            <form name="checkoutForm" action="rentController">
+                                                <input type="hidden" name="option" value="remove" class="btn btn-info">
+                                                 <input type="submit" value="REMOVE" class="btn btn-danger">
+                                            </form>
+                                                </td>
+                                            <%}
+                                            else if(rent.getStatus().equals("PAID"))
+                                            {%>
+                                            <td>
+                                            <form name="checkoutForm" action="rentController">
+                                                <input type="hidden" name="option" value="remove" class="btn btn-info">
+                                                 <input type="submit" value="RETURN" class="btn btn-info">
+                                            </form>
+                                                </td>
+                                            <%}
+                                            else if(rent.getStatus().equals("COMPLETED"))
+                                            {%>
+                                            <td>
+                                            <form name="checkoutForm" action="rentController">
+                                                <input type="hidden" name="option" value="remove" class="btn btn-info">
+                                                 <input type="submit" value="REMOVE" class="btn btn-info">
                                             </form>
                                                 </td>
                                             <%}%>
