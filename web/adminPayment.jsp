@@ -1,23 +1,19 @@
 <%-- 
-    Document   : ManageRent
-    Created on : Jan 16, 2021, 10:30:25 PM
-    Author     : Anderson
+    Document   : adminPayment
+    Created on : Jan 30, 2021, 9:55:16 PM
+    Author     : janic
 --%>
 
-
 <%@page import="bean.User"%>
-<%@page import="bean.rent"%>
-<%@page import="bean.Products"%>
+<%@page import="bean.Payment"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 
 <%
-    ArrayList rentAL= (ArrayList) session.getAttribute("rent");
-    User users = (User) session.getAttribute("User");
+    ArrayList payments= (ArrayList) session.getAttribute("payments");
+    User users = (User) session.getAttribute("users");
 %>  
-
-
-<!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
 <head>
@@ -132,99 +128,35 @@
     
     
     <!-- Content start here -->
-    <% if (rentAL != null && (rentAL.size() > 0)) { %>
+   
+    <br>
     <div class="container" style="item-align: center" >
         
                         <table>
                             <tr>
                                 <th>No</th>
-                                <th>Product Name</th>
-                                <th>Quantity</th>
-                                <th>Total Price</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>Status</th>
-                                <th colspan="2">Action</th>
+                                <th>Filename</th>
+                                <th>UserName</th>
+                                <th>View File</th>
+                                <th>Payment Date</th>
                             </tr>
                             <% 
-                                 for (int index=0; index < rentAL.size();index++){
-                                    rent rent= (rent) rentAL.get(index); %>
-                                    <tr>
-                                        <td><%= index+1 %></td>
-                                        <td><%= rent.getProdTitle() %></td>
-                                        <td><%= rent.getQuantity() %></td>
-                                        <td><%= rent.getPrice() %></td>
-                                        <td><%= rent.getStartdate() %></td>
-                                        <td><%= rent.getEnddate() %></td>
-                                        <td><%= rent.getStatus() %></td>
-                                       
-                                            <% if(rent.getStatus().equals("REJECTED")){ %>
-                                        <td>
-                                            <form name="checkoutForm" action="#" method="#">
-                                            <input type="submit" value="Checkout" class="btn" disabled/>
-                                             </form>
-                                        </td>
-                                        <td>
-                                             <form name="checkoutForm" >
-                                                 <input type="submit" value="Remove" class="btn btn-danger">
-                                            </form>
-                                        </td>
-                                        <%}    
-                                        
-                                        else if(rent.getStatus().equals("APPROVED")){%>
-                                        <td>
-                                            <form name="checkoutForm" action="PaymentServlet" method="POST">
-                                                <input type="hidden" name="userID" value="<%= users.getId() %>">
-                                                <input type="hidden" name="rentID" value="<%= rent.getId() %>">
-                                            <input type="submit" value="Checkout" class="btn btn-primary"/>
-                                             </form>
-                                        </td>
-                                        <td>
-                                             <form name="checkoutForm" >
-                                                 <input type="submit" value="Remove" class="btn" disabled>
-                                            </form>
-                                        </td>
-                                        <%}
-                                            else if(rent.getStatus().equals("PENDING")){
-                                        %>
-                                        <td>
-                                            <form name="checkoutForm" action="#" method="#">
-                                            <input type="submit" value="Checkout" class="btn" disabled/>
-                                             </form>
-                                        </td>
-                                        <td>
-                                             <form name="checkoutForm" >
-                                                 <input type="submit" value="Remove" class="btn btn-danger">
-                                            </form>
-                                        </td> 
-                                        <%}
-                                            else{
-                                        %>
-                                        <td>
-                                            <form name="checkoutForm" action="#" method="#">
-                                            <input type="submit" value="Checkout" class="btn" disabled/>
-                                             </form>
-                                        </td>
-                                        <td>
-                                             <form name="checkoutForm" >
-                                                 <input type="submit" value="Remove" class="btn" disabled>
-                                            </form>
-                                        </td> 
-                                    </tr>
-                                     <% }  
-                                                         }
-                                }
-
-                            else { %>
-                                 <center><b><p>No Rent Made yet</b></center>
-                    <% } %>
+                                 for (int index=0; index < payments.size();index++){
+                                    Payment pay = (Payment) payments.get(index); %>
+                              <tr>
+                                        <td><%= pay.getId() %></td>
+                                        <td><%= pay.getFilename() %></td>
+                                        <td><%= users.getUserName() %></td>
+                                        <td><a href="DownloadPayment?fileName=<%=pay.getFilename() %>"><%= pay.getFilename() %></a>
+                                        <td><%= pay.getPaidDate() %> </td>
+                              </tr>
+                                            <% } %>
                        </table>
-                       
                         
                         
                         
     </div>
-                                                       
+</body>                                               
                  
       
                 

@@ -142,6 +142,7 @@
                                 <th>End Date</th>
                                 <th>Status</th>
                                 <th colspan="4">Action</th>
+                                <th>Payment Details</th>
                             </tr>
                             <% 
                                  for (int index=0; index < rentAL.size();index++){
@@ -311,8 +312,25 @@
                                                 </td>
                                             <%}%>
                                         
-                                    </tr>
-                                     <% } 
+                                    
+                                    <% if(rent.getStatus().equals("PAID")) { %>
+                                        <td>
+                                    <form name="displayPayment" action="DisplayPaymentServlet" method="POST">
+                                        <input type="hidden" name="rentID" value="<%= rent.getId() %>">
+                                        <input type="hidden" name="userID" value="<%= rent.getUserID() %>">
+                                        <input type="submit" value="View" class="btn btn-info">
+                                    </form>
+                                        </td>
+                                        <% } 
+                                        else { %>
+                                        <td>
+                                            
+                                        </td>
+                                        <% } %>
+                                        </tr>
+                                        <%
+                                         
+}
                                                          } 
                 else { %>
                                  <center><b><p>No Rent Made yet</b></center>

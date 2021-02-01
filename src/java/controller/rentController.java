@@ -301,7 +301,7 @@ public class rentController extends HttpServlet {
                 rent.setSize(size);
                 rent.setStartdate(startdate);
                 rent.setEnddate(enddate);
-                
+                rent.setUserID(rs5.getInt(5));
                 rent.setStatus(status);
                 rent.setQuantity(quantity);
                 rentAL.add(rent);

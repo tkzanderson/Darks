@@ -12,55 +12,23 @@ import java.sql.Timestamp;
  *
  * @author user
  */
-public class Payment  implements Serializable{
-        private int id;
+public class Payment implements Serializable{
+    int id, userID, rentID;
+    String filename, path;
+    Timestamp paidDate;
 
-
-        private double  total;
-        private int productID;
-        private String size;
-        private int userID;
-        private String status;
-        private String startDate;
-        private String endDate;
-        private String paymentStatus;
-        private Timestamp  paidDate;
-        private int quantity;
-    public Payment(double total, int productID, String size, int userID, String status, String startDate, String endDate, String paymentStatus, int quantity) {
-        this.total = total;
-        this.productID = productID;
-        this.size = size;
-        this.userID = userID;
-        this.status = status;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.paymentStatus = paymentStatus;
-        this.quantity = quantity;
-        
+    public int getRentID() {
+        return rentID;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public void setRentID(int rentID) {
+        this.rentID = rentID;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public Payment() {
     }
 
-    public Payment(Timestamp  paidDate) {
-        this.paidDate = paidDate;
-    }
-
-  
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-    
-        public Timestamp getPaidDate() {
+    public Timestamp getPaidDate() {
         return paidDate;
     }
 
@@ -68,28 +36,28 @@ public class Payment  implements Serializable{
         this.paidDate = paidDate;
     }
 
-    public double getTotal() {
-        return total;
+    public Payment(int id, int userID, String filename, String path, Timestamp paidDate, int rentID) {
+        this.id = id;
+        this.userID = userID;
+        this.filename = filename;
+        this.path = path;
+        this.paidDate = paidDate;
+        this.rentID = rentID;
     }
 
-    public void setTotal(double total) {
-        this.total = total;
+    public Payment(int id, int userID, String filename, String path) {
+        this.id = id;
+        this.userID = userID;
+        this.filename = filename;
+        this.path = path;
     }
 
-    public int getProductID() {
-        return productID;
+    public int getId() {
+        return id;
     }
 
-    public void setProductID(int productID) {
-        this.productID = productID;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getUserID() {
@@ -100,38 +68,19 @@ public class Payment  implements Serializable{
         this.userID = userID;
     }
 
-    public String getStatus() {
-        return status;
+    public String getFilename() {
+        return filename;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
-    public String getStartDate() {
-        return startDate;
+    public String getPath() {
+        return path;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
-    public String getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    public void setPaymentStatus(String paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
-
-    public Payment() {
-    }
+    public void setPath(String path) {
+        this.path = path;
+    } 
 }

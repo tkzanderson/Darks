@@ -56,6 +56,22 @@
         <servlet-name>transactionController</servlet-name>
         <servlet-class>controller.transactionController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PaymentServlet</servlet-name>
+        <servlet-class>controller.PaymentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentProofServlet</servlet-name>
+        <servlet-class>controller.PaymentProofServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DisplayPaymentServlet</servlet-name>
+        <servlet-class>controller.DisplayPaymentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DownloadPayment</servlet-name>
+        <servlet-class>controller.DownloadPayment</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/RegisterController</url-pattern>
@@ -111,6 +127,22 @@
     <servlet-mapping>
         <servlet-name>transactionController</servlet-name>
         <url-pattern>/transactionController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentServlet</servlet-name>
+        <url-pattern>/PaymentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentProofServlet</servlet-name>
+        <url-pattern>/PaymentProofServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DisplayPaymentServlet</servlet-name>
+        <url-pattern>/DisplayPaymentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DownloadPayment</servlet-name>
+        <url-pattern>/DownloadPayment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
