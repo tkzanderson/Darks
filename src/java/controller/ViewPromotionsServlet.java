@@ -6,6 +6,7 @@
 package controller;
 
 import bean.Products;
+import bean.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -67,7 +68,10 @@ public class ViewPromotionsServlet extends HttpServlet {
         ResultSet rs2 = st2.executeQuery(query2);
                              
                 if(action.equals("adminview")/*||action2.equals("adminview")*/){
-                    while(rs.next()){
+                    String username = request.getParameter("username");
+                    User users = new User();
+                    users.setUserName(username);
+                    while(rs.next()){    
                      id = rs.getInt(1);
                      prodTitle = rs.getString(2);
                      prodDescription = rs.getString(3);
@@ -80,11 +84,15 @@ public class ViewPromotionsServlet extends HttpServlet {
                 products.add(new Products(prodTitle, prodDescription, prodType, prodPrice, id,prodImage, activate, promotionPrice, promotionStatus)); }
                     
                 session.setAttribute("products", products);
+                session.setAttribute("users", users);
                     RequestDispatcher rd = request.getRequestDispatcher("/adminViewPromotions.jsp");
                     rd.forward(request, response);
                 }
                 
                 else if(action.equals("userview")){
+                    String username = request.getParameter("username");
+                    User users = new User();
+                    users.setUserName(username);
                     while(rs2.next()){
                      id = rs2.getInt(1);
                      prodTitle = rs2.getString(2);
@@ -97,6 +105,7 @@ public class ViewPromotionsServlet extends HttpServlet {
                      promotionStatus = rs2.getInt(9);
                      products.add(new Products(prodTitle, prodDescription, prodType, prodPrice, id,prodImage, activate, promotionPrice, promotionStatus)); }
                     session.setAttribute("products", products);
+                    session.setAttribute("users", users);
                     RequestDispatcher rd = request.getRequestDispatcher("/userViewPromotions.jsp");
                     rd.forward(request, response);
                 }

@@ -127,7 +127,7 @@
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-12">
                                                     <div class="shop-list-content">
-                                                        <h3><a href="product-details.html"><%= prod.getProdTitle() %></a></h3>
+                                                        <h3><a href="product-details.html"><%= prod.getProdTitle()%></a></h3>
                                                         <span><%= prod.getProdType() %></span>
                                                         <div class="shop-list-paragraph">
                                                         <p><%= prod.getProdDescription() %></p>
@@ -140,7 +140,10 @@
                                                         </div>
                                                         <div class="ht-product-list-action">
                                                             <a class="list-wishlist" title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                                                            <a class="list-cart" title="Rent" href="#" style="background-color: red; color: white"><i class="sli sli-basket-loaded"></i> Rent</a>
+                                                            <form   name="Rent" action="rentController" method="POST">
+                                                            <input  type="hidden" name="action" value="<%= prod.getId() %>">
+                                                            <input  type="submit" name="option" value="Rent" style="background-color: red; color: white">
+                                                            </form>
                                                             <a class="list-refresh" title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
                                                         </div>
                                                         

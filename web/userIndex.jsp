@@ -62,7 +62,10 @@
                                     </form></li>
                                     <li class="angle-shape">
                                     <form name="View" action="ViewPromotionsServlet" method="POST">
-                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Promotion"></form></li>
+                                    <input type="hidden" name="action" value="userview">
+                                    <input type="hidden" name="username" value="<%= user.getUserName() %>">
+                                    <input type="submit" value="Promotion">
+                                    </form></li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>

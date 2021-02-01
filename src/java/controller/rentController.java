@@ -72,7 +72,7 @@ public class rentController extends HttpServlet {
         String password = "";
         
         String query="SELECT * FROM products WHERE id="+id+"";
-        String query2 = "INSERT INTO rent(total, productID, size, userID, status, startDate, endDate, paymentStatus, quantity) VALUES(?,?,?,?,?,?,?,?,?)";
+        String query2 = "INSERT INTO rent(total, productID, size, userID, status, startDate, endDate, quantity) VALUES(?,?,?,?,?,?,?,?)";
         String query3="SELECT * FROM users WHERE userName=?";
         String query4="SELECT * FROM rent WHERE userID=?";
         String query5="SELECT * FROM products WHERE id=?";
@@ -152,12 +152,12 @@ public class rentController extends HttpServlet {
             
             pst.setString(5, status);
             
-           pst.setString(7, startdate);
+           pst.setString(6, startdate);
            
-            pst.setString(8, enddate);
+            pst.setString(7, enddate);
            
             
-            pst.setInt(9, quantity);
+            pst.setInt(8, quantity);
             
             pst.executeUpdate();  
               pst.close(); //step7 close connection
