@@ -11,6 +11,8 @@
 <%@page import="bean.Payment"%>
 <%@page import="bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%  ArrayList users= (ArrayList) session.getAttribute("users"); %>
  <%  ArrayList payment= (ArrayList) session.getAttribute("payment"); %>
  <%  ArrayList product= (ArrayList) session.getAttribute("products"); %>
  <%  ArrayList renting= (ArrayList) session.getAttribute("renting"); %>
@@ -143,118 +145,27 @@
                     </div>
                 </div>
                     
+       <br>
+
+ 
+                           
+                              
+                              <!--Table 3 for all the item that had been rent out-->
+                                 <div class="container">
+
+       <div class="card text-center">
+            <h5 class="card-title">List of dress and suit that had been rented</h5>
             <div>
             <table border="1" cellpadding="10" cellspacing="10" width="100%">
                 <tr style="background-color: peachpuff">
-                    <th>No.</th>
-                    <th>Price</th>
+                     <th>No.</th>
                     <th>Product Name</th>
                     <th>Product Description</th>
                     <th>Product Type</th>
                     <th>Size</th>
-                    <th>Payment Date</th>
                     <th>Quantity</th>
-                </tr>    
-               
-                 <% if (renting != null && (renting.size() > 0)) { 
-                       for (int i=0; i < renting.size();i++){
-                      Payment payments = (Payment) payment.get(i);
-                       Products products = (Products) product.get(i);
-                        rent rentings = (rent) renting.get(i);
-                 %>
-                   <tr style="background-color: cornsilk">
-                   <td><%= i+1 %></td>
-                    <td><%= rentings.getTotalprice() %></td>
-                    <td><%= products.getProdTitle() %></td>
-                    <td><%= products.getProdDescription() %></td>
-                    <td><%= products.getProdType() %></td>
-                   
-                     <td><%= rentings.getSize() %></td>
-                   <td><%= payments.getPaidDate() %></td>
-                   <td><%= rentings.getQuantity() %></td>
-                     </tr>
-                       <%}%>
-               
-                <%}else{%>
-                
-                        <div class="container">
-                    <div class="card-body">
-                    <div class="card text-center">
-                    <h5 class="card-title"></h5>
-                    <h5 class="card-title">Hi there</h5>
-                    <p class="card-text">Its look like you havent start renting any product yet</p>
-                        </div>
-                    </div>
-                </div>
-                             <%}%>
-
-            </table>
-            </div>
-                             
-                             
-                  <br>                          
-                             
-             <div>
-            <table border="1" cellpadding="10" cellspacing="10" width="100%">
-                <tr style="background-color: peachpuff">
-                    <th>No.</th>
-                    <th>Price</th>
-                    <th>Product Name</th>
-                    <th>Product Description</th>
-                    <th>Product Type</th>
-                    <th>Size</th>
+                    <th>Total Price</th>
                     <th>Payment Date</th>
-                    <th>Quantity</th>
-                </tr>    
-               
-                 <% if (renting1 != null && (renting1.size() > 0)) { 
-                       for (int i=0; i < renting1.size();i++){
-                     Payment payments1 = (Payment) payment1.get(i);
-                       Products products1 = (Products) product1.get(i);
-                        rent rentings1 = (rent) renting1.get(i);
-                 %>
-                   <tr style="background-color: cornsilk">
-                   <td><%= i+1 %></td>
-                    <td><%= rentings1.getTotalprice() %></td>
-                    <td><%= products1.getProdTitle() %></td>
-                    <td><%= products1.getProdDescription() %></td>
-                    <td><%= products1.getProdType() %></td>
-                   
-                     <td><%= rentings1.getSize() %></td>
-                  <td><%= payments1.getPaidDate() %></td>
-
-                   <td><%= rentings1.getQuantity() %></td>
-                     </tr>
-                       <%}%>
-               
-                <%}else{%>
-                
-                        <div class="container">
-                    <div class="card-body">
-                    <div class="card text-center">
-                    <h5 class="card-title"></h5>
-                    <h5 class="card-title">Hi there</h5>
-                    <p class="card-text">Its look like you havent start renting any product yet</p>
-                        </div>
-                    </div>
-                </div>
-                             <%}%>
-
-            </table>
-            </div>
-                             
-                             <br>               
-            <div>
-            <table border="1" cellpadding="10" cellspacing="10" width="100%">
-                <tr style="background-color: peachpuff">
-                    <th>No.</th>
-                    <th>Price</th>
-                    <th>Product Name</th>
-                    <th>Product Description</th>
-                    <th>Product Type</th>
-                    <th>Size</th>
-                    <th>Payment Date</th>
-                    <th>Quantity</th>
                 </tr>    
                
                  <% if (renting2 != null && (renting2.size() > 0)) { 
@@ -265,32 +176,139 @@
                  %>
                    <tr style="background-color: cornsilk">
                    <td><%= i+1 %></td>
-                    <td><%= rentings2.getTotalprice() %></td>
+                    
                     <td><%= products2.getProdTitle() %></td>
                     <td><%= products2.getProdDescription() %></td>
                     <td><%= products2.getProdType() %></td>
                    
                      <td><%= rentings2.getSize() %></td>
-                   <td><%= payments2.getPaidDate() %></td>
+
                    <td><%= rentings2.getQuantity() %></td>
+                   <td><%= rentings2.getTotalprice() %></td>
+                                      <td><%= payments2.getPaidDate() %></td>
                      </tr>
                        <%}%>
                
-                <%}else{%>
+                <%}%>
                 
-                        <div class="container">
-                    <div class="card-body">
-                    <div class="card text-center">
-                    <h5 class="card-title"></h5>
-                    <h5 class="card-title">Hi there</h5>
-                    <p class="card-text">Its look like you havent start renting any product yet</p>
-                        </div>
-                    </div>
-                </div>
-                             <%}%>
+                   
+                           
 
             </table>
             </div>
+                    </div>
+            
+                </div>
+                  <hr>
+                             <br>    
+                              <br> 
+                                     
+ <!--Table 1 for item that haven't been returned-->
+    <div class="container">
+
+       <div class="card text-center">
+            <h5 class="card-title">List of dress and suit that currently rented out</h5>
+       <div>        
+
+ <table border="1" cellpadding="10" cellspacing="10" width="100%">
+                <tr style="background-color: peachpuff">
+                    <th>No.</th>
+                    <th>Product Name</th>
+                    <th>Product Description</th>
+                    <th>Product Type</th>
+                    <th>Size</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Payment Date</th>
+                     <th>Customer Name</th>
+                </tr>    
+               
+                 <% if (renting != null && (renting.size() > 0)) { 
+                       for (int i=0; i < renting.size();i++){
+                      Payment payments = (Payment) payment.get(i);
+                       Products products = (Products) product.get(i);
+                        rent rentings = (rent) renting.get(i);
+                        User user = (User) users.get(i);
+                 %>
+                   <tr style="background-color: cornsilk">
+                   <td><%= i+1 %></td>
+                   
+                    <td><%= products.getProdTitle() %></td>
+                    <td><%= products.getProdDescription() %></td>
+                    <td><%= products.getProdType() %></td>
+                   
+                     <td><%= rentings.getSize() %></td>
+                   
+                   <td><%= rentings.getQuantity() %></td>
+                    <td><%= rentings.getTotalprice() %></td>
+                    <td><%= payments.getPaidDate() %></td>
+                     <td><%= user.getUserName() %></td>
+                     </tr>
+                       <%}%>
+               
+                <%}%>
+                
+                
+                             
+
+            </table>
+            </div>
+                     </div>
+            
+                </div>              
+                      <hr>         
+                  <br>               
+                   <br>  
+                            
+  <!--Table 2 for item that has been returned--> 
+     <div class="container">
+
+       <div class="card text-center">
+            <h5 class="card-title">List of dress and suit that have been returned</h5>
+             <div>
+            <table border="1" cellpadding="10" cellspacing="10" width="100%">
+                <tr style="background-color: peachpuff">
+                    <th>No.</th>
+                    <th>Product Name</th>
+                    <th>Product Description</th>
+                    <th>Product Type</th>
+                    <th>Size</th>
+                    <th>Quantity</th>
+                   <th>Total Price</th>
+                    <th>Payment Date</th>
+                </tr>    
+               
+                 <% if (renting1 != null && (renting1.size() > 0)) { 
+                       for (int i=0; i < renting1.size();i++){
+                     Payment payments1 = (Payment) payment1.get(i);
+                       Products products1 = (Products) product1.get(i);
+                        rent rentings1 = (rent) renting1.get(i);
+                 %>
+                   <tr style="background-color: cornsilk">
+                   <td><%= i+1 %></td>
+                   
+                    <td><%= products1.getProdTitle() %></td>
+                    <td><%= products1.getProdDescription() %></td>
+                    <td><%= products1.getProdType() %></td>
+                   
+                     <td><%= rentings1.getSize() %></td>
+                
+
+                   <td><%= rentings1.getQuantity() %></td>
+                    <td><%= rentings1.getTotalprice() %></td>
+                      <td><%= payments1.getPaidDate() %></td>
+                     </tr>
+                       <%}%>
+               
+                <%}%>
+                
+              
+
+            </table>
+            </div>
+                     </div>
+            
+                </div>        
                     
     <!-- Content ends here here -->
     

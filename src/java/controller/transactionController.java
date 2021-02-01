@@ -7,6 +7,7 @@ package controller;
 
 import bean.Payment;
 import bean.Products;
+import bean.User;
 import bean.rent;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -49,6 +50,7 @@ public class transactionController extends HttpServlet {
         String view = request.getParameter("view");
         String userIDValue = request.getParameter("userID");
         
+        ArrayList<User> users = new ArrayList<User>();
         ArrayList<Payment> payment = new ArrayList<Payment>();
         ArrayList<Products> product = new ArrayList<Products>();
         ArrayList<rent> renting = new ArrayList<rent>();
@@ -82,7 +84,9 @@ public class transactionController extends HttpServlet {
         String prodType;
         String prodDescription;
         
-        
+        //user modal
+        String userNameModal;
+        int tempUserID;
         
         String driver = "com.mysql.jdbc.Driver";
         String dbName = "darks";
@@ -169,6 +173,8 @@ public class transactionController extends HttpServlet {
                 rentID = rs1.getInt(1);
                 totalprice = rs1.getDouble(2);
                 productID = rs1.getInt(3);
+                size = rs1.getString(4);
+                userID = rs1.getInt(5);
                 if(productID!=0){
                     String queryProduct="SELECT * FROM products WHERE id="+productID;
                     Statement stProduct = con.createStatement(); 
@@ -176,6 +182,9 @@ public class transactionController extends HttpServlet {
                     String query4="SELECT * FROM payment WHERE rentID = " +  rentID;
                       Statement st4 = con.createStatement(); 
         ResultSet rs4 = st4.executeQuery(query4);
+           String query10="SELECT * FROM users WHERE id = " +  userID;
+                      Statement st10 = con.createStatement(); 
+        ResultSet rs10 = st10.executeQuery(query10);
                     while(rsProduct.next()){
                         tempProductID=rsProduct.getInt(1);
                         prodTitle = rsProduct.getString(2);
@@ -197,9 +206,19 @@ public class transactionController extends HttpServlet {
                          
                        
                     }
+                        while(rs10.next()){
+                            tempUserID=rs10.getInt(1);
+                            userNameModal=rs10.getString(2);
+                        
+                        
+                        if(userID==tempUserID){
+                             users.add(new User(userNameModal));
+                            }
+                         
+                       
+                            }
                 }
-                size = rs1.getString(4);
-                userID = rs1.getInt(5);
+                
                 status = rs1.getString(6);
                 startDate = rs1.getString(7);
                 endDate = rs1.getString(8);
@@ -297,7 +316,7 @@ public class transactionController extends HttpServlet {
                 renting2.add(new rent(quantity, userID, rentID, totalprice, size,  status, startDate, endDate));
             } 
             
-            
+            session.setAttribute("users", users);
             session.setAttribute("products", product);
             session.setAttribute("payment", payment);
             session.setAttribute("renting", renting);
