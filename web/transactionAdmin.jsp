@@ -14,6 +14,14 @@
  <%  ArrayList payment= (ArrayList) session.getAttribute("payment"); %>
  <%  ArrayList product= (ArrayList) session.getAttribute("products"); %>
  <%  ArrayList renting= (ArrayList) session.getAttribute("renting"); %>
+ 
+  <%  ArrayList payment1= (ArrayList) session.getAttribute("payment1"); %>
+ <%  ArrayList product1= (ArrayList) session.getAttribute("products1"); %>
+ <%  ArrayList renting1= (ArrayList) session.getAttribute("renting1"); %>
+ 
+  <%  ArrayList payment2= (ArrayList) session.getAttribute("payment2"); %>
+ <%  ArrayList product2= (ArrayList) session.getAttribute("products2"); %>
+ <%  ArrayList renting2= (ArrayList) session.getAttribute("renting2"); %>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
     
@@ -164,6 +172,107 @@
                      <td><%= rentings.getSize() %></td>
                    <td><%= payments.getPaidDate() %></td>
                    <td><%= rentings.getQuantity() %></td>
+                     </tr>
+                       <%}%>
+               
+                <%}else{%>
+                
+                        <div class="container">
+                    <div class="card-body">
+                    <div class="card text-center">
+                    <h5 class="card-title"></h5>
+                    <h5 class="card-title">Hi there</h5>
+                    <p class="card-text">Its look like you havent start renting any product yet</p>
+                        </div>
+                    </div>
+                </div>
+                             <%}%>
+
+            </table>
+            </div>
+                             
+                             
+                  <br>                          
+                             
+             <div>
+            <table border="1" cellpadding="10" cellspacing="10" width="100%">
+                <tr style="background-color: peachpuff">
+                    <th>No.</th>
+                    <th>Price</th>
+                    <th>Product Name</th>
+                    <th>Product Description</th>
+                    <th>Product Type</th>
+                    <th>Size</th>
+                    <th>Payment Date</th>
+                    <th>Quantity</th>
+                </tr>    
+               
+                 <% if (renting1 != null && (renting1.size() > 0)) { 
+                       for (int i=0; i < renting1.size();i++){
+                     Payment payments1 = (Payment) payment1.get(i);
+                       Products products1 = (Products) product1.get(i);
+                        rent rentings1 = (rent) renting1.get(i);
+                 %>
+                   <tr style="background-color: cornsilk">
+                   <td><%= i+1 %></td>
+                    <td><%= rentings1.getTotalprice() %></td>
+                    <td><%= products1.getProdTitle() %></td>
+                    <td><%= products1.getProdDescription() %></td>
+                    <td><%= products1.getProdType() %></td>
+                   
+                     <td><%= rentings1.getSize() %></td>
+                  <td><%= payments1.getPaidDate() %></td>
+
+                   <td><%= rentings1.getQuantity() %></td>
+                     </tr>
+                       <%}%>
+               
+                <%}else{%>
+                
+                        <div class="container">
+                    <div class="card-body">
+                    <div class="card text-center">
+                    <h5 class="card-title"></h5>
+                    <h5 class="card-title">Hi there</h5>
+                    <p class="card-text">Its look like you havent start renting any product yet</p>
+                        </div>
+                    </div>
+                </div>
+                             <%}%>
+
+            </table>
+            </div>
+                             
+                             <br>               
+            <div>
+            <table border="1" cellpadding="10" cellspacing="10" width="100%">
+                <tr style="background-color: peachpuff">
+                    <th>No.</th>
+                    <th>Price</th>
+                    <th>Product Name</th>
+                    <th>Product Description</th>
+                    <th>Product Type</th>
+                    <th>Size</th>
+                    <th>Payment Date</th>
+                    <th>Quantity</th>
+                </tr>    
+               
+                 <% if (renting2 != null && (renting2.size() > 0)) { 
+                       for (int i=0; i < renting2.size();i++){
+                      Payment payments2 = (Payment) payment2.get(i);
+                       Products products2 = (Products) product2.get(i);
+                        rent rentings2 = (rent) renting2.get(i);
+                 %>
+                   <tr style="background-color: cornsilk">
+                   <td><%= i+1 %></td>
+                    <td><%= rentings2.getTotalprice() %></td>
+                    <td><%= products2.getProdTitle() %></td>
+                    <td><%= products2.getProdDescription() %></td>
+                    <td><%= products2.getProdType() %></td>
+                   
+                     <td><%= rentings2.getSize() %></td>
+                   <td><%= payments2.getPaidDate() %></td>
+                   <td><%= rentings2.getQuantity() %></td>
                      </tr>
                        <%}%>
                
