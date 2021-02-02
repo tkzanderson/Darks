@@ -118,7 +118,7 @@ public class chartController extends HttpServlet {
         numC++;
     }
     
-    con.close();
+ 
     
     int total=numP+numA+numR+numPA+numC;          
     numP=numP*100/total;
@@ -146,7 +146,78 @@ public class chartController extends HttpServlet {
     session.setAttribute("User", users);
     session.setAttribute("chart", chart);
     
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    String queryRenting ="SELECT * from rent";
+    Statement stRenting = con.createStatement();
+    ResultSet rsRenting = stRenting.executeQuery(queryRenting);
     
+    ArrayList<Integer> arl = new ArrayList<Integer>(); //to get the size of the product
+    ArrayList<Integer> brl = new ArrayList<Integer>(); //to get the total number for each product
+    ArrayList<Double> crl = new ArrayList<Double>(); //to get the percentage number for each product
+    ArrayList<String> drl = new ArrayList<String>(); 
+    int allProductID;
+    String allProductName;
+    String queryAllProduct ="SELECT * from products";
+    Statement stAllProduct = con.createStatement();
+    ResultSet rsAllProduct = stAllProduct.executeQuery(queryAllProduct);
+    
+    while(rsAllProduct.next()){
+        allProductID =rsAllProduct.getInt(1);
+        allProductName = rsAllProduct.getString(2);
+        arl.add(allProductID);
+         brl.add(0);
+         crl.add(0.0);
+         drl.add(allProductName);
+    }
+    
+    int productRentingID;
+    int totalProduct = 0;
+    int eachQuantityRentingProduct;
+    while(rsRenting.next())
+    {
+        productRentingID = rsRenting.getInt(3);
+        eachQuantityRentingProduct = rsRenting.getInt(9);
+        for(int i=0; i<arl.size(); i++){
+            if(productRentingID==arl.get(i)){
+                brl.set(i, (brl.get(i)+eachQuantityRentingProduct));
+                totalProduct+=eachQuantityRentingProduct;
+            }
+        }
+     
+    }
+    
+    for(int i=0; i<brl.size(); i++){
+        crl.set(i, Double.valueOf((brl.get(i)*100/totalProduct)));
+    }
+    
+    
+    Gson gsonObj1 = new Gson();
+    Map<Object,Object> map1 = null;
+    List<Map<Object,Object>> list1 = new ArrayList<Map<Object,Object>>();
+    
+    for(int i=0; i<arl.size(); i++){
+        map1 = new HashMap<Object,Object>(); 
+        map1.put("label", drl.get(i)); 
+        map1.put("y", crl.get(i)); 
+        list1.add(map1);
+    }
+    
+ 
+    
+    String dataPoints1 = gsonObj1.toJson(list1);
+    Chart chart1 = new Chart();
+    chart1.setDataPoints(dataPoints1);
+    
+    session.setAttribute("chart1", chart1);
+    
+
+    
+    
+    
+    
+    
+    
+       con.close();
     RequestDispatcher rd = request.getRequestDispatcher("/viewChart.jsp");
     rd.include(request, response);
     

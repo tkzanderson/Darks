@@ -15,6 +15,10 @@
     String dataPoints = chart.getDataPoints();
     int total;
 %>
+<%Chart chart1 = (Chart)session.getAttribute("chart1"); 
+    String dataPoints1 = chart1.getDataPoints();
+    int total1;
+%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -155,7 +159,7 @@ var chart2 = new CanvasJS.Chart("chartContainer2", {
 		toolTipContent: "<b>{label}</b>: {y}%",
 		indexLabelFontSize: 16,
 		indexLabel: "{label} - {y}%",
-		dataPoints: <%out.print(dataPoints);%>
+		dataPoints: <%out.print(dataPoints1);%>
 	}]
 });
 
