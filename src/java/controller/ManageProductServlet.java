@@ -42,7 +42,8 @@ public class ManageProductServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
         HttpSession session = request.getSession(true);
         String action = request.getParameter("action");
         
@@ -58,7 +59,7 @@ public class ManageProductServlet extends HttpServlet {
             double prodPrice = Double.parseDouble(request.getParameter("prodPrice"));
             String prodType= request.getParameter("prodType");
             String prodImage = request.getParameter("prodImage");
-            int active= Integer.parseInt(request.getParameter("active"));
+            int active= 1;
             String query = "INSERT INTO products(prodTitle, prodDescription, prodPrice, prodType, prodImage, active) VALUES(?,?,?,?,?,?)"; //prepared statement
 
              try {
@@ -84,6 +85,9 @@ public class ManageProductServlet extends HttpServlet {
 
             RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
             rd.include(request, response);
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('Product has been inserted!');");
+            out.println("</script>"); 
        }
        else if(action.equals("UPDATE")){
            
@@ -156,6 +160,9 @@ public class ManageProductServlet extends HttpServlet {
 
             RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
             rd.include(request, response);
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('Product has been updated!');");
+            out.println("</script>"); 
        }
        
        else if(action.equals("DELETE")){
@@ -179,12 +186,14 @@ public class ManageProductServlet extends HttpServlet {
             
             RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
             rd.include(request, response);
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('Product has been deleted!');");
+            out.println("</script>"); 
        }
         
         
         
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        
             
         }
     }

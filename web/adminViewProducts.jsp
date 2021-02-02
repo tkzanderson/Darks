@@ -8,6 +8,7 @@
 <%@page import="bean.Products"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%
     ArrayList products= (ArrayList) session.getAttribute("products");
@@ -154,9 +155,9 @@
                                         <td><%= prod.getId() %></td>
                                         <td><%= prod.getProdTitle() %></td>
                                         <td><%= prod.getProdDescription() %></td>
-                                        <td><%= prod.getProdPrice() %></td>
+                                        <td>RM <fmt:formatNumber type="number" maxFractionDigits="2" value="<%= prod.getProdPrice() %>"/></td>
                                         <td><%= prod.getProdType() %></td>
-                                        <td><%= prod.getProdImage() %></td>
+                                        <td><img src="<%= prod.getProdImage() %>" height="100" width="100"></td>
                                         <td><%= prod.getActivate() %></td>
                                         <td>
                                              <form name="updateForm" action="ManageProductServlet" method="POST">

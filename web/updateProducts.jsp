@@ -6,6 +6,7 @@
 
 <%@page import="bean.Products"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <% 
     Products products = (Products) session.getAttribute("products");
 
@@ -206,10 +207,18 @@
         <label for="field2"><span>Product Description:</span> <textarea name="prodDescription" class="textarea-field"><%= products.getProdDescription() %></textarea></label><br>
         <label for="field3"><span>Product Price:</span> <input type="text" name="prodPrice" value="<%= products.getProdPrice() %>" ></label><br>
         <label for="field4"><span>Product Type:</span>
+            <% if(products.getProdType().equals("dress")) { %>
         <select name="prodType" >
              <option>dress</option>
              <option>suit</option> 
-        </select></label><br>
+        </select>
+        <% } else { %>
+        <select name="prodType" >
+             <option>suit</option>
+             <option>dress</option> 
+        </select>
+        <% } %>
+        </label><br>
         <label for="field5"><span>Product Image:</span> <input type="text" name="prodImage" value="<%= products.getProdImage() %>"></label><br>
             <input type="submit" value="Update Product" class="btn btn-info">
             <input type="hidden" name="editindex" value="<%= products.getId() %>">
