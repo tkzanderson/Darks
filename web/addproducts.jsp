@@ -199,19 +199,15 @@
     <div class="form-style-3">
     <form name="addForm" action="ManageProductServlet" method="POST" >
         <fieldset><legend> Insert Product</legend>
-            <label for="field1"><span>   Product Title: </span><input type="text" name="prodTitle"></label><br>
-            <label for="field2"><span>  Product Description: </span><textarea name="prodDescription" class="textarea-field"></textarea></label><br>
-            <label for="field3"><span>  Product Price: </span><input type="text" name="prodPrice"></label><br>
+            <label for="field1"><span>   Product Title: </span><input type="text" name="prodTitle" required></label><br>
+            <label for="field2"><span>  Product Description: </span><textarea name="prodDescription" class="textarea-field" required></textarea></label><br>
+            <label for="field3"><span>  Product Price: </span><input type="text" name="prodPrice" required></label><br>
         <label for="field4"><span> Product Type:</span>
         <select name="prodType">
              <option>dress</option>
              <option>suit</option> 
         </select></label><br>
-        <label for="field4"><span> Product Image:</span> <input type="text" name="prodImage"></label><br>
-        <label for="field6"><span> Active(1)/Deactivate(0):</span> <select name="active">
-             <option>1</option>
-             <option>0</option> 
-            </select></label><br>
+        <label for="field4"><span> Product Image:</span> <input type="text" name="prodImage" required></label><br>
             <input type="submit" value="Add Product" class="btn btn-info">
             <input type="hidden" name="action" value="ADD">
         </form>

@@ -53,7 +53,7 @@ public class PaymentProofServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");
-        try {
+        try (PrintWriter out = response.getWriter()) {
             
             HttpSession session = request.getSession(true);
             String folderName = "resources";
@@ -110,9 +110,10 @@ public class PaymentProofServlet extends HttpServlet {
                     String msg = "" + fileName + " File uploaded successfully...";
                     request.setAttribute("msg", msg);
                     RequestDispatcher rd = request.getRequestDispatcher("/userIndex.jsp");
-                    rd.forward(request, response);
-                    System.out.println("File uploaded successfully...");
-                    System.out.println("Uploaded Path: " + uploadPath);
+                    rd.include(request, response);
+                    out.println("<script type=\"text/javascript\">");
+                    out.println("alert('Payment process success!');");
+                    out.println("</script>");
                 }
                 
                 

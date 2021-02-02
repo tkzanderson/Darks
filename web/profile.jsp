@@ -36,9 +36,44 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    
+    
 </head>
 
 <body>
+  <script language="javascript">
+function changePassword()
+{
+var oldpwd = document.getElementsByName("OldPassword")[0].value;
+var newpass = document.getElementsByName("newpassword")[0].value;
+var conpass = document.getElementsByName("conpassword")[0].value;
+var compareOld = oldpwd.localeCompare(users.getUserPassword());
+var compareNew = newpass.localeCompare(conpass);
+
+//alert(document.getElementById("OLDpwd").value);
+//alert("bla bla bola");
+
+
+
+if(oldpwd.localeCompare(users.getUserPassword()) !=0)
+{
+alert('Please input old password');
+document.ChangePasswordForm.OldPassword.focus();
+return false;
+} 
+
+
+if(newpass.localeCompare(conpass) !="0")
+{
+alert('Confirm Password Not Match');
+document.ChangePasswordForm.conpassword.focus(); 
+return false;
+} 
+
+document.ChangePasswordForm.submit();
+
+}
+</script>
 <div class="wrapper">
     <header class="header-area sticky-bar">
         <div class="main-header-wrap">
@@ -127,14 +162,23 @@
                                                     </div>    
                                                         <div class="">
                                                         <label for="gender" class="required">Gender</label>
+                                                        <% if(users.getRole().equals("Male")){ %>
                                                         <select name="gender">
                                                             <option>Male</option>
                                                             <option>Female</option>
                                                         </select><br><br>
-                                                    </div>   
+                                                        <% } else { %>
+                                                        <select name="gender">
+                                                            <option>Female</option>
+                                                            <option>Male</option>
+                                                        </select><br><br> <% } %>
+                                                        </div>
+                                                    </div>
+                                                        <div class="row">
+                                                       
                                                         <div class="single-input-item">
                                                         <label for="shipping" class="required">Shipping Address</label>
-                                                        <textarea name="shippingAddress"><%=users.getShippingAddress() %> required></textarea>
+                                                        <textarea name="shippingAddress" rows="3" cols="50" required><%=users.getShippingAddress() %></textarea>
                                                     </div>   
                                                         <div class="single-input-item">
                                                         <label for="phone" class="required">Phone Number</label>
@@ -145,9 +189,42 @@
                                                         
                                                         <button type="submit" class="check-btn sqr-btn" onclick="return confirm('Are you sure you wish to change your details?')">Save Changes</button>
                                                         <input type="hidden" name="action" value="update"><input type="hidden" name="userid" value="<%= users.getId() %>">
+                                                        <input type="hidden" name="role" value="<%= users.getRole() %> ">
+                                                        <input type="hidden" name="userPassword" value="<%= users.getUserPassword() %> ">
                                                     </div>
-                                                </form>
                                             </div>
+                                                     </form>
+                                                    <form name="ChangePasswordForm" action="ProfileServlet" method="POST">
+                                             <div class="row">
+                                                 <div class="single-input-item">
+                                                        <label for="OldPassword" class="required">Old Password</label>
+                                                        <input type="password" name="OldPassword" id="OLDpwd"/>
+                                                  </div>  
+                                                    <div class="single-input-item">
+                                                        <label for="newpassword" class="required">New Password</label>
+                                                        <input type="password" name="newpassword" id="newpassword"/>
+                                                    </div>    
+                                                    <div class="single-input-item">
+                                                        <label for="newpassword" class="required">Confirm Password</label>
+                                                        <input type="password" name="conpassword" id="conpassword"/>
+                                                    </div>  
+                                                 <hr>
+                                                    <div class="single-input-item">
+                                                        
+                                                        <button type="submit" class="check-btn sqr-btn" onClick="changePassword()">Change Password</button>
+                                                        <input type="hidden" name="action" value="changePassword"><input type="hidden" name="userid" value="<%= users.getId() %>">
+                                                        <input type="hidden" name="role" value="<%= users.getRole() %> ">
+                                                        <input type="hidden" name="phoneNumber" value="<%=users.getPhoneNumber() %>">
+                                                        <input type="hidden" name="userPassword" value="<%= users.getUserPassword() %> ">
+                                                        <input type="hidden" name="shippingAddress" value="<%=users.getShippingAddress() %>">
+                                                        <input type="hidden" name="email" value="<%=users.getEmail() %>">
+                                                        <input type="hidden" name="userName" value="<%=users.getUserName()%>">
+                                                        <input type="hidden" name="gender" value="<%=users.getGender() %>">
+                                                    </div>
+                                                       
+                                            </div>
+                                                    </form>
+                                                   
                                         </div>
     </div>
     </div>

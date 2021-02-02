@@ -43,7 +43,7 @@ public class ProfileServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        try (PrintWriter out = response.getWriter()) {
         HttpSession session = request.getSession(true);
         String driver = "com.mysql.jdbc.Driver";
         String dbName = "darks";
@@ -75,6 +75,7 @@ public class ProfileServlet extends HttpServlet {
         while(rs.next()){
             users.setId(rs.getInt(1));
             users.setUserName(rs.getString(2));
+            users.setUserPassword(rs.getString(3));
             users.setEmail(rs.getString(4));
             users.setRole(rs.getString(5));
             users.setGender(rs.getString(6));
@@ -106,9 +107,11 @@ public class ProfileServlet extends HttpServlet {
             String gender = request.getParameter("gender");
             String shippingAddress = request.getParameter("shippingAddress");
             String phoneNumber = request.getParameter("phoneNumber");
+            String userPassword = request.getParameter("userPassword");
             int userid = Integer.parseInt(request.getParameter("userid"));
+            String role = request.getParameter("role");
             
-            String query = "UPDATE users SET userName=?, email=?, gender=?, shippingAddress=?, phoneNumber=? WHERE id=?";
+            String query = "UPDATE users SET userName=?, email=?, gender=?, shippingAddress=?, phoneNumber=?, userPassword=? WHERE id=?";
                 
             try {
                 Class.forName(driver);  //step2 load and register driver
@@ -124,18 +127,101 @@ public class ProfileServlet extends HttpServlet {
             st.setString(4, shippingAddress);
             st.setString(5, phoneNumber);
             st.setInt(6, userid);
+            st.setString(7, userPassword);
             
            st.executeUpdate();
-
+           
+           User users = new User();
+           users.setId(userid);
+            users.setUserName(userName);
+            users.setUserPassword(userPassword);
+            users.setEmail(email);
+            users.setRole(role);
+            users.setGender(gender);
+            users.setShippingAddress(shippingAddress);
+            users.setPhoneNumber(phoneNumber);
+            
             st.close();
             con.close();
             
-            RequestDispatcher rd= request.getRequestDispatcher("/userIndex.jsp");
-            rd.include(request, response);
+            
+            if("admin".equals(role)){  
+                session.setAttribute("users", users);
+                RequestDispatcher rd = request.getRequestDispatcher("/adminProfile.jsp");
+                rd.include(request, response);
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('Your profile has been updated!');");
+                out.println("</script>"); 
+         }
+         else {
+                session.setAttribute("users", users);
+                RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
+                rd.include(request, response);
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('Your profile has been updated!');");
+                out.println("</script>");
+            }
             
         }
+        else if(action.equals("changePassword")){
+            
+//            String newpass = request.getParameter("newpassword");
+//            String oldpass = request.getParameter("userPassword");
+//            String role = request.getParameter("role");
+//            String userName = request.getParameter("userName");
+//            String email = request.getParameter("email");
+//            String gender = request.getParameter("gender");
+//            String shippingAddress = request.getParameter("shippingAddress");
+//            String phoneNumber = request.getParameter("phoneNumber");
+//            int userid = Integer.parseInt(request.getParameter("userid"));
+//            
+//            String query = "UPDATE users SET userPassword=? WHERE userPassword=?";
+//                
+//            try {
+//                Class.forName(driver);  //step2 load and register driver
+//            } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            Connection con = DriverManager.getConnection(url, userNameDB, password);
+//            PreparedStatement st = con.prepareStatement(query);
+//            
+//            st.setString(1, newpass);
+//            st.setString(2, oldpass);
+//            
+//            st.executeUpdate();
+//            
+//            User users = new User();
+//            users.setId(userid);
+//            users.setUserName(userName);
+//            users.setUserPassword(newpass);
+//            users.setEmail(email);
+//            users.setRole(role);
+//            users.setGender(gender);
+//            users.setShippingAddress(shippingAddress);
+//            users.setPhoneNumber(phoneNumber);
+//            
+//            
+//            if("admin".equals(role)){  
+//                session.setAttribute("users", users);
+//                RequestDispatcher rd = request.getRequestDispatcher("/adminProfile.jsp");
+//                rd.include(request, response);
+//                out.println("<script type=\"text/javascript\">");
+//                out.println("alert('Your password has been updated!');");
+//                out.println("</script>"); 
+//         }
+//         else {
+//                session.setAttribute("users", users);
+//                RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
+//                rd.include(request, response);
+//                out.println("<script type=\"text/javascript\">");
+//                out.println("alert('Your password has been updated!');");
+//                out.println("</script>");
+//            }
+        }
+        
                 
-        try (PrintWriter out = response.getWriter()) {
+                
+        
            
                 
         }
