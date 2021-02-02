@@ -174,20 +174,26 @@
                                         </td>
                                         
                                         <td>
-                                             <form name="activateForm" action="activationServlet" method="POST">
-                                                 <input type="submit" value="Activate" class="btn btn-primary">
-                                                 <input type="hidden" name="index" value="<%= prod.getId() %>">
-                                                 <input type="hidden" name="action" value=1>
+                                             <form name="activationForm" action="activationServlet" method="POST">
+                                                 <label for="status">Status: </label>
+                                                 <select name="action">
+                                                     <option name="action" value="1">Activate</option>
+                                                     <option name="action" value="0">Deactivate</option>
+                                                 </select>
+                                                 
+                                                 <input type="submit" value="Update Status" class="btn btn-primary"><!--
+-->                                                 <input type="hidden" name="index" value="<%= prod.getId() %>"><!--
+                                                 <input type="hidden" name="action" value=1>-->
                                             </form>
                                         </td>
                                         
-                                        <td>
+<!--                                        <td>
                                              <form name="deactivateForm" action="activationServlet" method="POST">
                                                  <input type="submit" value="Deactivate" class="btn btn-danger">
-                                                 <input type="hidden" name="index" value="<%= prod.getId() %>">
+                                                 <input type="hidden" name="index" value="">
                                                  <input type="hidden" name="action" value=0>
                                             </form>
-                                        </td>
+                                        </td>-->
                                     </tr>
                                      <% } 
                                                          } 

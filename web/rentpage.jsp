@@ -146,10 +146,10 @@
                                                             </label>-->
 
                                                              <label for="from">From</label> 
-                                                            <input type="text" id="from" name="from"/> 
+                                                             <input type="text" id="from" name="from" required/> 
 
                                                             <label for="to">to</label> 
-                                                            <input type="text" id="to" name="to"/>
+                                                            <input type="text" id="to" name="to" required/>
                                                             <input  type="hidden" name="action" value="<%= prod.getId() %>"/>
                                                             <input  type="hidden" name="newUser" value="<%= user.getUserName() %>"/>
                                                             <input class="btn btn-dark" type="submit" name="option" value="Confirm Rent"/>
@@ -189,19 +189,41 @@
     </footer>
 </div>
                                                         <script> 
-                                                        var dateToday = new Date();
-var dates = $("#from, #to").datepicker({
-    defaultDate: dateToday,
-    changeMonth: true,
-    numberOfMonths: 2,
-    minDate: dateToday,
-    maxDate: '+14D',
-    onSelect: function(selectedDate) {
-        var option = this.id == "from" ? "minDate" : "maxDate",
-            instance = $(this).data("datepicker"),
-            date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
-        dates.not(this).datepicker("option", option, date);
-    }
+                                                        $(document).ready(function () {
+    $("#from").datepicker({
+        dateFormat: "dd-mm-yy",
+        minDate: 0,
+        changeMonth: true,
+        numberOfMonths:  1,
+        onSelect: function (date) {
+            var date2 = $('#from').datepicker('getDate');
+            var minDate = new Date();
+            // set min date
+            minDate.setDate(date2.getDate()  + 1);
+            var maxDate = new Date();
+            // set max date
+            maxDate.setDate(date2.getDate()  + 14);
+            //sets minDate to from date + 1
+            $('#to').datepicker('option', 'minDate', minDate);
+            $('#to').datepicker('option', 'maxDate', maxDate);
+        }
+    });
+    $('#to').datepicker({
+        dateFormat: "dd-mm-yy",
+        changeMonth: true,
+        numberOfMonths: 2,
+        onClose: function () {
+            var from = $('#from').datepicker('getDate');
+            console.log(from);
+            var to = $('#to').datepicker('getDate');
+            if (to <= from) {
+                var minDate = $('#to').datepicker('option', 'minDate');
+                $('#to').datepicker('setDate', minDate);
+                var maxDate = $('#to').datepicker('option', 'maxDate');
+                $('#to').datepicker('setDate', maxDate);
+            }
+        }
+    });
 });
                                                         </script>                                                      
                                                         
