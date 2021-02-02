@@ -42,35 +42,49 @@
 
 <body>
   <script language="javascript">
-function changePassword()
+function changePassword(form)
 {
-var oldpwd = document.getElementsByName("OldPassword")[0].value;
-var newpass = document.getElementsByName("newpassword")[0].value;
-var conpass = document.getElementsByName("conpassword")[0].value;
-var compareOld = oldpwd.localeCompare(users.getUserPassword());
-var compareNew = newpass.localeCompare(conpass);
+   
+const oldpwd = document.getElementsByName("OldPassword")[0].value;
+const newpass = document.getElementsByName("newpassword")[0].value;
+const conpass = document.getElementsByName("conpassword")[0].value;
+
+const compareOld = document.getElementsByName("OldPassword")[1].value;
+
+//var compareNew = newpass.localeCompare(conpass);
 
 //alert(document.getElementById("OLDpwd").value);
-//alert("bla bla bola");
 
 
 
-if(oldpwd.localeCompare(users.getUserPassword()) !=0)
+
+if(oldpwd !== compareOld )
 {
-alert('Please input old password');
-document.ChangePasswordForm.OldPassword.focus();
+alert('Please enter the correct old password');
+//document.ChangePasswordForm.OldPassword.focus();
 return false;
-} 
+}
 
-
-if(newpass.localeCompare(conpass) !="0")
+else if(newpass =="")
 {
-alert('Confirm Password Not Match');
-document.ChangePasswordForm.conpassword.focus(); 
+alert('Enter a new password');
+//document.ChangePasswordForm.conpassword.focus(); 
 return false;
-} 
+}
 
-document.ChangePasswordForm.submit();
+
+else if(newpass !== conpass)
+{
+alert('New Password Do Not Match');
+//document.ChangePasswordForm.conpassword.focus(); 
+return false;
+}
+
+else{
+    return true;
+}
+
+//document.ChangePasswordForm.submit();
 
 }
 </script>
@@ -194,11 +208,12 @@ document.ChangePasswordForm.submit();
                                                     </div>
                                             </div>
                                                      </form>
-                                                    <form name="ChangePasswordForm" action="ProfileServlet" method="POST">
+                                                    <form name="ChangePasswordForm" action="ProfileServlet" method="POST" onSubmit="return changePassword(this)">
                                              <div class="row">
                                                  <div class="single-input-item">
                                                         <label for="OldPassword" class="required">Old Password</label>
                                                         <input type="password" name="OldPassword" id="OLDpwd"/>
+                                                        <input type="hidden" name="OldPassword" value="<%= users.getUserPassword() %>"/>
                                                   </div>  
                                                     <div class="single-input-item">
                                                         <label for="newpassword" class="required">New Password</label>
@@ -211,7 +226,7 @@ document.ChangePasswordForm.submit();
                                                  <hr>
                                                     <div class="single-input-item">
                                                         
-                                                        <button type="submit" class="check-btn sqr-btn" onClick="changePassword()">Change Password</button>
+                                                        <button type="submit" class="check-btn sqr-btn">Change Password</button>
                                                         <input type="hidden" name="action" value="changePassword"><input type="hidden" name="userid" value="<%= users.getId() %>">
                                                         <input type="hidden" name="role" value="<%= users.getRole() %> ">
                                                         <input type="hidden" name="phoneNumber" value="<%=users.getPhoneNumber() %>">

@@ -164,7 +164,9 @@ public class ProfileServlet extends HttpServlet {
             
         }
         else if(action.equals("changePassword")){
-            
+            out.println("<script type=\"text/javascript\">");
+                out.println("alert('You have reached servlet');");
+                out.println("</script>");
 //            String newpass = request.getParameter("newpassword");
 //            String oldpass = request.getParameter("userPassword");
 //            String role = request.getParameter("role");
