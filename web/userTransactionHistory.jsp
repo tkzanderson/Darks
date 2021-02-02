@@ -8,11 +8,7 @@
 <%@page import="bean.Products"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="bean.Payment"%>
-<%-- 
-    Document   : userIndex
-    Created on : Jan 15, 2021, 2:38:33 PM
-    Author     : janic
---%>
+
 
 <%@page import="bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -20,6 +16,7 @@
  <%  ArrayList payment= (ArrayList) session.getAttribute("payment"); %>
  <%  ArrayList product= (ArrayList) session.getAttribute("products"); %>
  <%  ArrayList renting= (ArrayList) session.getAttribute("renting"); %>
+ <%User user = (User)session.getAttribute("User");%>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -49,7 +46,7 @@
 
 <body>
 <div class="wrapper">
-    <header class="header-area sticky-bar">
+      <header class="header-area sticky-bar">
         <div class="main-header-wrap">
             <div class="container">
                 <div class="row">
@@ -67,18 +64,50 @@
                                     <li class="angle-shape"><a href="userIndex.jsp">Home </a></li>
                                     <li class="angle-shape">
                                     <form name="View" action="ViewProductsServlet" method="POST">
-                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Products"></form></li>
+                                    <input type="hidden" name="action" value="userview">
+                                    <input type="hidden" name="username" value="<%= user.getUserName() %>">
+                                    <input type="submit" value="Products">
+                                    </form></li>
                                     <li class="angle-shape">
                                     <form name="View" action="ViewPromotionsServlet" method="POST">
-                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Promotion"></form></li>
+                                    <input type="hidden" name="action" value="userview">
+                                    <input type="hidden" name="username" value="<%= user.getUserName() %>">
+                                    <input type="submit" value="Promotion">
+                                    </form></li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
-                                            <li><a href="">Transaction History </a></li>
-                                            <li><a href="wishlist.jsp">Wishlist</a></li>
-                                            <li><a href="">Renting Cart</a></li>
-                                            <li><a href="feedbackcust.jsp">Feedback </a></li>
-                                            <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
+                                            <li> <form name="View" action="transactionController" method="POST">
+                                                <input type="hidden" name="view" value="user">
+                                                 <input type="hidden" name="userID" value=" <%=user.getId()%>">
+                                                <input type="submit" value="Transaction">
+                                           </form></li>
+                                            <li>
+                                                <form name="wish" action="WishlistController" method="POST">
+                                                    <input type="hidden" name="output" value="VIEW">
+                                                    <input type="submit" value="Wishlist">
+                                                </form>
+                                            </li>
+                                            <li><form name="rent" action="rentController" method="POST">
+                                            <input type="hidden" name="newUser" value="<%= user.getUserName() %>">
+                                            <input type="hidden" name="option" value="ViewRent">
+                                            <input type="hidden" name="action" value="0">
+                                            <input type="submit" value="Manage Rent">
+                                                </form></li>
+                                            <li>
+                                                <form name="feedback" action="FeedbackController" method="POST">
+                                                    <input type="hidden" name="action" value="CUSTOMER">
+                                                    <input type="submit" value="Feedback">
+                                                </form>
+                                            </li>
+                                            <li><form name="profile" action="ProfileServlet" method="POST">
+                                            <input type="hidden" name="id" value="<%= user.getId()%>"><input type="hidden" name="action" value="display"><input type="submit" value="My Profile"></form></li>
+                                            <li>
+                                                <form name="logout" action="LogoutServlet" method="POST">
+                                                    <input type="hidden" name="action" value="logout">
+                                                    <input type="submit" value="Logout">
+                                                </form>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -161,16 +190,16 @@
                
                 <%}else{%>
                 
-                        <div class="container">
-                    <div class="card-body">
-                    <div class="card text-center">
-                    <h5 class="card-title"></h5>
-                    <h5 class="card-title">Hi there</h5>
-                    <p class="card-text">Its look like you havent start renting any product yet</p>
+                    <div class="container">
+                        <div class="card-body">
+                            <div class="card text-center">
+                            <h5 class="card-title"></h5>
+                            <h5 class="card-title">Hi there</h5>
+                            <p class="card-text">Its look like you havent start renting any product yet</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                             <%}%>
+                       <%}%>
 
             </table>
             </div>

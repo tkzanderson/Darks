@@ -11,6 +11,7 @@
 <%@page import="bean.Payment"%>
 <%@page import="bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%User user = (User)session.getAttribute("User");%>
 
 <%  ArrayList users= (ArrayList) session.getAttribute("users"); %>
  <%  ArrayList payment= (ArrayList) session.getAttribute("payment"); %>
@@ -55,7 +56,7 @@
 
 <body>
 <div class="wrapper">
-    <header class="header-area sticky-bar">
+  <header class="header-area sticky-bar">
         <div class="main-header-wrap">
             <div class="container">
                 <div class="row">
@@ -85,20 +86,34 @@
                                             <li><a href="">About us </a></li>
                                             <li> <form name="View" action="transactionController" method="POST">
                                                 <input type="hidden" name="view" value="admin">
-                                                 
+                                                 <input type="hidden" name="userID" value=" <%=user.getId()%>">
                                                 <input type="submit" value="Transaction">
                                            </form></li>
                                             <li><form name="rent" action="rentController" method="POST">
-                                            
+                                            <input type="hidden" name="newUser" value="<%= user.getUserName() %>">
                                             <input type="hidden" name="option" value="ViewRent">
                                             <input type="hidden" name="action" value="1">
                                             <input type="submit" value="Manage Rent">
                                                 </form></li>
-                                            <li><a href="feedbackadmin.jsp">Feedback </a></li>
+                                            <li>
+                                                <form name="feedback" action="FeedbackController" method="POST">
+                                                    <input type="hidden" name="action" value="ADMIN">
+                                                    <input type="submit" value="Feedback">
+                                                </form>
+                                            </li>
                                             <li><a href="">My Profile </a></li>
-                                            <li><a href="admin-register.jsp">Register new admin</a></li>                                            
+                                            <li><a href="admin-register.jsp">Register new admin</a></li> 
+                                            <li><form name="rent" action="chartController" method="POST">
+                                            <input type="hidden" name="newUser" value="<%= user.getUserName() %>">
+                                            <input type="submit" value="View Reports">
+                                                </form></li>
 
-                                            <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
+                                            <li>
+                                                <form name="logout" action="LogoutServlet" method="POST">
+                                                    <input type="hidden" name="action" value="logout">
+                                                    <input type="submit" value="Logout">
+                                                </form>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -136,25 +151,21 @@
     
        <!-- Content start here -->
      
-                 <div class="container">
-                    <div class="card-body">
-                    <div class="card text-center">
-                    <h1 class="card-title"><b>Transaction History</b></h1>
-                   
-                        </div>
-                    </div>
-                </div>
+        <div class="container">
+            <div class="card-body">
+            <div class="card text-center">
+                <h1 class="card-title"><b>Transaction History</b></h1>
+            </div>
+            </div>
+        </div>       
                     
        <br>
 
- 
-                           
-                              
-                              <!--Table 3 for all the item that had been rent out-->
-                                 <div class="container">
+        <!--Table 1 for all the item that havent been returned-->
+        <div class="container">
 
-       <div class="card text-center">
-            <h5 class="card-title">List of dress and suit that had been rented</h5>
+        <div class="card text-center">
+            <h5 class="card-title">List of all dress and suit that had been paid</h5>
             <div>
             <table border="1" cellpadding="10" cellspacing="10" width="100%">
                 <tr style="background-color: peachpuff">
@@ -190,25 +201,19 @@
                        <%}%>
                
                 <%}%>
-                
-                   
-                           
-
             </table>
             </div>
-                    </div>
-            
-                </div>
-                  <hr>
-                             <br>    
-                              <br> 
+        </div>
+        </div>
+        <hr>
+        <br>    
+        <br> 
                                      
- <!--Table 1 for item that haven't been returned-->
+ <!--Table 2 for item that haven't been returned-->
     <div class="container">
-
-       <div class="card text-center">
+        <div class="card text-center">
             <h5 class="card-title">List of dress and suit that currently rented out</h5>
-       <div>        
+        <div>        
 
  <table border="1" cellpadding="10" cellspacing="10" width="100%">
                 <tr style="background-color: peachpuff">
@@ -228,7 +233,7 @@
                       Payment payments = (Payment) payment.get(i);
                        Products products = (Products) product.get(i);
                         rent rentings = (rent) renting.get(i);
-                        User user = (User) users.get(i);
+                        User userr = (User) users.get(i);
                  %>
                    <tr style="background-color: cornsilk">
                    <td><%= i+1 %></td>
@@ -242,25 +247,20 @@
                    <td><%= rentings.getQuantity() %></td>
                     <td><%= rentings.getTotalprice() %></td>
                     <td><%= payments.getPaidDate() %></td>
-                     <td><%= user.getUserName() %></td>
+                     <td><%= userr.getUserName() %></td>
                      </tr>
                        <%}%>
                
                 <%}%>
-                
-                
-                             
-
-            </table>
-            </div>
-                     </div>
-            
-                </div>              
-                      <hr>         
-                  <br>               
-                   <br>  
+        </table>
+        </div>
+        </div>
+        </div>              
+        <hr>         
+        <br>               
+        <br>  
                             
-  <!--Table 2 for item that has been returned--> 
+  <!--Table 3 for item that has been returned--> 
      <div class="container">
 
        <div class="card text-center">
@@ -301,14 +301,10 @@
                        <%}%>
                
                 <%}%>
-                
-              
-
-            </table>
-            </div>
-                     </div>
-            
-                </div>        
+        </table>
+        </div>
+        </div>
+        </div>        
                     
     <!-- Content ends here here -->
     

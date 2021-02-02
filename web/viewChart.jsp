@@ -47,7 +47,7 @@
 
 <body>
 <div class="wrapper">
-    <header class="header-area sticky-bar">
+       <header class="header-area sticky-bar">
         <div class="main-header-wrap">
             <div class="container">
                 <div class="row">
@@ -86,14 +86,25 @@
                                             <input type="hidden" name="action" value="1">
                                             <input type="submit" value="Manage Rent">
                                                 </form></li>
-                                            <li><a href="feedbackadmin.jsp">Feedback </a></li>
+                                            <li>
+                                                <form name="feedback" action="FeedbackController" method="POST">
+                                                    <input type="hidden" name="action" value="ADMIN">
+                                                    <input type="submit" value="Feedback">
+                                                </form>
+                                            </li>
                                             <li><a href="">My Profile </a></li>
                                             <li><a href="admin-register.jsp">Register new admin</a></li> 
                                             <li><form name="rent" action="chartController" method="POST">
-                                            <input type="submit">
+                                            <input type="hidden" name="newUser" value="<%= user.getUserName() %>">
+                                            <input type="submit" value="View Reports">
                                                 </form></li>
 
-                                            <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
+                                            <li>
+                                                <form name="logout" action="LogoutServlet" method="POST">
+                                                    <input type="hidden" name="action" value="logout">
+                                                    <input type="submit" value="Logout">
+                                                </form>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -152,7 +163,7 @@ var chart2 = new CanvasJS.Chart("chartContainer2", {
 	exportEnabled: true,
 	animationEnabled: true,
 	title: {
-		text: "Your 2nd chart here fendy"
+		text: "Summary of percentages of each products that had been rented"
 	},
 	data: [{
 		type: "pie",

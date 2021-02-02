@@ -55,18 +55,27 @@ public class RegisterController extends HttpServlet {
         String shippingAddress= request.getParameter("shippingAddress");
         String phoneNumber= request.getParameter("phoneNumber");
         
-        if(!(userPassword.equals(confirmUserPassword))){
-              try (PrintWriter out = response.getWriter()) {
-                  RequestDispatcher rd= request.getRequestDispatcher("/login-register.jsp");
-        rd.include(request, response);
-         out.println("<script type=\"text/javascript\">");
-                     out.println("alert('Confirmation password is not match with input password, please try again');");
-                     out.println("</script>");
-      
-          }   
+        if(userPassword.length()<6){
+            try (PrintWriter out = response.getWriter()) {
+                RequestDispatcher rd= request.getRequestDispatcher("/login-register.jsp");
+                rd.include(request, response);
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('Password must at least consist of 6 characters');");
+                out.println("</script>");
+            }
         }
         
-        User user = new User();
+        else if(!(userPassword.equals(confirmUserPassword))){
+            try (PrintWriter out = response.getWriter()) {
+                RequestDispatcher rd= request.getRequestDispatcher("/login-register.jsp");
+                rd.include(request, response);
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('Confirmation password is not match with input password, please try again');");
+                out.println("</script>");
+            }   
+        }
+        else{
+              User user = new User();
         user.setUserName(userName);
         user.setUserPassword(userPassword);
         user.setEmail(email);
@@ -106,7 +115,10 @@ public class RegisterController extends HttpServlet {
                      out.println("alert('You has sucessfully register, welcome to Darks Dress and Suit Renting');");
                      out.println("</script>");
       
-          }        
+          }   
+        }
+        
+           
         
    
     }

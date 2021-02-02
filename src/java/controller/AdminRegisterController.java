@@ -55,56 +55,67 @@ public class AdminRegisterController extends HttpServlet {
         String gender= request.getParameter("gender");
         String shippingAddress= request.getParameter("shippingAddress");
         String phoneNumber= request.getParameter("phoneNumber");
+          
         
-        if(!(userPassword.equals(confirmUserPassword))){
-              try (PrintWriter out = response.getWriter()) {
-                  RequestDispatcher rd= request.getRequestDispatcher("/admin-register.jsp");
-        rd.include(request, response);
-         out.println("<script type=\"text/javascript\">");
-                     out.println("alert('Confirmation password is not match with input password, please try again');");
-                     out.println("</script>");
-      
-          }   
+        if(userPassword.length()<6){
+            try (PrintWriter out = response.getWriter()) {
+                RequestDispatcher rd= request.getRequestDispatcher("/admin-register.jsp");
+                rd.include(request, response);
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('Password must at least consist of 6 characters');");
+                out.println("</script>");
+            }
         }
-        User user = new User();
-        user.setUserName(userName);
-        user.setUserPassword(userPassword);
-        user.setEmail(email);
-        
-        String query = "INSERT INTO users(userName, userPassword, email, role, gender, shippingAddress, phoneNumber) VALUES(?,?,?,?,?,?,?)"; //prepared statement
-        
-         try {
-            Class.forName(driver);  //step2 load and register driver
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+        else if(!(userPassword.equals(confirmUserPassword))){
+             try (PrintWriter out = response.getWriter()) {
+                RequestDispatcher rd= request.getRequestDispatcher("/admin-register.jsp");
+                rd.include(request, response);
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('Confirmation password is not match with input password, please try again');");
+                out.println("</script>");
+            }   
         }
-        Connection con = DriverManager.getConnection(url, userNameDB, password); //step3 establish connection
-        //Statement st = con.createStatement();   //step4 create statement normal statement
-        PreparedStatement st = con.prepareStatement(query); //preparedstatement
-        st.setString(1, userName);
-        st.setString(2, userPassword);
-        st.setString(3, email);
-        st.setString(4, "admin");
-        st.setString(5, gender);
-        st.setString(6, shippingAddress);
-        st.setString(7, phoneNumber);
+        else{
+            User user = new User();
+            user.setUserName(userName);
+            user.setUserPassword(userPassword);
+            user.setEmail(email);
         
-        //st.executeUpdate(query);    //step5 execute the query
-        st.executeUpdate();
+            String query = "INSERT INTO users(userName, userPassword, email, role, gender, shippingAddress, phoneNumber) VALUES(?,?,?,?,?,?,?)"; //prepared statement
+        
+            try {
+                Class.forName(driver);  //step2 load and register driver
+            }catch (ClassNotFoundException ex) {
+                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Connection con = DriverManager.getConnection(url, userNameDB, password); //step3 establish connection
+            //Statement st = con.createStatement();   //step4 create statement normal statement
+            PreparedStatement st = con.prepareStatement(query); //preparedstatement
+            st.setString(1, userName);
+            st.setString(2, userPassword);
+            st.setString(3, email);
+            st.setString(4, "admin");
+            st.setString(5, gender);
+            st.setString(6, shippingAddress);
+            st.setString(7, phoneNumber);
+        
+            //st.executeUpdate(query);    //step5 execute the query
+            st.executeUpdate();
         
         
-        st.close(); //step7 close connection
-        con.close();
+            st.close(); //step7 close connection
+            con.close();
         
-        session.setAttribute("User",user);
-          try (PrintWriter out = response.getWriter()) {
-                 RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
-                   rd.include(request, response);
-         out.println("<script type=\"text/javascript\">");
-                     out.println("alert('New admin had sucessfully registered');");
-                     out.println("</script>");
-      
-          }
+            session.setAttribute("User",user);
+            try(PrintWriter out = response.getWriter()) {
+                RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
+                rd.include(request, response);
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('New admin had sucessfully registered');");
+                out.println("</script>");      
+            }
+        }
+ 
  
 
     }// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
