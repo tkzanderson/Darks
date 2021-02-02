@@ -1,16 +1,22 @@
 <%-- 
-    Document   : index
-    Created on : Jan 15, 2021, 1:29:46 PM
-    Author     : janic
+    Document   : viewChart
+    Created on : Feb 2, 2021, 3:49:17 PM
+    Author     : Anderson
 --%>
-    <%User user = (User)session.getAttribute("User");%>
-<%@page import="bean.User"%>
+
+<%@page import="bean.Chart"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html class="no-js" lang="zxx">
-    
-
-
+<%@ page import="java.util.*" %>
+<%@ page import="com.google.gson.Gson"%>
+<%@ page import="com.google.gson.JsonObject"%>   
+<%@page import="bean.User"%>
+<%User user = (User)session.getAttribute("User");%>
+<%Chart chart = (Chart)session.getAttribute("chart"); 
+    String dataPoints = chart.getDataPoints();
+    int total;
+%>
+<!DOCTYPE HTML>
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -80,8 +86,7 @@
                                             <li><a href="">My Profile </a></li>
                                             <li><a href="admin-register.jsp">Register new admin</a></li> 
                                             <li><form name="rent" action="chartController" method="POST">
-                                            <input type="hidden" name="newUser" value="<%= user.getUserName() %>">
-                                            <input type="submit" value="View Reports">
+                                            <input type="submit">
                                                 </form></li>
 
                                             <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
@@ -119,67 +124,52 @@
             </div>
         </div>
     </header>
-    
-    
-    <!-- Content start here -->
-                <div class="container">
-                    <div class="card-body">
-                    <div class="card text-center">
+<script type="text/javascript">
+window.onload = function() { 
+ 
+var chart = new CanvasJS.Chart("chartContainer", {
+	theme: "light2", // "light1", "dark1", "dark2"
+	exportEnabled: true,
+	animationEnabled: true,
+	title: {
+		text: "Summary of Number of Rents"
+	},
+	data: [{
+		type: "pie",
+		toolTipContent: "<b>{label}</b>: {y}%",
+		indexLabelFontSize: 16,
+		indexLabel: "{label} - {y}%",
+		dataPoints: <%out.print(dataPoints);%>
+	}]
+});
 
-                    <h5 class="card-title">Hello <%=user.getUserName()%></h5>
-                    <h1 class="card-title">Welcome to <br><b>Dress & Suits Renting System.</b></h1>
-                    <p class="card-text">Rent the best quality of dress and suits here.</p>
-                        </div>
-                    </div>
-                </div>
-    <!-- Content ends here here -->
-    
-    
-    <footer class="footer-area">
-        <div class="footer-bottom border-top-2 pt-30">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="copyright-2 pb-30">
-                            <p>Copyright ©  All Right Reserved.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="payment-mathod-2 pb-30">
-                            <a href="#"><img src="assets/img/icon-img/payment-2.png" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-</div>
+var chart2 = new CanvasJS.Chart("chartContainer2", {
+	theme: "light2", // "light1", "dark1", "dark2"
+	exportEnabled: true,
+	animationEnabled: true,
+	title: {
+		text: "Your 2nd chart here fendy"
+	},
+	data: [{
+		type: "pie",
+		toolTipContent: "<b>{label}</b>: {y}%",
+		indexLabelFontSize: 16,
+		indexLabel: "{label} - {y}%",
+		dataPoints: <%out.print(dataPoints);%>
+	}]
+});
 
-
-
-
-
-
-
+chart.render();
+chart2.render();
+ 
+}
+</script>
 
 
 
-<!-- All JS is here
-============================================ -->
 
-<!-- jQuery JS -->
-<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
-<!-- Popper JS -->
-<script src="assets/js/popper.min.js"></script>
-<!-- Bootstrap JS -->
-<script src="assets/js/bootstrap.min.js"></script>
-<!-- Plugins JS -->
-<script src="assets/js/plugins.js"></script>
-<!-- Ajax Mail -->
-<script src="assets/js/ajax-mail.js"></script>
-<!-- Main JS -->
-<script src="assets/js/main.js"></script>
-
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
-
-</html>
+</html>       

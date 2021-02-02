@@ -72,6 +72,10 @@
         <servlet-name>DownloadPayment</servlet-name>
         <servlet-class>controller.DownloadPayment</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>chartController</servlet-name>
+        <servlet-class>controller.chartController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/RegisterController</url-pattern>
@@ -143,6 +147,10 @@
     <servlet-mapping>
         <servlet-name>DownloadPayment</servlet-name>
         <url-pattern>/DownloadPayment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>chartController</servlet-name>
+        <url-pattern>/chartController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
