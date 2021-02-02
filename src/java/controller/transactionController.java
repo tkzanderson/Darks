@@ -94,12 +94,6 @@ public class transactionController extends HttpServlet {
         String userName = "root";
         String password = "";
         
-        
-        
-        
-        
-   
-          
         Class.forName(driver); 
         Connection con = DriverManager.getConnection(url, userName, password); 
       
@@ -108,7 +102,7 @@ public class transactionController extends HttpServlet {
  
       
         if(view.equals("user")){
-            String query="SELECT * FROM rent WHERE (status='PAID' OR status='COMPLETED') AND userID = " +  userIDValue;    //this part is ok
+            String query="SELECT * FROM rent WHERE (status='PAID' OR status='COMPLETED') AND userID = " +  userIDValue;    //Get the user transaction renting that had been paid
             Statement st = con.createStatement(); 
             ResultSet rs = st.executeQuery(query);
             while(rs.next()){
@@ -116,32 +110,30 @@ public class transactionController extends HttpServlet {
                 totalprice = rs.getDouble(2);
                 productID = rs.getInt(3);
                 if(productID!=0){
-                      String queryProduct="SELECT * FROM products WHERE id="+productID;
-                      Statement stProduct = con.createStatement(); 
-                      ResultSet rsProduct = stProduct.executeQuery(queryProduct);
-                      String query2="SELECT * FROM payment WHERE rentID = " +  rentID; //customer view
-                        Statement st2 = con.createStatement(); 
-        ResultSet rs2 = st2.executeQuery(query2);
+                    String queryProduct="SELECT * FROM products WHERE id="+productID;
+                    Statement stProduct = con.createStatement(); 
+                    ResultSet rsProduct = stProduct.executeQuery(queryProduct);
+                    String query2="SELECT * FROM payment WHERE rentID = " +  rentID; //customer view
+                    Statement st2 = con.createStatement(); 
+                    ResultSet rs2 = st2.executeQuery(query2);
                         while(rsProduct.next()){
-                             tempProductID=rsProduct.getInt(1);
+                            tempProductID=rsProduct.getInt(1);
                             prodTitle = rsProduct.getString(2);
-                              prodDescription = rsProduct.getString(3);
-                             prodType = rsProduct.getString(5);
-                              if(productID==tempProductID){
-                           product.add(new Products(prodTitle, prodDescription, prodType));
-                        }
-                             
+                            prodDescription = rsProduct.getString(3);
+                            prodType = rsProduct.getString(5);
+                            if(productID==tempProductID){
+                                product.add(new Products(prodTitle, prodDescription, prodType));
+                            }
                         } 
-                            while(rs2.next()){
-                           
+                        
+                        while(rs2.next()){
                             paidDate=rs2.getTimestamp(5);
                             rentIDPayment=rs2.getInt(6);
-                           
-                           if(rentID==rentIDPayment){
-                              payment.add(new Payment(paidDate));
+                        
+                            if(rentID==rentIDPayment){
+                                payment.add(new Payment(paidDate));
                             }
-                               
-                           }
+                        }
                 }
                 size = rs.getString(4);
                 userID = rs.getInt(5);
@@ -155,18 +147,17 @@ public class transactionController extends HttpServlet {
             session.setAttribute("products", product);
             session.setAttribute("payment", payment);
             session.setAttribute("renting", renting);
-             try (PrintWriter out = response.getWriter()) {
-              RequestDispatcher rd = request.getRequestDispatcher("/userTransactionHistory.jsp");
-              out.println(userIDValue);
-            rd.include(request, response);
-        }
-          
+            try (PrintWriter out = response.getWriter()) {
+                RequestDispatcher rd = request.getRequestDispatcher("/userTransactionHistory.jsp");
+                out.println(userIDValue);
+                rd.include(request, response);
+            }
         }
         
    
         
         if(view.equals("admin")){
-            String query1="SELECT * FROM rent WHERE status='PAID'";
+            String query1="SELECT * FROM rent WHERE status='PAID'"; //Get the product that havent been return
             Statement st1 = con.createStatement(); 
             ResultSet rs1 = st1.executeQuery(query1);
             while(rs1.next()){
@@ -180,43 +171,38 @@ public class transactionController extends HttpServlet {
                     Statement stProduct = con.createStatement(); 
                     ResultSet rsProduct = stProduct.executeQuery(queryProduct);
                     String query4="SELECT * FROM payment WHERE rentID = " +  rentID;
-                      Statement st4 = con.createStatement(); 
-        ResultSet rs4 = st4.executeQuery(query4);
-           String query10="SELECT * FROM users WHERE id = " +  userID;
-                      Statement st10 = con.createStatement(); 
-        ResultSet rs10 = st10.executeQuery(query10);
+                    Statement st4 = con.createStatement(); 
+                    ResultSet rs4 = st4.executeQuery(query4);
+                    String query10="SELECT * FROM users WHERE id = " +  userID;
+                    Statement st10 = con.createStatement(); 
+                    ResultSet rs10 = st10.executeQuery(query10);
                     while(rsProduct.next()){
                         tempProductID=rsProduct.getInt(1);
                         prodTitle = rsProduct.getString(2);
                         prodDescription = rsProduct.getString(3);
                         prodType = rsProduct.getString(5);
-                         if(productID==tempProductID){
-                            product.add(new Products(prodTitle, prodDescription, prodType));
+                        if(productID==tempProductID){
+                           product.add(new Products(prodTitle, prodDescription, prodType));
                         }
                     } 
                     
                     while(rs4.next()){
-                        
                         paidDate=rs4.getTimestamp(5);
                         rentIDPayment=rs4.getInt(6);
                         
-          if(rentID==rentIDPayment){
-                             payment.add(new Payment(paidDate));
-                            }
-                         
-                       
+                        if(rentID==rentIDPayment){
+                            payment.add(new Payment(paidDate));
+                        }
                     }
-                        while(rs10.next()){
-                            tempUserID=rs10.getInt(1);
-                            userNameModal=rs10.getString(2);
                         
-                        
+                    while(rs10.next()){
+                        tempUserID=rs10.getInt(1);
+                        userNameModal=rs10.getString(2);
+                      
                         if(userID==tempUserID){
-                             users.add(new User(userNameModal));
-                            }
-                         
-                       
-                            }
+                            users.add(new User(userNameModal));
+                        }
+                    }
                 }
                 
                 status = rs1.getString(6);
@@ -226,8 +212,7 @@ public class transactionController extends HttpServlet {
                 renting.add(new rent(quantity, userID, rentID, totalprice, size,  status, startDate, endDate));
             }
           
-            
-            String query5="SELECT * FROM rent WHERE status='COMPLETED'";
+            String query5="SELECT * FROM rent WHERE status='COMPLETED'"; //Get the product that had been returned
             Statement st5 = con.createStatement(); 
             ResultSet rs5 = st5.executeQuery(query5);
             while(rs5.next()){
@@ -239,8 +224,8 @@ public class transactionController extends HttpServlet {
                     Statement stProduct = con.createStatement(); 
                     ResultSet rsProduct = stProduct.executeQuery(queryProduct);
                     String query7="SELECT * FROM payment WHERE rentID = "+ rentID; //admin view
-           Statement st7 = con.createStatement(); 
-        ResultSet rs7 = st7.executeQuery(query7);
+                    Statement st7 = con.createStatement(); 
+                    ResultSet rs7 = st7.executeQuery(query7);
                     while(rsProduct.next()){
                         tempProductID =rsProduct.getInt(1);
                         prodTitle = rsProduct.getString(2);
@@ -249,17 +234,14 @@ public class transactionController extends HttpServlet {
                         if(productID==tempProductID){
                             product1.add(new Products(prodTitle, prodDescription, prodType));
                         }
-                        
                     } 
                     
                     while(rs7.next()){
                         paidDate=rs7.getTimestamp(5);
                         rentIDPayment=rs7.getInt(6);
-                       if(rentID==rentIDPayment){
+                        if(rentID==rentIDPayment){
                               payment1.add(new Payment(paidDate));
-                            }
-                           
-                       
+                        }
                     }
                 }
                 size = rs5.getString(4);
@@ -271,7 +253,7 @@ public class transactionController extends HttpServlet {
                 renting1.add(new rent(quantity, userID, rentID, totalprice, size,  status, startDate, endDate));
             }  
             
-            String query6="SELECT * FROM rent WHERE status='PAID' OR status='COMPLETED'";
+            String query6="SELECT * FROM rent WHERE status='PAID' OR status='COMPLETED'";   //Get all the product that had been paid
             Statement st6 = con.createStatement(); 
             ResultSet rs6 = st6.executeQuery(query6);
          
@@ -283,28 +265,25 @@ public class transactionController extends HttpServlet {
                     String queryProduct="SELECT * FROM products WHERE id="+productID;
                     Statement stProduct = con.createStatement(); 
                     ResultSet rsProduct = stProduct.executeQuery(queryProduct);
-                       String query8="SELECT * FROM payment WHERE rentID = "+ rentID;  //admin view
-           Statement st8 = con.createStatement(); 
-        ResultSet rs8 = st8.executeQuery(query8);
+                    String query8="SELECT * FROM payment WHERE rentID = "+ rentID;  //admin view
+                    Statement st8 = con.createStatement(); 
+                    ResultSet rs8 = st8.executeQuery(query8);
                     while(rsProduct.next()){
-                          tempProductID =rsProduct.getInt(1);
+                        tempProductID =rsProduct.getInt(1);
                         prodTitle = rsProduct.getString(2);
                         prodDescription = rsProduct.getString(3);
                         prodType = rsProduct.getString(5);
-                          if(productID==tempProductID){
-                          product2.add(new Products(prodTitle, prodDescription, prodType));
+                        if(productID==tempProductID){
+                            product2.add(new Products(prodTitle, prodDescription, prodType));
                         }
-                        
                     } 
                     
                     while(rs8.next()){
                         paidDate=rs8.getTimestamp(5);
                         rentIDPayment=rs8.getInt(6);
-                       if(rentID==rentIDPayment){
-                              payment2.add(new Payment(paidDate));
-                            }
-                          
-                       
+                        if(rentID==rentIDPayment){
+                            payment2.add(new Payment(paidDate));
+                        }
                     }
                 }
                 size = rs6.getString(4);

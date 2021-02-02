@@ -42,6 +42,32 @@ var check = function() {
   }
 }
 </script>
+  <script>
+function checkPass()
+{
+    var pass1 = document.getElementById('password');
+    var pass2 = document.getElementById('confirm_password');
+    var message = document.getElementById('error-nwl');
+    var goodColor = "#66cc66";
+    var badColor = "#ff6666";
+ 	
+    if(pass1.value.length > 5)
+    {
+       
+        message.style.color = goodColor;
+        message.innerHTML = "Password strenght is good!"
+    }
+    else
+    {
+       
+        message.style.color = badColor;
+        message.innerHTML = "Password have to be at least 6 characters"
+        return;
+    }
+  
+  
+} 
+ </script>
 </head>
 
 <body>
@@ -148,13 +174,14 @@ var check = function() {
                                            <input type="text" name="userName" placeholder="Username">
                                        
                                        <label>Password</label>
-                                       <input type="password" name="userPassword" placeholder="Password" id="password" onblur="validate()" onkeyup='check();' required><br>
+                                       <input type="password" name="userPassword" placeholder="Password" id="password" onblur="validate()" onkeyup='check(); checkPass(); return false; ' required>
+                                       <div id="error-nwl"></div><br>
                                            
                                             
                                        <label>Confirm Password
                                            <br><span id='message'></span>
                                        </label>
-                                       <input type="password" name="confirmUserPassword" placeholder="Confirm password" id="confirm_password" onblur="validate()" onkeyup='check();' required>
+                                       <input type="password" name="confirmUserPassword" placeholder="Confirm password" id="confirm_password" onblur="validate()" onkeyup='check(); checkPass(); return false; ' required>
                                         
                                         <br>
                                        <label>Gender</label>

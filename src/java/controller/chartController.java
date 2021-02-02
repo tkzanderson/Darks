@@ -147,7 +147,7 @@ public class chartController extends HttpServlet {
     session.setAttribute("chart", chart);
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    String queryRenting ="SELECT * from rent";
+    String queryRenting ="SELECT * FROM rent WHERE status = 'PAID' OR status = 'COMPLETED'";
     Statement stRenting = con.createStatement();
     ResultSet rsRenting = stRenting.executeQuery(queryRenting);
     
