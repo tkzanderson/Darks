@@ -37,7 +37,7 @@
 </head>
 
 <body>
-<div class="wrapper">
+<div>
     <header class="header-area sticky-bar">
         <div class="main-header-wrap">
             <div class="container">
@@ -94,7 +94,12 @@
                                             </li>
                                             <li><form name="profile" action="ProfileServlet" method="POST">
                                             <input type="hidden" name="id" value="<%= user.getId()%>"><input type="hidden" name="action" value="display"><input type="submit" value="My Profile"></form></li>
-                                            <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
+                                            <li>
+                                                <form name="logout" action="LogoutServlet" method="POST">
+                                                    <input type="hidden" name="action" value="logout">
+                                                    <input type="submit" value="Logout">
+                                                </form>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>

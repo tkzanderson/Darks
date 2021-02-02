@@ -78,11 +78,11 @@ public class LoginController extends HttpServlet {
                     if("admin".equals(rs.getString(5))){
                         RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
                         rd.include(request, response);
-                        out.println("ADMIN VIEW");
+                        //out.println("ADMIN VIEW");
                     }else{
                         RequestDispatcher rd= request.getRequestDispatcher("/userIndex.jsp");
                         rd.include(request, response);
-                        out.println("CUSTOMER VIEW");
+                        //out.println("CUSTOMER VIEW");
                     }
                 }
                 else{

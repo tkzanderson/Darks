@@ -46,7 +46,16 @@ var check = function() {
   }
 }
 </script>
-    
+    <style>
+        .center {
+          margin: 0;
+          position: absolute;
+          
+          left: 50%;
+          -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+        }
+</style>
 </head>
 
 <body>
@@ -55,44 +64,13 @@ var check = function() {
         <div class="main-header-wrap">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-2 col-lg-2">
-                        <div class="logo pt-40">
+                    <div class="center pt-60 pb-0">
+                        <div class="logo pt-0">
                             <a href="adminIndex.jsp">
-                                <h1><b>Darks</b></h1>
+                                <h1><b>Welcome to Darks</b></h1>
                             </a>
                         </div>
-                    </div>
-                    <div class="col-xl-7 col-lg-7 ">
-                        <div class="main-menu">
-                            <nav>
-                                <ul>
-                                    <li class="angle-shape"><a href="adminIndex.jsp">Home </a></li>
-                                    <li class="angle-shape"><a href="dress.jsp"> Dress <span>new</span> </a></li>
-                                    <li class="angle-shape"><a href="suit.jsp"> Suits <span>new</span> </a></li>
-                                    <li><a href="">Promotion <span>hot</span> </a></li>
-                                    <li class="angle-shape">Pages
-                                        <ul class="submenu">
-                                            <li><a href="">About us </a></li>
-                                            <li><a href="">Transaction History </a></li>
-                                            <li><a href="">Manage Rent</a></li>
-                                            <li><a href="">Feedback </a></li>
-                                            <li><a href="">My Profile </a></li>
-                                            <li><a href="">Manage Products </a></li>
-                                            <li><a href="">Logout </a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3">
-                        <div class="header-right-wrap pt-40">
-                            <div class="header-search">
-                                <a class="search-active" href=""><i class="sli sli-magnifier"></i></a>
-                            </div>
-                                  
-                        </div>
-                    </div>
+                    </div> 
                 </div>
             </div>
             <!-- main-search start -->
@@ -119,19 +97,8 @@ var check = function() {
       
     %>
 
-    <div class="breadcrumb-area pt-35 pb-35 bg-gray">
-        <div class="container">
-            <div class="breadcrumb-content text-center">
-                <ul>
-                    <li>
-                        <a href="index.html">Home</a>
-                    </li>
-                    <li class="active">login / register </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="login-register-area pt-100 pb-100">
+    
+    <div class="login-register-area pt-80 pb-0">
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 col-md-12 ml-auto mr-auto">

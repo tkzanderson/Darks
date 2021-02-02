@@ -36,7 +36,7 @@
 </head>
 
 <body>
-<div class="wrapper">
+<div>
     <header class="header-area sticky-bar">
         <div class="main-header-wrap">
             <div class="container">
@@ -89,7 +89,12 @@
                                             <input type="submit" value="View Reports">
                                                 </form></li>
 
-                                            <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
+                                            <li>
+                                                <form name="logout" action="LogoutServlet" method="POST">
+                                                    <input type="hidden" name="action" value="logout">
+                                                    <input type="submit" value="Logout">
+                                                </form>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>

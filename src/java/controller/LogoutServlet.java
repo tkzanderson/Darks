@@ -33,15 +33,20 @@ public class LogoutServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LogoutServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet LogoutServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            
+            String action = request.getParameter("action");  
+            
+            if(action.equals("logout")){
+            out.print("You have successfully logged out!");  
+            request.getRequestDispatcher("login-register.jsp").include(request, response);  
+              
+            HttpSession session=request.getSession();  
+            session.invalidate();  
+              
+            out.print("You have successfully logged out!");  
+              
+            out.close(); 
+            }
         }
     }
 
@@ -57,18 +62,7 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html");  
-            PrintWriter out=response.getWriter();  
-            
-            out.print("You have successfully logged out!");  
-            request.getRequestDispatcher("login-register.jsp").include(request, response);  
-              
-            HttpSession session=request.getSession();  
-            session.invalidate();  
-              
-            out.print("You have successfully logged out!");  
-              
-            out.close();  
+        processRequest(request, response); 
     }
 
     /**
