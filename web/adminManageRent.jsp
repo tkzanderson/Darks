@@ -313,7 +313,7 @@
                                             <%}%>
                                         
                                     
-                                    <% if(rent.getStatus().equals("PAID")) { %>
+                                    <% if(rent.getStatus().equals("PAID") || rent.getStatus().equals("COMPLETED")) { %>
                                         <td>
                                     <form name="displayPayment" action="DisplayPaymentServlet" method="POST">
                                         <input type="hidden" name="rentID" value="<%= rent.getId() %>">
