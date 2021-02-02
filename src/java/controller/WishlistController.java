@@ -252,6 +252,9 @@ public class WishlistController extends HttpServlet {
                 out.println("ALL products have been removed from your wishlist!");
                 RequestDispatcher rd= request.getRequestDispatcher("wishlist.jsp");
                 rd.include(request, response);
+            }else if (output.equals("VIEW")){
+                RequestDispatcher rd= request.getRequestDispatcher("wishlist.jsp");
+                rd.forward(request, response);
             }
             
     }

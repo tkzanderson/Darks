@@ -74,7 +74,12 @@
                                                  <input type="hidden" name="userID" value=" <%=user.getId()%>">
                                                 <input type="submit" value="Transaction">
                                            </form></li>
-                                            <li><a href="wishlist.jsp">Wishlist</a></li>
+                                            <li>
+                                                <form name="wish" action="WishlistController" method="POST">
+                                                    <input type="hidden" name="output" value="VIEW">
+                                                    <input type="submit" value="Wishlist">
+                                                </form>
+                                            </li>
                                             <li><form name="rent" action="rentController" method="POST">
                                             <input type="hidden" name="newUser" value="<%= user.getUserName() %>">
                                             <input type="hidden" name="option" value="ViewRent">

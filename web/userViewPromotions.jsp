@@ -68,7 +68,12 @@
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
                                             <li><a href="userTransactionHistory.jsp">Transaction History </a></li>
-                                            <li><a href="">Wishlist</a></li>
+                                            <li>
+                                                <form name="wish" action="WishlistController" method="POST">
+                                                    <input type="hidden" name="output" value="VIEW">
+                                                    <input type="submit" value="Wishlist">
+                                                </form>
+                                            </li>
                                             <li><a href="">Renting Cart</a></li>
                                             <li><a href="feedbackcust.jsp">Feedback </a></li>
                                             <li><a href="">My Profile </a></li>
