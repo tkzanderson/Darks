@@ -76,7 +76,12 @@
                                             <input type="hidden" name="action" value="1">
                                             <input type="submit" value="Manage Rent">
                                                 </form></li>
-                                            <li><a href="feedbackadmin.jsp">Feedback </a></li>
+                                            <li>
+                                                <form name="feedback" action="FeedbackController" method="POST">
+                                                    <input type="hidden" name="action" value="ADMIN">
+                                                    <input type="submit" value="Feedback">
+                                                </form>
+                                            </li>
                                             <li><a href="">My Profile </a></li>
                                             <li><a href="admin-register.jsp">Register new admin</a></li> 
                                             <li><form name="rent" action="chartController" method="POST">

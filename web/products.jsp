@@ -71,7 +71,12 @@
                                                 </form>
                                             </li>
                                             <li><a href="">Manage Rent</a></li>
-                                            <li><a href="">Feedback </a></li>
+                                            <li>
+                                                <form name="feedback" action="FeedbackController" method="POST">
+                                                    <input type="hidden" name="action" value="CUSTOMER">
+                                                    <input type="submit" value="Feedback">
+                                                </form>
+                                            </li>
                                             <li><a href="">My Profile </a></li>
                                             <li><a href="">Manage Products </a></li>
                                             <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>

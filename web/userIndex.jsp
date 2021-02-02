@@ -86,7 +86,12 @@
                                             <input type="hidden" name="action" value="0">
                                             <input type="submit" value="Manage Rent">
                                                 </form></li>
-                                            <li><a href="feedbackcust.jsp">Feedback </a></li>
+                                            <li>
+                                                <form name="feedback" action="FeedbackController" method="POST">
+                                                    <input type="hidden" name="action" value="CUSTOMER">
+                                                    <input type="submit" value="Feedback">
+                                                </form>
+                                            </li>
                                             <li><form name="profile" action="ProfileServlet" method="POST">
                                             <input type="hidden" name="id" value="<%= user.getId()%>"><input type="hidden" name="action" value="display"><input type="submit" value="My Profile"></form></li>
                                             <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>

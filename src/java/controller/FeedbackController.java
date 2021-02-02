@@ -155,7 +155,14 @@ public class FeedbackController extends HttpServlet {
                 
                 //RequestDispatcher rd = request.getRequestDispatcher("feedbackadmin.jsp");
                 //rd.forward(request, response);
-           }
+           }else if (action.equals("CUSTOMER")){
+                RequestDispatcher rd= request.getRequestDispatcher("feedbackcust.jsp");
+                rd.forward(request, response);
+            }
+            else if (action.equals("ADMIN")){
+                RequestDispatcher rd= request.getRequestDispatcher("feedbackadmin.jsp");
+                rd.forward(request, response);
+            }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
