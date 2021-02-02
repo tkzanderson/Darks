@@ -149,7 +149,7 @@
                                     <tr>
                                         <td class="product-subtotal"><%= prod.getId() %></td>
                                         <td class="product-thumbnail">
-                                            <img src="<%= prod.getProdImage() %>" alt="Image <%= index %>">
+                                            <img src="<%= prod.getProdImage() %>" alt="Image <%= index %>" style="width: 100px; height:130px">
                                         </td>
                                         <td class="product-name"><%= prod.getProdTitle() %></td>
                                         
@@ -158,6 +158,7 @@
                                         <td class="product-wishlist-cart">
                                             <form   name="delwish" action="WishlistController" method="POST">
                                             <input  type="hidden" name="title" value="<%= prod.getProdTitle() %>">
+                                            <input  type="hidden" name="promo" value="NORMAL">
                                             <input  type="hidden" name="index" value="<%= index %>">
                                             <input  type="submit" class="btn btn-outline-danger" name="output" value="Remove">
                                             </form>

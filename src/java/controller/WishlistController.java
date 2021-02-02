@@ -105,6 +105,7 @@ public class WishlistController extends HttpServlet {
             HttpSession session = request.getSession(true);
             ArrayList products= (ArrayList) session.getAttribute("wishlist");
             String output = request.getParameter("output");
+            String promo = request.getParameter("promo");
             
             String driver = "com.mysql.jdbc.Driver";
             String dbName = "darks";
@@ -112,8 +113,9 @@ public class WishlistController extends HttpServlet {
             String userNameDB = "root";
             String password = "";
             String prodTitle, prodImage;
-            double prodPrice;
+            double prodPrice = 0;
             int id;
+            
             
             if (output.equals("ADD"))
             {
@@ -147,7 +149,17 @@ public class WishlistController extends HttpServlet {
                         while(rs.next()){
                             id = rs.getInt(1);
                             prodTitle = rs.getString(2);
-                            prodPrice = rs.getDouble(4);
+                            if("NORMAL".equals(promo)){
+                                prodPrice = rs.getDouble(4);
+                            }else if("PROMO".equals(promo)){
+                                prodPrice = rs.getDouble(8);
+                            }
+                            else{
+                                prodPrice = rs.getDouble(4);
+                            }
+                            //prodPrice = rs.getDouble(4);
+                            //prodPrice = rs.getDouble(df.format(4));
+                            
                             prodImage = rs.getString(6);
 
                             products.add(new Products(id, prodTitle, prodPrice, prodImage));
@@ -187,7 +199,17 @@ public class WishlistController extends HttpServlet {
                         while(rs.next()){
                             id = rs.getInt(1);
                             prodTitle = rs.getString(2);
-                            prodPrice = rs.getDouble(4);
+                            if("NORMAL".equals(promo)){
+                                prodPrice = rs.getDouble(4);
+                            }else if("PROMO".equals(promo)){
+                                prodPrice = rs.getDouble(8);
+                            }
+                            else{
+                                prodPrice = rs.getDouble(4);
+                            }
+                            //prodPrice = rs.getDouble(4);
+                            //prodPrice = rs.getDouble(df.format(4));
+                            
                             prodImage = rs.getString(6);
 
                             wishlist.add(new Products(id, prodTitle, prodPrice, prodImage));
@@ -231,6 +253,7 @@ public class WishlistController extends HttpServlet {
                 RequestDispatcher rd= request.getRequestDispatcher("wishlist.jsp");
                 rd.include(request, response);
             }
+            
     }
 
     /**

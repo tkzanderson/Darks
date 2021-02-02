@@ -139,7 +139,15 @@
                                                             <span class="new">Promotion Price: <ins>RM<%= prod.getPromotionPrice() %></ins> !!!</span>
                                                         </div>
                                                         <div class="ht-product-list-action">
-                                                            <a class="list-wishlist" title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
+                                                            
+                                                            <form   name="Wishlist" action="WishlistController" method="POST">
+                                                            <input  type="hidden" name="output" value="ADD">
+                                                            <input  type="hidden" name="promo" value="PROMO">
+                                                            <input  type="hidden" name="id" value="<%= prod.getId() %>">
+                                                            <input  type="submit" name="option" value="Add to Wishlist" style="background-color: red; color: white">
+                                                            </form>
+                                                            
+                                                            
                                                             <form   name="Rent" action="rentController" method="POST">
                                                             <input  type="hidden" name="action" value="<%= prod.getId() %>">
                                                             <input  type="submit" name="option" value="Rent" style="background-color: red; color: white">
