@@ -12,6 +12,7 @@
 
 <% 
     //Products prod = (Products)session.getAttribute("wishlist"); 
+    User user = (User)session.getAttribute("User");
     ArrayList products= (ArrayList) session.getAttribute("wishlist");
 %>
 
