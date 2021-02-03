@@ -76,6 +76,11 @@ alert('New Password Do Not Match');
 return false;
 }
 
+else if(newpass.length < 6){
+    alert('Password has to be at least 6 characters');
+    return false;
+}
+
 else{
     return true;
 }
