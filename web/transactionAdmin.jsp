@@ -197,7 +197,7 @@
                      <td><%= rentings2.getSize() %></td>
 
                    <td><%= rentings2.getQuantity() %></td>
-                   <td><fmt:formatNumber type="number" maxFractionDigits="2" value="<%= rentings2.getTotalPrice() %>"/></td>
+                   <td><fmt:formatNumber type="number" maxFractionDigits="2" value="<%= rentings2.getTotalprice()%>"/></td>
                                       <td><%= payments2.getPaidDate() %></td>
                      </tr>
                        <%}%>
@@ -247,7 +247,8 @@
                      <td><%= rentings.getSize() %></td>
                    
                    <td><%= rentings.getQuantity() %></td>
-                    <td><%= rentings.getTotalprice() %></td>
+                   <td><fmt:formatNumber type="number" maxFractionDigits="2" value="<%= rentings.getTotalprice()%>"/></td>
+                  
                     <td><%= payments.getPaidDate() %></td>
                      <td><%= userr.getUserName() %></td>
                      </tr>
@@ -297,7 +298,8 @@
                 
 
                    <td><%= rentings1.getQuantity() %></td>
-                    <td><%= rentings1.getTotalprice() %></td>
+                    <td><fmt:formatNumber type="number" maxFractionDigits="2" value="<%= rentings1.getTotalprice()%>"/></td>
+                   
                       <td><%= payments1.getPaidDate() %></td>
                      </tr>
                        <%}%>

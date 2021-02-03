@@ -114,13 +114,11 @@
 }
 .form-style-3  input[type=submit],
 .form-style-3  input[type=button]{
-	background: #EB3B88;
-	border: 1px solid #C94A81;
+	background: #4dbbff;
+	border: 1px solid black;
 	padding: 5px 15px 5px 15px;
-	color: #FFCBE2;
-	box-shadow: inset -1px -1px 3px #FF62A7;
-	-moz-box-shadow: inset -1px -1px 3px #FF62A7;
-	-webkit-box-shadow: inset -1px -1px 3px #FF62A7;
+	color: white;
+	
 	border-radius: 3px;
 	border-radius: 3px;
 	-webkit-border-radius: 3px;
