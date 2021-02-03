@@ -148,8 +148,8 @@ public class transactionController extends HttpServlet {
             session.setAttribute("renting", renting);
             try (PrintWriter out = response.getWriter()) {
                 RequestDispatcher rd = request.getRequestDispatcher("/userTransactionHistory.jsp");
-                out.println(userIDValue);
-                rd.include(request, response);
+              
+                rd.forward(request, response);
             }
         }
         

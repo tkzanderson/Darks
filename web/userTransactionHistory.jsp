@@ -159,6 +159,7 @@
                 </div>
                     
             <div>
+                <% String rentingStatus; %>
             <table border="1" cellpadding="10" cellspacing="10" width="100%">
                 <tr style="background-color: peachpuff">
                     <th>No.</th>
@@ -169,6 +170,7 @@
                     <th>Size</th>
                     <th>Paid Date</th>
                       <th>Quantity</th>
+                      <th>Return status</th>
                 </tr>    
                
                  <% if (renting != null && (renting.size() > 0)) { 
@@ -188,6 +190,16 @@
                     <td><%= rentings.getSize() %></td>
                    <td><%= payments.getPaidDate() %></td>
                     <td><%= rentings.getQuantity() %></td>
+                   <% if((rentings.getStatus()).equals("COMPLETED")){
+                            rentingStatus = "Item had been return";
+                            }
+                    else{
+                         rentingStatus = "Item had has not been return";
+                      
+                    }
+                        
+                        %>
+                        <td><%= rentingStatus %></td>
                      </tr>
                        <%}%>
                
