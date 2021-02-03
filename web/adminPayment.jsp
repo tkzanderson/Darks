@@ -12,7 +12,7 @@
 
 <%
     ArrayList payments= (ArrayList) session.getAttribute("payments");
-    User users = (User) session.getAttribute("users");
+    User user= (User) session.getAttribute("users");
 %>  
 <html class="no-js" lang="zxx">
 
@@ -78,19 +78,55 @@
                         <div class="main-menu">
                             <nav>
                                 <ul>
-                                    <li class="angle-shape"><a href="adminIndex.jsp">Home </a></li>
-                                     <li> <form name="View" action="ViewProductsServlet" method="POST" >
+                                    <li class="angle-shape">
+                                        <form name="Home" action="HomeServlet" method="POST">                                   
+                                        <input type="hidden" name="userName" value="<%= user.getUserName() %>">
+                                        <input type="hidden" name="option" value="adminhome">
+                                        <input type="submit" value="Home">
+                                    </form>
+                                    </li>
+                                    <li> <form name="View" action="ViewProductsServlet" method="POST" >
                                             <input type="hidden" name="action" value="adminview"> <input class="btn btn-light" type="submit" value="Manage Products"></form> 
                                         </li>
-                                    <li><a href="">Promotion <span>hot</span> </a></li>
+                                    <li>
+                                        <form name="View" action="ViewPromotionsServlet" method="POST" >
+                                             <input type="hidden" name="action" value="adminview">
+                                            <input class="btn btn-light" type="submit" value="Manage Promotions">
+                                        </form>
+                                    </li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
-                                            <li><a href="">About us </a></li>
-                                            <li><a href="">Transaction History </a></li>
-                                            <li><a href="">Manage Rent</a></li>
-                                            <li><a href="">Feedback </a></li>
-                                            <li><a href="">My Profile </a></li>
-                                            <li><a href="">Logout </a></li>
+                                            <li> <form name="View" action="transactionController" method="POST">
+                                                <input type="hidden" name="view" value="admin">
+                                                 <input type="hidden" name="userID" value=" <%=user.getId()%>">
+                                                <input type="submit" value="Transaction">
+                                           </form></li>
+                                            <li><form name="rent" action="rentController" method="POST">
+                                            <input type="hidden" name="newUser" value="<%= user.getUserName() %>">
+                                            <input type="hidden" name="option" value="ViewRent">
+                                            <input type="hidden" name="action" value="1">
+                                            <input type="submit" value="Manage Rent">
+                                                </form></li>
+                                            <li>
+                                                <form name="feedback" action="FeedbackController" method="POST">
+                                                    <input type="hidden" name="action" value="ADMIN">
+                                                    <input type="submit" value="Feedback">
+                                                </form>
+                                            </li>
+                                            <li><form name="profile" action="ProfileServlet" method="POST">
+                                            <input type="hidden" name="id" value="<%= user.getId()%>"><input type="hidden" name="action" value="display"><input type="submit" value="My Profile"></form></li>
+                                            <li><a href="admin-register.jsp">Register new admin</a></li> 
+                                            <li><form name="rent" action="chartController" method="POST">
+                                            <input type="hidden" name="newUser" value="<%= user.getUserName() %>">
+                                            <input type="submit" value="View Reports">
+                                                </form></li>
+
+                                            <li>
+                                                <form name="logout" action="LogoutServlet" method="POST">
+                                                    <input type="hidden" name="action" value="logout">
+                                                    <input type="submit" value="Logout">
+                                                </form>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -146,7 +182,7 @@
                               <tr>
                                         <td><%= pay.getId() %></td>
                                         <td><%= pay.getFilename() %></td>
-                                        <td><%= users.getUserName() %></td>
+                                        <td><%= user.getUserName() %></td>
                                         <td><a href="DownloadPayment?fileName=<%=pay.getFilename() %>"><%= pay.getFilename() %></a>
                                         <td><%= pay.getPaidDate() %> </td>
                               </tr>
