@@ -126,8 +126,8 @@ public class ProfileServlet extends HttpServlet {
             st.setString(3, gender);
             st.setString(4, shippingAddress);
             st.setString(5, phoneNumber);
-            st.setInt(6, userid);
-            st.setString(7, userPassword);
+            st.setInt(7, userid);
+            st.setString(6, userPassword);
             
            st.executeUpdate();
            
@@ -164,61 +164,59 @@ public class ProfileServlet extends HttpServlet {
             
         }
         else if(action.equals("changePassword")){
-            out.println("<script type=\"text/javascript\">");
-                out.println("alert('You have reached servlet');");
+            
+            String newpass = request.getParameter("newpassword");
+            String oldpass = request.getParameter("userPassword");
+            String role = request.getParameter("role");
+            String userName = request.getParameter("userName");
+            String email = request.getParameter("email");
+            String gender = request.getParameter("gender");
+            String shippingAddress = request.getParameter("shippingAddress");
+            String phoneNumber = request.getParameter("phoneNumber");
+            int userid = Integer.parseInt(request.getParameter("userid"));
+            
+            String query = "UPDATE users SET userPassword=? WHERE userPassword=?";
+                
+            try {
+                Class.forName(driver);  //step2 load and register driver
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Connection con = DriverManager.getConnection(url, userNameDB, password);
+            PreparedStatement st = con.prepareStatement(query);
+            
+            st.setString(1, newpass);
+            st.setString(2, oldpass);
+            
+            st.executeUpdate();
+            
+            User users = new User();
+            users.setId(userid);
+            users.setUserName(userName);
+            users.setUserPassword(newpass);
+            users.setEmail(email);
+            users.setRole(role);
+            users.setGender(gender);
+            users.setShippingAddress(shippingAddress);
+            users.setPhoneNumber(phoneNumber);
+            
+            
+            if("admin".equals(role)){  
+                session.setAttribute("users", users);
+                RequestDispatcher rd = request.getRequestDispatcher("/adminProfile.jsp");
+                rd.include(request, response);
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('Your password has been updated!');");
+                out.println("</script>"); 
+         }
+         else {
+                session.setAttribute("users", users);
+                RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
+                rd.include(request, response);
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('Your password has been updated!');");
                 out.println("</script>");
-//            String newpass = request.getParameter("newpassword");
-//            String oldpass = request.getParameter("userPassword");
-//            String role = request.getParameter("role");
-//            String userName = request.getParameter("userName");
-//            String email = request.getParameter("email");
-//            String gender = request.getParameter("gender");
-//            String shippingAddress = request.getParameter("shippingAddress");
-//            String phoneNumber = request.getParameter("phoneNumber");
-//            int userid = Integer.parseInt(request.getParameter("userid"));
-//            
-//            String query = "UPDATE users SET userPassword=? WHERE userPassword=?";
-//                
-//            try {
-//                Class.forName(driver);  //step2 load and register driver
-//            } catch (ClassNotFoundException ex) {
-//                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            Connection con = DriverManager.getConnection(url, userNameDB, password);
-//            PreparedStatement st = con.prepareStatement(query);
-//            
-//            st.setString(1, newpass);
-//            st.setString(2, oldpass);
-//            
-//            st.executeUpdate();
-//            
-//            User users = new User();
-//            users.setId(userid);
-//            users.setUserName(userName);
-//            users.setUserPassword(newpass);
-//            users.setEmail(email);
-//            users.setRole(role);
-//            users.setGender(gender);
-//            users.setShippingAddress(shippingAddress);
-//            users.setPhoneNumber(phoneNumber);
-//            
-//            
-//            if("admin".equals(role)){  
-//                session.setAttribute("users", users);
-//                RequestDispatcher rd = request.getRequestDispatcher("/adminProfile.jsp");
-//                rd.include(request, response);
-//                out.println("<script type=\"text/javascript\">");
-//                out.println("alert('Your password has been updated!');");
-//                out.println("</script>"); 
-//         }
-//         else {
-//                session.setAttribute("users", users);
-//                RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
-//                rd.include(request, response);
-//                out.println("<script type=\"text/javascript\">");
-//                out.println("alert('Your password has been updated!');");
-//                out.println("</script>");
-//            }
+            }
         }
         
                 

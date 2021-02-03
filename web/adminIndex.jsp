@@ -87,7 +87,8 @@
                                                     <input type="submit" value="Feedback">
                                                 </form>
                                             </li>
-                                            <li><a href="">My Profile </a></li>
+                                            <li><form name="profile" action="ProfileServlet" method="POST">
+                                            <input type="hidden" name="id" value="<%= user.getId()%>"><input type="hidden" name="action" value="display"><input type="submit" value="My Profile"></form></li>
                                             <li><a href="admin-register.jsp">Register new admin</a></li> 
                                             <li><form name="rent" action="chartController" method="POST">
                                             <input type="hidden" name="newUser" value="<%= user.getUserName() %>">

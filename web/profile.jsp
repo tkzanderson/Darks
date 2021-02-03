@@ -8,7 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
-<%User users = (User)session.getAttribute("users");
+<%User user = (User)session.getAttribute("users");
     %>
 
 <!DOCTYPE html>
@@ -101,25 +101,61 @@ else{
                         </div>
                     </div>
                     <div class="col-xl-7 col-lg-7 ">
+                        <div class="col-xl-7 col-lg-7 ">
                         <div class="main-menu">
                             <nav>
                                 <ul>
-                                    <li class="angle-shape"><a href="userIndex.jsp">Home </a></li>
+                                    <li class="angle-shape"><form name="Home" action="HomeServlet" method="POST">                                   
+                                    <input type="hidden" name="userName" value="<%= user.getUserName() %>">
+                                    <input type="hidden" name="option" value="userhome">
+                                    <input type="submit" value="Home">
+                                    </form></li>
                                     <li class="angle-shape">
                                     <form name="View" action="ViewProductsServlet" method="POST">
-                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Products"></form></li>
+                                    <input type="hidden" name="action" value="userview">
+                                    <input type="hidden" name="username" value="<%= user.getUserName() %>">
+                                    <input type="submit" value="Products">
+                                    </form></li>
                                     <li class="angle-shape">
                                     <form name="View" action="ViewPromotionsServlet" method="POST">
-                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Promotion"></form></li>
+                                    <input type="hidden" name="action" value="userview">
+                                    <input type="hidden" name="username" value="<%= user.getUserName() %>">
+                                    <input type="submit" value="Promotion">
+                                    </form></li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
-                                            <li><a href="">Transaction History </a></li>
-                                            <li><a href="wishlist.jsp">Wishlist</a></li>
-                                            <li><a href="">Renting Cart</a></li>
-                                            <li><a href="feedbackcust.jsp">Feedback </a></li>
-                                            <li><a href="">My Profile </a></li>
-                                            <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
+                                            <li> <form name="View" action="transactionController" method="POST">
+                                                <input type="hidden" name="view" value="user">
+                                                 <input type="hidden" name="userID" value=" <%=user.getId()%>">
+                                                <input type="submit" value="Transaction">
+                                           </form></li>
+                                            <li>
+                                                <form name="wish" action="WishlistController" method="POST">
+                                                    <input type="hidden" name="output" value="VIEW">
+                                                    <input type="submit" value="Wishlist">
+                                                </form>
+                                            </li>
+                                            <li><form name="rent" action="rentController" method="POST">
+                                            <input type="hidden" name="newUser" value="<%= user.getUserName() %>">
+                                            <input type="hidden" name="option" value="ViewRent">
+                                            <input type="hidden" name="action" value="0">
+                                            <input type="submit" value="Manage Rent">
+                                                </form></li>
+                                            <li>
+                                                <form name="feedback" action="FeedbackController" method="POST">
+                                                    <input type="hidden" name="action" value="CUSTOMER">
+                                                    <input type="submit" value="Feedback">
+                                                </form>
+                                            </li>
+                                            <li><form name="profile" action="ProfileServlet" method="POST">
+                                            <input type="hidden" name="id" value="<%= user.getId()%>"><input type="hidden" name="action" value="display"><input type="submit" value="My Profile"></form></li>
+                                            <li>
+                                                <form name="logout" action="LogoutServlet" method="POST">
+                                                    <input type="hidden" name="action" value="logout">
+                                                    <input type="submit" value="Logout">
+                                                </form>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -168,15 +204,15 @@ else{
                                                     <div class="row">
                                                     <div class="single-input-item">
                                                         <label for="display-name" class="required">UserName</label>
-                                                        <input type="text" name="userName" value="<%=users.getUserName()%>" required/>
+                                                        <input type="text" name="userName" value="<%=user.getUserName()%>" required/>
                                                     </div>    
                                                     <div class="single-input-item">
                                                         <label for="email" class="required">Email Address</label>
-                                                        <input type="email" name="email" value="<%=users.getEmail() %>" required/>
+                                                        <input type="email" name="email" value="<%=user.getEmail() %>" required/>
                                                     </div>    
                                                         <div class="">
                                                         <label for="gender" class="required">Gender</label>
-                                                        <% if(users.getRole().equals("Male")){ %>
+                                                        <% if(user.getGender().equals("Male")){ %>
                                                         <select name="gender">
                                                             <option>Male</option>
                                                             <option>Female</option>
@@ -192,19 +228,19 @@ else{
                                                        
                                                         <div class="single-input-item">
                                                         <label for="shipping" class="required">Shipping Address</label>
-                                                        <textarea name="shippingAddress" rows="3" cols="50" required><%=users.getShippingAddress() %></textarea>
+                                                        <textarea name="shippingAddress" rows="3" cols="50" required><%=user.getShippingAddress() %></textarea>
                                                     </div>   
                                                         <div class="single-input-item">
                                                         <label for="phone" class="required">Phone Number</label>
-                                                        <input type="text" name="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="<%=users.getPhoneNumber() %>" required/>
+                                                        <input type="text" name="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="<%=user.getPhoneNumber() %>" required/>
                                                     </div>   
                                                     <hr>
                                                     <div class="single-input-item">
                                                         
                                                         <button type="submit" class="check-btn sqr-btn" onclick="return confirm('Are you sure you wish to change your details?')">Save Changes</button>
-                                                        <input type="hidden" name="action" value="update"><input type="hidden" name="userid" value="<%= users.getId() %>">
-                                                        <input type="hidden" name="role" value="<%= users.getRole() %> ">
-                                                        <input type="hidden" name="userPassword" value="<%= users.getUserPassword() %> ">
+                                                        <input type="hidden" name="action" value="update"><input type="hidden" name="userid" value="<%= user.getId() %>">
+                                                        <input type="hidden" name="role" value="<%= user.getRole() %> ">
+                                                        <input type="hidden" name="userPassword" value="<%= user.getUserPassword() %> ">
                                                     </div>
                                             </div>
                                                      </form>
@@ -213,7 +249,7 @@ else{
                                                  <div class="single-input-item">
                                                         <label for="OldPassword" class="required">Old Password</label>
                                                         <input type="password" name="OldPassword" id="OLDpwd"/>
-                                                        <input type="hidden" name="OldPassword" value="<%= users.getUserPassword() %>"/>
+                                                        <input type="hidden" name="OldPassword" value="<%= user.getUserPassword() %>"/>
                                                   </div>  
                                                     <div class="single-input-item">
                                                         <label for="newpassword" class="required">New Password</label>
@@ -227,14 +263,14 @@ else{
                                                     <div class="single-input-item">
                                                         
                                                         <button type="submit" class="check-btn sqr-btn">Change Password</button>
-                                                        <input type="hidden" name="action" value="changePassword"><input type="hidden" name="userid" value="<%= users.getId() %>">
-                                                        <input type="hidden" name="role" value="<%= users.getRole() %> ">
-                                                        <input type="hidden" name="phoneNumber" value="<%=users.getPhoneNumber() %>">
-                                                        <input type="hidden" name="userPassword" value="<%= users.getUserPassword() %> ">
-                                                        <input type="hidden" name="shippingAddress" value="<%=users.getShippingAddress() %>">
-                                                        <input type="hidden" name="email" value="<%=users.getEmail() %>">
-                                                        <input type="hidden" name="userName" value="<%=users.getUserName()%>">
-                                                        <input type="hidden" name="gender" value="<%=users.getGender() %>">
+                                                        <input type="hidden" name="action" value="changePassword"><input type="hidden" name="userid" value="<%= user.getId() %>">
+                                                        <input type="hidden" name="role" value="<%= user.getRole() %> ">
+                                                        <input type="hidden" name="phoneNumber" value="<%=user.getPhoneNumber() %>">
+                                                        <input type="hidden" name="userPassword" value="<%= user.getUserPassword() %> ">
+                                                        <input type="hidden" name="shippingAddress" value="<%=user.getShippingAddress() %>">
+                                                        <input type="hidden" name="email" value="<%=user.getEmail() %>">
+                                                        <input type="hidden" name="userName" value="<%=user.getUserName()%>">
+                                                        <input type="hidden" name="gender" value="<%=user.getGender() %>">
                                                     </div>
                                                        
                                             </div>
