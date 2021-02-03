@@ -38,7 +38,7 @@ public class RegisterController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
     
         
-                HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession(true);
         String driver = "com.mysql.jdbc.Driver";
         String dbName = "darks";
         String url = "jdbc:mysql://localhost/" + dbName + "?";
@@ -49,11 +49,12 @@ public class RegisterController extends HttpServlet {
         
         String userName= request.getParameter("userName");
         String userPassword= request.getParameter("userPassword");
-         String confirmUserPassword= request.getParameter("confirmUserPassword");
+        String confirmUserPassword= request.getParameter("confirmUserPassword");
         String email= request.getParameter("email");
         String gender= request.getParameter("gender");
         String shippingAddress= request.getParameter("shippingAddress");
         String phoneNumber= request.getParameter("phoneNumber");
+        
         
         if(userPassword.length()<6){
             try (PrintWriter out = response.getWriter()) {
@@ -79,6 +80,7 @@ public class RegisterController extends HttpServlet {
         user.setUserName(userName);
         user.setUserPassword(userPassword);
         user.setEmail(email);
+        //user.setId(0);
         
         String query = "INSERT INTO users(userName, userPassword, email, role, gender, shippingAddress, phoneNumber) VALUES(?,?,?,?,?,?,?)"; //prepared statement
         
@@ -99,7 +101,21 @@ public class RegisterController extends HttpServlet {
 
         
         st.executeUpdate();
+        String query2 = "SELECT * FROM users WHERE userName=?";
+         try {
+            Class.forName(driver);  
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        PreparedStatement st2 = con.prepareStatement(query2); 
+        st2.setString(1, userName);
+        
+        ResultSet rs = st2.executeQuery();
+        
+        while(rs.next()){
+            user.setId(rs.getInt(1));
+        }
         
         st.close(); 
         con.close();

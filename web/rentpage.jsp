@@ -6,6 +6,8 @@
 <%@page import="bean.User"%>
 <%@page import="bean.Products"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
    <% Products prod = (Products)session.getAttribute("products"); 
       //String username = (String)session.getAttribute("username");
       User user = (User)session.getAttribute("users");
@@ -160,9 +162,15 @@
                                                         <p><%= prod.getProdDescription() %></p>
                                                         
                                                     </div>
+                                                        <% if(prod.getPromotionStatus()== 0) { %>
                                                         <div class="ht-product-list-price">
-                                                            <span class="new">RM<%= prod.getProdPrice() %></span>
+                                                            <span class="new">RM<fmt:formatNumber type="number" maxFractionDigits="2" value="<%= prod.getProdPrice() %>"/></span>
                                                         </div>
+                                                        <% } else if(prod.getPromotionStatus()==1) { %>
+                                                         <div class="ht-product-list-price">
+                                                            <span class="new">RM<fmt:formatNumber type="number" maxFractionDigits="2" value="<%= prod.getPromotionPrice() %>"/></span>
+                                                        </div>
+                                                        <% } %>
                                                         <form action="rentController" method="POST">
                                                             <label for="size">Choose your size:</label>
                                                             <select name="size">
@@ -190,6 +198,12 @@
                                                             <input type="text" id="to" name="to" required/>
                                                             <input  type="hidden" name="action" value="<%= prod.getId() %>"/>
                                                             <input  type="hidden" name="newUser" value="<%= user.getUserName() %>"/>
+                                                            <input  type="hidden" name="userID" value="<%= user.getId() %>"/>
+                                                            <% if(prod.getPromotionStatus()== 0) { %>
+                                                        <input  type="hidden" name="price" value="<%= prod.getProdPrice() %>"/>
+                                                        <% } else if(prod.getPromotionStatus()==1) { %>
+                                                        <input  type="hidden" name="price" value="<%= prod.getPromotionPrice() %>"/>
+                                                        <% } %>
                                                             <input class="btn btn-dark" type="submit" name="option" value="Confirm Rent"/>
                                                         </form>
                                                         

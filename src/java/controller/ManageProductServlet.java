@@ -60,7 +60,9 @@ public class ManageProductServlet extends HttpServlet {
             String prodType= request.getParameter("prodType");
             String prodImage = request.getParameter("prodImage");
             int active= 1;
-            String query = "INSERT INTO products(prodTitle, prodDescription, prodPrice, prodType, prodImage, active) VALUES(?,?,?,?,?,?)"; 
+            int  promotionStatus = 0;
+            double promotionPrice = 0;
+            String query = "INSERT INTO products(prodTitle, prodDescription, prodPrice, prodType, prodImage, active, promotionPrice, promotionStatus) VALUES(?,?,?,?,?,?,?,?)"; 
 
              try {
                 Class.forName(driver);  
@@ -76,6 +78,8 @@ public class ManageProductServlet extends HttpServlet {
             st.setString(4, prodType);
             st.setString(5, prodImage);
             st.setInt(6, active);
+            st.setDouble(7, promotionPrice);
+            st.setInt(8, promotionStatus);
 
             
             st.executeUpdate();

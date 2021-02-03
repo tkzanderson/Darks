@@ -62,9 +62,9 @@ public class rentController extends HttpServlet {
         
         String status = "PENDING";
         double prodPrice;
-        int activate;
+        int activate, prodStatus;
         String prodImage;
-        double total=0;
+        double total=0, prodPromotionPrice;
         String driver = "com.mysql.jdbc.Driver";
         String dbName = "darks";
         String url = "jdbc:mysql://localhost/" + dbName + "?";
@@ -110,18 +110,27 @@ public class rentController extends HttpServlet {
                 prodType = rs.getString(5);
                 prodImage = rs.getString(6);
                 activate = rs.getInt(7);
-                Products products = new Products(prodTitle, prodDescription, prodType, prodPrice, id, prodImage, activate);
+                prodPromotionPrice = rs.getDouble(8);
+                prodStatus = rs.getInt(9);
+                Products products = new Products(prodTitle, prodDescription, prodType, prodPrice, id, prodImage, activate, prodPromotionPrice, prodStatus);
                 session.setAttribute("products", products);
+//                 try (PrintWriter out = response.getWriter()){
+////                     out.println(prodStatus);
+//                 }
         }
         
        
-            RequestDispatcher rd = request.getRequestDispatcher("/rentpage.jsp");
-            rd.forward(request, response);
+RequestDispatcher rd = request.getRequestDispatcher("/rentpage.jsp");
+rd.forward(request, response);
+                
+            
         }
         
         else if(option.equals("Confirm Rent"))
         {
             String newUser=request.getParameter("newUser");
+            double price = Double.parseDouble(request.getParameter("price"));
+            //int userID = parseInt(request.getParameter("userID"));
             int quantity = parseInt(request.getParameter("quantity"));
             String size = request.getParameter("size");
             pst2.setString(1,newUser);
@@ -131,15 +140,18 @@ public class rentController extends HttpServlet {
             
             Products products = new Products();
             
-            while(rs.next()){
-                products.setProdPrice(rs.getDouble(4));
-        }
+//            while(rs.next()){
+//                products.setProdPrice(rs.getDouble(4));
+//                
+//        }
+products.setProdPrice(price);
             
             total= products.getProdPrice()*quantity;
             
             
             while(rs2.next()){
              users.setId(rs2.getInt(1));
+             users.setUserName(rs2.getString(2));
             }  
             con3.close();
             userid = users.getId();
@@ -161,7 +173,10 @@ public class rentController extends HttpServlet {
               
             
             try (PrintWriter out = response.getWriter()) {
-                response.sendRedirect(request.getContextPath() + "/userIndex.jsp");
+                session.setAttribute("User", users);
+                
+                RequestDispatcher rd = request.getRequestDispatcher("/userIndex.jsp");
+                rd.include(request, response);
                 out.println("<script type=\"text/javascript\">");
                 out.println("alert('Product Rented!');");
                 out.println("</script>"); 

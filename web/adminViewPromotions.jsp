@@ -3,12 +3,14 @@
     Created on : Jan 17, 2021, 4:38:57 AM
     Author     : user
 --%>
+<%@page import="bean.User"%>
 <%@page import="bean.Products"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
     ArrayList products= (ArrayList) session.getAttribute("products");
+    User user = (User) session.getAttribute("User");
 %>  
 
 <!DOCTYPE html>

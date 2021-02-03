@@ -10,6 +10,7 @@
 <%@page import="bean.Payment"%>
 
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
  
@@ -181,7 +182,7 @@
                  %>
                    <tr style="background-color: cornsilk">
                     <td><%= i+1 %></td>
-                    <td><%= rentings.getTotalprice() %></td>
+                    <td><fmt:formatNumber type="number" maxFractionDigits="2" value="<%= rentings.getTotalprice() %>"/></td>
                     <td><%= products.getProdTitle() %></td>
                     <td><%= products.getProdDescription() %></td>
                     <td><%= products.getProdType() %></td>

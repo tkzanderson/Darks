@@ -11,6 +11,7 @@
 <%@page import="bean.Payment"%>
 <%@page import="bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%User user = (User)session.getAttribute("User");%>
 
 <%  ArrayList users= (ArrayList) session.getAttribute("users"); %>
@@ -196,7 +197,7 @@
                      <td><%= rentings2.getSize() %></td>
 
                    <td><%= rentings2.getQuantity() %></td>
-                   <td><%= rentings2.getTotalprice() %></td>
+                   <td><fmt:formatNumber type="number" maxFractionDigits="2" value="<%= rentings2.getTotalPrice() %>"/></td>
                                       <td><%= payments2.getPaidDate() %></td>
                      </tr>
                        <%}%>

@@ -8,6 +8,7 @@
 <%@page import="bean.Products"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%
     ArrayList products= (ArrayList) session.getAttribute("products");
@@ -169,10 +170,10 @@
                                                         <p><%= prod.getProdDescription() %></p>
                                                         
                                                     </div> <div class="ht-product-list-price">
-                                                            <span class="">Original Price: <del>RM<%= prod.getProdPrice() %></del></span>
+                                                            <span class="">Original Price: <del>RM<fmt:formatNumber type="number" maxFractionDigits="2" value="<%= prod.getProdPrice() %>"/></del></span>
                                                         </div>
                                                         <div class="ht-product-list-price">
-                                                            <span class="new">Promotion Price: <ins>RM<%= prod.getPromotionPrice() %></ins> !!!</span>
+                                                            <span class="new">Promotion Price: <ins>RM<fmt:formatNumber type="number" maxFractionDigits="2" value="<%= prod.getPromotionPrice() %>"/></ins> !!!</span>
                                                         </div>
                                                         <div class="ht-product-list-action">
                                                             

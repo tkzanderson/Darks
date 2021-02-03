@@ -5,6 +5,7 @@
  */
 package controller;
 
+import bean.User;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -104,12 +105,17 @@ public class PaymentProofServlet extends HttpServlet {
                 st.setInt(5, rentID);
                 int status = st.executeUpdate();
                 
+                User user = new User();
+                user.setId(userID);
+                user.setUserName(userName);
+                
                 if (status > 0) {
-                    session.setAttribute("fileName", fileName);
-                    String msg = "" + fileName + " File uploaded successfully...";
-                    request.setAttribute("msg", msg);
+//                    session.setAttribute("fileName", fileName);
+//                    String msg = "" + fileName + " File uploaded successfully...";
+//                    request.setAttribute("msg", msg);
+                    session.setAttribute("User", user);
                     RequestDispatcher rd = request.getRequestDispatcher("/userIndex.jsp");
-                    rd.include(request, response);
+                    rd.forward(request, response);
                     out.println("<script type=\"text/javascript\">");
                     out.println("alert('Payment process success!');");
                     out.println("</script>");

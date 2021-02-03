@@ -4,11 +4,12 @@
     Author     : user
 --%>
 
+<%@page import="bean.User"%>
 <%@page import="bean.Products"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% 
     Products products = (Products) session.getAttribute("products");
-
+    User user = (User) session.getAttribute("User");
 %>
 
 <!DOCTYPE html>

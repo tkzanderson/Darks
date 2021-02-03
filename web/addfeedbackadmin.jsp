@@ -6,6 +6,7 @@
 
 <%@page import="bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%User user = (User)session.getAttribute("User");%>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 

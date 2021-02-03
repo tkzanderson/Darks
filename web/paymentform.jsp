@@ -216,6 +216,7 @@ int rentID = (Integer)session.getAttribute("rentID");
                             <div class="Place-order mt-40">
                                 <input type="hidden" name="userID" value="<%= user.getId()%>">
                                 <input type="hidden" name="rentID" value="<%= rentID %>">
+                                <input type="hidden" name="userName" value="<%= user.getUserName() %>">
                                 <input type="submit" value="Confirm Payment" style="background-color: red; color: white">
                             </div>
                                

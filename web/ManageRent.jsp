@@ -11,6 +11,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
     ArrayList rentAL= (ArrayList) session.getAttribute("rent");
     User user = (User)session.getAttribute("User");
@@ -191,7 +192,7 @@
                                         <td><%= index+1 %></td>
                                         <td><%= rent.getProdTitle() %></td>
                                         <td><%= rent.getQuantity() %></td>
-                                        <td><%= rent.getPrice() %></td>
+                                        <td>RM<fmt:formatNumber type="number" maxFractionDigits="2" value="<%= rent.getPrice() %>"/></td>
                                         <td><%= rent.getStartdate() %></td>
                                         <td><%= rent.getEnddate() %></td>
                                         <td><%= rent.getStatus() %></td>
