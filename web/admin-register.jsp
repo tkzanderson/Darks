@@ -5,6 +5,7 @@
 --%>
 <%@page import="bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%User user = (User)session.getAttribute("User");%>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -217,7 +218,7 @@ function checkPass()
                                        <input type="email" name="email" placeholder="Email" required>
                                        
                                        <label>Address</label>
-                                       <input type="text" name="shippingAddress" placeholder="Shipping address" required>
+                                       <textarea name="shippingAddress" placeholder="Shipping address" rows="4" cols="50" required></textarea><br><br>
                                        
                                        <label>Phone Number</label>
                                         <input type="tel" name="phoneNumber" placeholder="Telephone number: 012-345-6789" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
