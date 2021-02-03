@@ -51,32 +51,23 @@ const conpass = document.getElementsByName("conpassword")[0].value;
 
 const compareOld = document.getElementsByName("OldPassword")[1].value;
 
-//var compareNew = newpass.localeCompare(conpass);
-
-//alert(document.getElementById("OLDpwd").value);
-
-
-
 
 if(oldpwd !== compareOld )
 {
 alert('Please enter the correct old password');
-//document.ChangePasswordForm.OldPassword.focus();
 return false;
 }
 
 else if(newpass =="")
 {
 alert('Enter a new password');
-//document.ChangePasswordForm.conpassword.focus(); 
 return false;
 }
 
 
 else if(newpass !== conpass)
 {
-alert('New Password Do Not Match');
-//document.ChangePasswordForm.conpassword.focus(); 
+alert('New Password Do Not Match'); 
 return false;
 }
 
@@ -88,9 +79,6 @@ else if(newpass.length < 6){
 else{
     return true;
 }
-
-//document.ChangePasswordForm.submit();
-
 }
 </script>
 <div>
