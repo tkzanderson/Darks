@@ -56,16 +56,16 @@ public class UpdatePromotionServlet extends HttpServlet {
            String prodTitle, prodDescription, prodType;
            double prodPrice, promotionPrice;
            int id, activate, promotionStatus;
-            String prodImage;
+           String prodImage;
            String query = "SELECT * FROM products where id="+prodid;
            
            
            try {
-                Class.forName(driver);  //step2 load and register driver
+                Class.forName(driver);  
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            Connection con = DriverManager.getConnection(url, userNameDB, password); //step3 establish connection
+            Connection con = DriverManager.getConnection(url, userNameDB, password); 
             Statement st = con.createStatement(); 
             ResultSet rs = st.executeQuery(query);
         
@@ -79,10 +79,10 @@ public class UpdatePromotionServlet extends HttpServlet {
             products.setProdType(rs.getString(5));
             products.setProdImage(rs.getString(6));
             products.setActivate(rs.getInt(7));
-          products.setPromotionPrice(rs.getDouble(8));
-      products.setPromotionStatus(rs.getInt(9));}
+            products.setPromotionPrice(rs.getDouble(8));
+            products.setPromotionStatus(rs.getInt(9));}
             
-            st.close(); //step7 close connection
+            st.close(); 
             con.close();
             
             session.setAttribute("products", products);
@@ -99,25 +99,23 @@ public class UpdatePromotionServlet extends HttpServlet {
            
             int editindex= Integer.parseInt(request.getParameter("editindex"));
             
-            String query = "UPDATE products set promotionPrice=?, promotionStatus=? where id="+editindex; //prepared statement
+            String query = "UPDATE products set promotionPrice=?, promotionStatus=? where id="+editindex; 
 
              try {
-                Class.forName(driver);  //step2 load and register driver
+                Class.forName(driver); 
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            Connection con = DriverManager.getConnection(url, userNameDB, password); //step3 establish connection
-            //Statement st = con.createStatement();   //step4 create statement normal statement
-            PreparedStatement st = con.prepareStatement(query); //preparedstatement
+            Connection con = DriverManager.getConnection(url, userNameDB, password); 
+            PreparedStatement st = con.prepareStatement(query); 
           
             st.setDouble(1, promotionPrice);
             st.setInt(2, promotionStatus);
            
 
-            //st.executeUpdate(query);    //step5 execute the query
             st.executeUpdate();
 
-            st.close(); //step7 close connection
+            st.close(); 
             con.close();
 
             RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");

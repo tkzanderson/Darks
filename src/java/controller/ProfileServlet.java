@@ -59,14 +59,13 @@ public class ProfileServlet extends HttpServlet {
         String query="SELECT * FROM users WHERE id=?";
         
         try {
-            Class.forName(driver); //2-load and register the driver
+            Class.forName(driver);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ProfileServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Connection con = DriverManager.getConnection(url, userNameDB, password); //3-establish connection
+        Connection con = DriverManager.getConnection(url, userNameDB, password); 
         
-        //Statement st = con.createStatement(); //4-create statement //normal statement
-        PreparedStatement st = con.prepareStatement(query); //prepare statement
+        PreparedStatement st = con.prepareStatement(query); 
         
         st.setInt(1,newUser);
         ResultSet rs = st.executeQuery();
@@ -84,7 +83,7 @@ public class ProfileServlet extends HttpServlet {
             
             role = users.getRole();
         }
-            st.close(); //step7 close connection
+            st.close(); 
             con.close();
             
             
@@ -114,7 +113,7 @@ public class ProfileServlet extends HttpServlet {
             String query = "UPDATE users SET userName=?, email=?, gender=?, shippingAddress=?, phoneNumber=?, userPassword=? WHERE id=?";
                 
             try {
-                Class.forName(driver);  //step2 load and register driver
+                Class.forName(driver);  
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -178,7 +177,7 @@ public class ProfileServlet extends HttpServlet {
             String query = "UPDATE users SET userPassword=? WHERE userPassword=?";
                 
             try {
-                Class.forName(driver);  //step2 load and register driver
+                Class.forName(driver);  
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
             }

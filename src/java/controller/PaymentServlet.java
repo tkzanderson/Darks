@@ -51,21 +51,21 @@ public class PaymentServlet extends HttpServlet {
         
         int userID = Integer.parseInt(request.getParameter("userID"));
         int rentID = Integer.parseInt(request.getParameter("rentID"));
-        //int userID =1;  
+         
         double total = 0;
         String status = "APPROVED";
         
         String query="SELECT * FROM rent WHERE id=?";
         String query2 ="SELECT * FROM users WHERE id=?";
         try {
-            Class.forName(driver); //2-load and register the driver
+            Class.forName(driver); 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ProfileServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Connection con = DriverManager.getConnection(url, userNameDB, password); //3-establish connection
+        Connection con = DriverManager.getConnection(url, userNameDB, password); 
         
-        //Statement st = con.createStatement(); //4-create statement //normal statement
-        PreparedStatement st = con.prepareStatement(query); //prepare statement
+        
+        PreparedStatement st = con.prepareStatement(query); 
         
         st.setInt(1,rentID);
         ResultSet rs = st.executeQuery();
@@ -76,7 +76,7 @@ public class PaymentServlet extends HttpServlet {
             
         }
         
-        PreparedStatement st2 = con.prepareStatement(query2); //prepare statement
+        PreparedStatement st2 = con.prepareStatement(query2); 
         
         st2.setInt(1,userID);
         ResultSet rs2 = st2.executeQuery();
@@ -91,7 +91,7 @@ public class PaymentServlet extends HttpServlet {
             users.setPhoneNumber(rs2.getString(8));
         }
         
-            st.close(); //step7 close connection
+            st.close(); 
             con.close();
             
             
@@ -108,16 +108,7 @@ public class PaymentServlet extends HttpServlet {
         
         
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet PaymentServlet</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet PaymentServlet at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
+            
         }
     }
 

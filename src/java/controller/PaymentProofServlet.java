@@ -57,8 +57,7 @@ public class PaymentProofServlet extends HttpServlet {
             
             HttpSession session = request.getSession(true);
             String folderName = "resources";
-            String uploadPath = request.getServletContext().getRealPath("") + File.separator + folderName;//for netbeans use this code
-            //String uploadPath = request.getServletContext().getRealPath("") + folderName;//for eclipse use this code
+            String uploadPath = request.getServletContext().getRealPath("") + File.separator + folderName;
             File dir = new File(uploadPath);
             if (!dir.exists()) {
                 dir.mkdirs();
@@ -85,7 +84,7 @@ public class PaymentProofServlet extends HttpServlet {
                 String query = "INSERT into payment(filename,path,userID, paidDate, rentID) values(?,?,?,?,?)";
                 String query2 = "UPDATE rent SET status=? WHERE id=?";               
                 try {
-                        Class.forName(driver); //2-load and register the driver
+                        Class.forName(driver); 
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(ProfileServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }

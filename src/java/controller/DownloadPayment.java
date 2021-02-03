@@ -28,19 +28,17 @@ public class DownloadPayment extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        /**
-         * *** Get The Absolute Path Of The File To Be Downloaded ****
-         */
+        
+         //Get The Absolute Path Of The File To Be Downloaded 
         fileName = request.getParameter("fileName");
         if (fileName == null || fileName.equals("")) {
-            /**
-             * *** Set Response Content Type ****
-             */
+            
+//Set Response Content Type 
+             
             response.setContentType("text/html");
 
-            /**
-             * *** Print The Response ****
-             */
+            //Print The Response
+            
             response.getWriter().println("<h3>File " + fileName + " Is Not Present .....!</h3>");
         } else {
             String applicationPath = getServletContext().getRealPath("");
@@ -56,35 +54,26 @@ public class DownloadPayment extends HttpServlet {
 
             if (file.exists()) {
 
-                /**
-                 * ** Setting The Content Attributes For The Response Object
-                 * ***
-                 */
+                //Setting The Content Attributes For The Response Object
                 String mimeType = "application/octet-stream";
                 response.setContentType(mimeType);
 
-                /**
-                 * ** Setting The Headers For The Response Object ***
-                 */
+                //Setting The Headers For The Response Object 
                 String headerKey = "Content-Disposition";
                 String headerValue = String.format("attachment; filename=\"%s\"", file.getName());
                 response.setHeader(headerKey, headerValue);
 
                 try {
 
-                    /**
-                     * ** Get The Output Stream Of The Response ***
-                     */
+                    //Get The Output Stream Of The Response 
                     outStream = response.getOutputStream();
                     inputStream = new FileInputStream(file);
                     byte[] buffer = new byte[BUFFER_SIZE];
                     int bytesRead = -1;
 
-                    /**
-                     * ** Write Each Byte Of Data Read From The Input Stream
-                     * Write Each Byte Of Data Read From The Input Stream Into
-                     * The Output Stream ***
-                     */
+                    //Write Each Byte Of Data Read From The Input Stream
+                    //Write Each Byte Of Data Read From The Input Stream Into
+                    //The Output Stream
                     while ((bytesRead = inputStream.read(buffer)) != -1) {
                         outStream.write(buffer, 0, bytesRead);
                     }
@@ -102,14 +91,10 @@ public class DownloadPayment extends HttpServlet {
                 }
             } else {
 
-                /**
-                 * *** Set Response Content Type ****
-                 */
+                //Set Response Content Type
                 response.setContentType("text/html");
 
-                /**
-                 * *** Print The Response ****
-                 */
+               //Print The Response
                 response.getWriter().println("<h3>File " + fileName + " Is Not Present .....!</h3>");
             }
 

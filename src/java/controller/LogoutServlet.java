@@ -37,15 +37,15 @@ public class LogoutServlet extends HttpServlet {
             String action = request.getParameter("action");  
             
             if(action.equals("logout")){
-            out.print("You have successfully logged out!");  
-            request.getRequestDispatcher("login-register.jsp").include(request, response);  
-              
-            HttpSession session=request.getSession();  
-            session.invalidate();  
-              
-            out.print("You have successfully logged out!");  
-              
-            out.close(); 
+                out.print("You have successfully logged out!");  
+                request.getRequestDispatcher("login-register.jsp").include(request, response);  
+
+                HttpSession session=request.getSession();  
+                session.invalidate();  
+
+                out.print("You have successfully logged out!");  
+
+                out.close(); 
             }
         }
     }

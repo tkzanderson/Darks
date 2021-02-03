@@ -157,8 +157,6 @@ public class WishlistController extends HttpServlet {
                             else{
                                 prodPrice = rs.getDouble(4);
                             }
-                            //prodPrice = rs.getDouble(4);
-                            //prodPrice = rs.getDouble(df.format(4));
                             
                             prodImage = rs.getString(6);
 
@@ -207,8 +205,6 @@ public class WishlistController extends HttpServlet {
                             else{
                                 prodPrice = rs.getDouble(4);
                             }
-                            //prodPrice = rs.getDouble(4);
-                            //prodPrice = rs.getDouble(df.format(4));
                             
                             prodImage = rs.getString(6);
 
@@ -227,18 +223,11 @@ public class WishlistController extends HttpServlet {
                 
             }else if (output.equals("Remove"))
             {
-                //id = Integer.parseInt(request.getParameter("id"));
+                
                 prodTitle = request.getParameter("title");
                 int index = Integer.parseInt(request.getParameter("index"));
                 
                 products.remove(index);
-                /*
-                if(index <= 0 || "0".equals(zero)){
-                    products.remove(0);
-                }
-                else{
-                    products.remove(index);
-                }*/
                 
                 session.setAttribute("wishlist", products);
                 out.println(prodTitle + " has been removed from your wishlist!");

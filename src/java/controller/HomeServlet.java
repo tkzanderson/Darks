@@ -66,14 +66,14 @@ public class HomeServlet extends HttpServlet {
         
             if(option.equals("userhome")){
                 session.setAttribute("User", users);
-             RequestDispatcher rd = request.getRequestDispatcher("/userIndex.jsp");
-              rd.include(request, response);
+                RequestDispatcher rd = request.getRequestDispatcher("/userIndex.jsp");
+                rd.include(request, response);
             }
             
             else if(option.equals("adminhome")){
                 session.setAttribute("User", users);
-             RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
-              rd.include(request, response);
+                RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
+                rd.include(request, response);
             }
        
     }

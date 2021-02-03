@@ -48,15 +48,15 @@ public class FeedbackController extends HttpServlet {
         String password = "";
         String query;
             
-        Class.forName(driver); //2. load and register the driver
-        Connection con = DriverManager.getConnection(url, userNameDB, password); //3. establish the connection
+        Class.forName(driver); 
+        Connection con = DriverManager.getConnection(url, userNameDB, password); 
             
         String action = request.getParameter("action");
 
             if (action.equals("INSERT"))
             {
                 query = "INSERT INTO feedback(name, feedback) VALUES(?, ?)";
-                PreparedStatement st = con.prepareStatement(query);  //4. create the statement
+                PreparedStatement st = con.prepareStatement(query); 
         
                 String name = request.getParameter("name");
                 String feedback = request.getParameter("feedback");
@@ -66,12 +66,10 @@ public class FeedbackController extends HttpServlet {
 
                 int insertStatus = 0;
 
-                //st.executeUpdate(query); //5. execute the query(normal statement
+                st.executeUpdate(); 
+                System.out.println(insertStatus + "row affected"); 
 
-                st.executeUpdate(); //prepared statement
-                System.out.println(insertStatus + "row affected"); //6. process the result
-
-                st.close(); // 7. close the connection
+                st.close(); 
                 con.close();
         
                 out.println("Successfully inserted feedback !");
@@ -81,7 +79,7 @@ public class FeedbackController extends HttpServlet {
             else if (action.equals("ADMININSERT"))
             {
                 query = "INSERT INTO feedback(name, feedback) VALUES(?, ?)";
-                PreparedStatement st = con.prepareStatement(query);  //4. create the statement
+                PreparedStatement st = con.prepareStatement(query);  
         
                 String name = request.getParameter("name");
                 String feedback = request.getParameter("feedback");
@@ -91,12 +89,10 @@ public class FeedbackController extends HttpServlet {
 
                 int insertStatus = 0;
 
-                //st.executeUpdate(query); //5. execute the query(normal statement
+                st.executeUpdate(); 
+                System.out.println(insertStatus + "row affected");
 
-                st.executeUpdate(); //prepared statement
-                System.out.println(insertStatus + "row affected"); //6. process the result
-
-                st.close(); // 7. close the connection
+                st.close(); 
                 con.close();
         
                 out.println("Successfully inserted feedback !");
@@ -116,13 +112,13 @@ public class FeedbackController extends HttpServlet {
             {
                 int id = Integer.parseInt(request.getParameter("id"));
                 query = "DELETE FROM feedback WHERE id=?";
-                PreparedStatement st = con.prepareStatement(query);  //4. create the statement
+                PreparedStatement st = con.prepareStatement(query);  
                  
                 st.setInt(1,id);  
                 
                 st.executeUpdate();  
                 
-                st.close(); // 7. close the connection
+                st.close(); 
                 con.close();
                 
                 out.println("Successfully deleted feedback !");
@@ -136,7 +132,7 @@ public class FeedbackController extends HttpServlet {
                 String feedback = request.getParameter("feedback");
                 
                 query = "UPDATE feedback set name=?, feedback=? WHERE id=?";
-                PreparedStatement st = con.prepareStatement(query);  //4. create the statement
+                PreparedStatement st = con.prepareStatement(query); 
                 
                 st.setString(1,name);  
                 st.setString(2,feedback);  
@@ -144,17 +140,16 @@ public class FeedbackController extends HttpServlet {
                 
                 int updateStatus = 0;
                 st.executeUpdate();  
-                System.out.println(updateStatus + "row affected"); //6. process the result
+                System.out.println(updateStatus + "row affected"); 
 
-                st.close(); // 7. close the connection
+                st.close(); 
                 con.close();
                 
                 out.println("Successfully updated feedback !");
                 RequestDispatcher rd = request.getRequestDispatcher("feedbackadmin.jsp");
                 rd.include(request, response);
                 
-                //RequestDispatcher rd = request.getRequestDispatcher("feedbackadmin.jsp");
-                //rd.forward(request, response);
+                
            }else if (action.equals("CUSTOMER")){
                 RequestDispatcher rd= request.getRequestDispatcher("feedbackcust.jsp");
                 rd.forward(request, response);

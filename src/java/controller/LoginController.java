@@ -78,11 +78,9 @@ public class LoginController extends HttpServlet {
                     if("admin".equals(rs.getString(5))){
                         RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
                         rd.include(request, response);
-                        //out.println("ADMIN VIEW");
                     }else{
                         RequestDispatcher rd= request.getRequestDispatcher("/userIndex.jsp");
                         rd.include(request, response);
-                        //out.println("CUSTOMER VIEW");
                     }
                 }
                 else{
@@ -90,19 +88,11 @@ public class LoginController extends HttpServlet {
                     RequestDispatcher rd=request.getRequestDispatcher("/login-register.jsp");
                     rd.include(request,response);
                 }
-                // 7. close the connection
+               
                 
             }
 
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("</body>");
-            out.println("</html>");
+           
         }
     }
 

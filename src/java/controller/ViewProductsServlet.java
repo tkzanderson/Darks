@@ -46,7 +46,6 @@ public class ViewProductsServlet extends HttpServlet {
         
         HttpSession session = request.getSession(true);
         String action = request.getParameter("action");
-        //String action2 = (String)request.getAttribute("action2");
         ArrayList<Products> products = new ArrayList<Products>();
         
         String prodTitle, prodDescription, prodType;
@@ -73,7 +72,7 @@ public class ViewProductsServlet extends HttpServlet {
         ResultSet rs = st.executeQuery(query);
         ResultSet rs2 = st2.executeQuery(query2);
                              
-                if(action.equals("adminview")/*||action2.equals("adminview")*/){
+                if(action.equals("adminview")){
                     while(rs.next()){
                      id = rs.getInt(1);
                      prodTitle = rs.getString(2);
@@ -107,45 +106,6 @@ public class ViewProductsServlet extends HttpServlet {
                     rd.forward(request, response);
                 }
 
-                
-                
-                
-        
-//        if(action.equals("dress")){
-//                query = "SELECT * FROM products WHERE prodType='dress'";
-//
-//                Statement st = con.createStatement(); 
-//                ResultSet rs = st.executeQuery(query);
-//                
-//                while(rs.next()){
-//                     id = rs.getInt(1);
-//                     prodTitle = rs.getString(2);
-//                     prodDescription = rs.getString(3);
-//                     prodPrice = rs.getDouble(4);
-//                     prodType = rs.getString(5);
-//                     prodImage = rs.getString(6);
-//                     
-//                     products.add(new Products(prodTitle, prodDescription, prodType, prodPrice, id,prodImage));
-//            
-//                }
-//                
-//                session.setAttribute("products", products);
-//
-//                RequestDispatcher rd = request.getRequestDispatcher("/dress.jsp");
-//                rd.forward(request, response);
-//        }
-//        else if(action.equals("suit")){
-//            query = "SELECT * FROM products WHERE prodType='dress'";
-//            Statement st = con.createStatement(); 
-//            ResultSet rs = st.executeQuery(query);
-//            session.setAttribute("rs",rs);
-//                
-//            RequestDispatcher rd = request.getRequestDispatcher("/suit.jsp");
-//            rd.forward(request, response);
-//        }
-        
-       
-        
         try (PrintWriter out = response.getWriter()) {
              
         }

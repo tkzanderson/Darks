@@ -43,7 +43,6 @@ public class ViewPromotionsServlet extends HttpServlet {
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8"); HttpSession session = request.getSession(true);
         String action = request.getParameter("action");
-        //String action2 = (String)request.getAttribute("action2");
         ArrayList<Products> products = new ArrayList<Products>();
         
         String prodTitle, prodDescription, prodType;
@@ -67,43 +66,49 @@ public class ViewPromotionsServlet extends HttpServlet {
         ResultSet rs = st.executeQuery(query);
         ResultSet rs2 = st2.executeQuery(query2);
                              
-                if(action.equals("adminview")/*||action2.equals("adminview")*/){
+                if(action.equals("adminview")){
                     String username = request.getParameter("username");
                     User users = new User();
                     users.setUserName(username);
-                    while(rs.next()){    
-                     id = rs.getInt(1);
-                     prodTitle = rs.getString(2);
-                     prodDescription = rs.getString(3);
-                     prodPrice = rs.getDouble(4);
-                     prodType = rs.getString(5);
-                     prodImage = rs.getString(6);
-                     activate = rs.getInt(7);
-                     promotionPrice = rs.getDouble(8);
-                     promotionStatus = rs.getInt(9);
-                products.add(new Products(prodTitle, prodDescription, prodType, prodPrice, id,prodImage, activate, promotionPrice, promotionStatus)); }
                     
-                session.setAttribute("products", products);
-                session.setAttribute("users", users);
+                    while(rs.next()){    
+                        id = rs.getInt(1);
+                        prodTitle = rs.getString(2);
+                        prodDescription = rs.getString(3);
+                        prodPrice = rs.getDouble(4);
+                        prodType = rs.getString(5);
+                        prodImage = rs.getString(6);
+                        activate = rs.getInt(7);
+                        promotionPrice = rs.getDouble(8);
+                        promotionStatus = rs.getInt(9);
+                        products.add(new Products(prodTitle, prodDescription, prodType, prodPrice, id,prodImage, activate, promotionPrice, promotionStatus)); 
+                    }
+                    
+                    session.setAttribute("products", products);
+                    session.setAttribute("users", users);
                     RequestDispatcher rd = request.getRequestDispatcher("/adminViewPromotions.jsp");
                     rd.forward(request, response);
                 }
                 
                 else if(action.equals("userview")){
+                    
                     String username = request.getParameter("username");
                     User users = new User();
                     users.setUserName(username);
                     while(rs2.next()){
-                     id = rs2.getInt(1);
-                     prodTitle = rs2.getString(2);
-                     prodDescription = rs2.getString(3);
-                     prodPrice = rs2.getDouble(4);
-                     prodType = rs2.getString(5);
-                     prodImage = rs2.getString(6);
-                                 activate = rs2.getInt(7);
-                     promotionPrice = rs2.getDouble(8);
-                     promotionStatus = rs2.getInt(9);
-                     products.add(new Products(prodTitle, prodDescription, prodType, prodPrice, id,prodImage, activate, promotionPrice, promotionStatus)); }
+                        id = rs2.getInt(1);
+                        prodTitle = rs2.getString(2);
+                        prodDescription = rs2.getString(3);
+                        prodPrice = rs2.getDouble(4);
+                        prodType = rs2.getString(5);
+                        prodImage = rs2.getString(6);
+                        activate = rs2.getInt(7);
+                        promotionPrice = rs2.getDouble(8);
+                        promotionStatus = rs2.getInt(9);
+                        products.add(new Products(prodTitle, prodDescription, prodType, prodPrice, id,prodImage, activate, promotionPrice, promotionStatus)); 
+                    }
+                    
+                    
                     session.setAttribute("products", products);
                     session.setAttribute("users", users);
                     RequestDispatcher rd = request.getRequestDispatcher("/userViewPromotions.jsp");

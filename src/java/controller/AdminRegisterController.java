@@ -84,13 +84,13 @@ public class AdminRegisterController extends HttpServlet {
             String query = "INSERT INTO users(userName, userPassword, email, role, gender, shippingAddress, phoneNumber) VALUES(?,?,?,?,?,?,?)"; //prepared statement
         
             try {
-                Class.forName(driver);  //step2 load and register driver
+                Class.forName(driver);  
             }catch (ClassNotFoundException ex) {
                 Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            Connection con = DriverManager.getConnection(url, userNameDB, password); //step3 establish connection
-            //Statement st = con.createStatement();   //step4 create statement normal statement
-            PreparedStatement st = con.prepareStatement(query); //preparedstatement
+            Connection con = DriverManager.getConnection(url, userNameDB, password); 
+            
+            PreparedStatement st = con.prepareStatement(query); 
             st.setString(1, userName);
             st.setString(2, userPassword);
             st.setString(3, email);
@@ -99,11 +99,11 @@ public class AdminRegisterController extends HttpServlet {
             st.setString(6, shippingAddress);
             st.setString(7, phoneNumber);
         
-            //st.executeUpdate(query);    //step5 execute the query
+           
             st.executeUpdate();
         
         
-            st.close(); //step7 close connection
+            st.close(); 
             con.close();
         
             session.setAttribute("User",user);

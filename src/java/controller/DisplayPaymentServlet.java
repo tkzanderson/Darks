@@ -47,7 +47,7 @@ public class DisplayPaymentServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         HttpSession session = request.getSession(true);
-        //String action2 = (String)request.getAttribute("action2");
+        
         ArrayList<Payment> payments = new ArrayList<Payment>();
         User users= new User();
         
@@ -101,17 +101,7 @@ public class DisplayPaymentServlet extends HttpServlet {
         
         
         
-        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet DisplayPaymentServlet</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet DisplayPaymentServlet at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
+        try (PrintWriter out = response.getWriter()) {         
         }
     }
 

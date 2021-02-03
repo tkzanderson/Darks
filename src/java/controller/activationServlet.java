@@ -49,8 +49,6 @@ public class activationServlet extends HttpServlet {
  
         id= parseInt(request.getParameter("index"));
         activate = parseInt(request.getParameter("action"));
-//        String action2 = "adminview";
-//        request.setAttribute("action2", action2);
 
         String driver = "com.mysql.jdbc.Driver";
         String dbName = "darks";
@@ -76,8 +74,8 @@ public class activationServlet extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
                 rd.include(request, response);
                 out.println("<script type=\"text/javascript\">");
-                     out.println("alert('Product Activation Status Updated');");
-                     out.println("</script>"); 
+                out.println("alert('Product Activation Status Updated');");
+                out.println("</script>"); 
                     
                      
                     
@@ -86,9 +84,9 @@ public class activationServlet extends HttpServlet {
             else{
                     RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
                     rd.include(request, response);
-                     out.println("<script type=\"text/javascript\">");
-                     out.println("alert('Product Activation or Deactivation Error');");
-                     out.println("</script>"); 
+                    out.println("<script type=\"text/javascript\">");
+                    out.println("alert('Product Activation or Deactivation Error');");
+                    out.println("</script>"); 
                      
             }
                      

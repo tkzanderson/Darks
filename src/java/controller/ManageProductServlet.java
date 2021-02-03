@@ -60,16 +60,16 @@ public class ManageProductServlet extends HttpServlet {
             String prodType= request.getParameter("prodType");
             String prodImage = request.getParameter("prodImage");
             int active= 1;
-            String query = "INSERT INTO products(prodTitle, prodDescription, prodPrice, prodType, prodImage, active) VALUES(?,?,?,?,?,?)"; //prepared statement
+            String query = "INSERT INTO products(prodTitle, prodDescription, prodPrice, prodType, prodImage, active) VALUES(?,?,?,?,?,?)"; 
 
              try {
-                Class.forName(driver);  //step2 load and register driver
+                Class.forName(driver);  
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            Connection con = DriverManager.getConnection(url, userNameDB, password); //step3 establish connection
-            //Statement st = con.createStatement();   //step4 create statement normal statement
-            PreparedStatement st = con.prepareStatement(query); //preparedstatement
+            Connection con = DriverManager.getConnection(url, userNameDB, password); 
+            
+            PreparedStatement st = con.prepareStatement(query); 
             st.setString(1, prodTitle);
             st.setString(2,prodDescription);
             st.setDouble(3, prodPrice);
@@ -77,10 +77,10 @@ public class ManageProductServlet extends HttpServlet {
             st.setString(5, prodImage);
             st.setInt(6, active);
 
-            //st.executeUpdate(query);    //step5 execute the query
+            
             st.executeUpdate();
 
-            st.close(); //step7 close connection
+            st.close(); 
             con.close();
 
             RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
@@ -100,11 +100,11 @@ public class ManageProductServlet extends HttpServlet {
            
            
            try {
-                Class.forName(driver);  //step2 load and register driver
+                Class.forName(driver); 
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            Connection con = DriverManager.getConnection(url, userNameDB, password); //step3 establish connection
+            Connection con = DriverManager.getConnection(url, userNameDB, password); 
             Statement st = con.createStatement(); 
             ResultSet rs = st.executeQuery(query);
         
@@ -119,7 +119,7 @@ public class ManageProductServlet extends HttpServlet {
             products.setProdImage(rs.getString(6));
             products.setActivate(rs.getInt(7));}
             
-            st.close(); //step7 close connection
+            st.close(); 
             con.close();
             
             session.setAttribute("products", products);
@@ -136,26 +136,25 @@ public class ManageProductServlet extends HttpServlet {
             String prodImage = request.getParameter("prodImage");
             int editindex= Integer.parseInt(request.getParameter("editindex"));
             
-            String query = "UPDATE products set prodTitle=?, prodDescription=?, prodPrice=?, prodType=?, prodImage=? where id="+editindex; //prepared statement
+            String query = "UPDATE products set prodTitle=?, prodDescription=?, prodPrice=?, prodType=?, prodImage=? where id="+editindex; 
 
              try {
-                Class.forName(driver);  //step2 load and register driver
+                Class.forName(driver);  
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            Connection con = DriverManager.getConnection(url, userNameDB, password); //step3 establish connection
-            //Statement st = con.createStatement();   //step4 create statement normal statement
-            PreparedStatement st = con.prepareStatement(query); //preparedstatement
+            Connection con = DriverManager.getConnection(url, userNameDB, password); 
+            PreparedStatement st = con.prepareStatement(query); 
             st.setString(1, prodTitle);
             st.setString(2,prodDescription);
             st.setDouble(3, prodPrice);
             st.setString(4, prodType);
             st.setString(5, prodImage);
 
-            //st.executeUpdate(query);    //step5 execute the query
+            
             st.executeUpdate();
 
-            st.close(); //step7 close connection
+            st.close(); 
             con.close();
 
             RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");
@@ -170,18 +169,17 @@ public class ManageProductServlet extends HttpServlet {
            
            String query = "DELETE FROM products WHERE id=?";
            try {
-                Class.forName(driver);  //step2 load and register driver
+                Class.forName(driver);  
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            Connection con = DriverManager.getConnection(url, userNameDB, password); //step3 establish connection
-            //Statement st = con.createStatement();   //step4 create statement normal statement
-            PreparedStatement st = con.prepareStatement(query);//preparedstatement
+            Connection con = DriverManager.getConnection(url, userNameDB, password); 
+            PreparedStatement st = con.prepareStatement(query);
             
             st.setInt(1, delindex);
-             st.executeUpdate(); //preppared statment
+             st.executeUpdate(); 
         
-            st.close(); //7-close connection
+            st.close(); 
             con.close();
             
             RequestDispatcher rd= request.getRequestDispatcher("/adminIndex.jsp");

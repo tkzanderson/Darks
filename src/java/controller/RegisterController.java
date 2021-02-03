@@ -83,13 +83,12 @@ public class RegisterController extends HttpServlet {
         String query = "INSERT INTO users(userName, userPassword, email, role, gender, shippingAddress, phoneNumber) VALUES(?,?,?,?,?,?,?)"; //prepared statement
         
          try {
-            Class.forName(driver);  //step2 load and register driver
+            Class.forName(driver);  
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Connection con = DriverManager.getConnection(url, userNameDB, password); //step3 establish connection
-        //Statement st = con.createStatement();   //step4 create statement normal statement
-        PreparedStatement st = con.prepareStatement(query); //preparedstatement
+        Connection con = DriverManager.getConnection(url, userNameDB, password); 
+        PreparedStatement st = con.prepareStatement(query); 
         st.setString(1, userName);
         st.setString(2, userPassword);
         st.setString(3, email);
@@ -99,21 +98,20 @@ public class RegisterController extends HttpServlet {
         st.setString(7, phoneNumber);
 
         
-        //st.executeUpdate(query);    //step5 execute the query
         st.executeUpdate();
         
         
-        st.close(); //step7 close connection
+        st.close(); 
         con.close();
         
         session.setAttribute("User",user);
       
         try (PrintWriter out = response.getWriter()) {
                   RequestDispatcher rd= request.getRequestDispatcher("/userIndex.jsp");
-        rd.include(request, response);
-         out.println("<script type=\"text/javascript\">");
-                     out.println("alert('You has sucessfully register, welcome to Darks Dress and Suit Renting');");
-                     out.println("</script>");
+                  rd.include(request, response);
+                  out.println("<script type=\"text/javascript\">");
+                  out.println("alert('You has sucessfully register, welcome to Darks Dress and Suit Renting');");
+                  out.println("</script>");
       
           }   
         }

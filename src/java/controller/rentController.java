@@ -79,15 +79,18 @@ public class rentController extends HttpServlet {
         String query6="SELECT * FROM rent";
         String query7="UPDATE rent SET status=? WHERE id=?";
         String query8="DELETE FROM rent WHERE id=?";
+        
         Class.forName(driver); 
         Connection con = DriverManager.getConnection(url, userName, password); 
         Connection con2 = DriverManager.getConnection(url, userName, password); 
         Connection con3 = DriverManager.getConnection(url, userName, password);
         Connection con4 = DriverManager.getConnection(url, userName, password);
+        
         Statement st = con.createStatement(); 
         Statement st2 = con.createStatement();
         ResultSet rs = st.executeQuery(query);
         ResultSet rs5 = st2.executeQuery(query6);
+        
         PreparedStatement pst = con2.prepareStatement(query2); //preparedstatement
         PreparedStatement pst2 = con3.prepareStatement(query3);
         PreparedStatement pst3 = con4.prepareStatement(query4);
@@ -100,20 +103,20 @@ public class rentController extends HttpServlet {
         
         if(option.equals("Rent"))
         {
-        while(rs.next()){
-        prodTitle = rs.getString(2);
-        prodDescription = rs.getString(3);
-        prodPrice = rs.getDouble(4);
-        prodType = rs.getString(5);
-        prodImage = rs.getString(6);
-        activate = rs.getInt(7);
-        Products products = new Products(prodTitle, prodDescription, prodType, prodPrice, id, prodImage, activate);
-        session.setAttribute("products", products);
+            while(rs.next()){
+                prodTitle = rs.getString(2);
+                prodDescription = rs.getString(3);
+                prodPrice = rs.getDouble(4);
+                prodType = rs.getString(5);
+                prodImage = rs.getString(6);
+                activate = rs.getInt(7);
+                Products products = new Products(prodTitle, prodDescription, prodType, prodPrice, id, prodImage, activate);
+                session.setAttribute("products", products);
         }
         
        
-        RequestDispatcher rd = request.getRequestDispatcher("/rentpage.jsp");
-        rd.forward(request, response);
+            RequestDispatcher rd = request.getRequestDispatcher("/rentpage.jsp");
+            rd.forward(request, response);
         }
         
         else if(option.equals("Confirm Rent"))
@@ -121,15 +124,15 @@ public class rentController extends HttpServlet {
             String newUser=request.getParameter("newUser");
             int quantity = parseInt(request.getParameter("quantity"));
             String size = request.getParameter("size");
-             pst2.setString(1,newUser);
-             ResultSet rs2 = pst2.executeQuery();
+            pst2.setString(1,newUser);
+            ResultSet rs2 = pst2.executeQuery();
 
             User users = new User();
             
             Products products = new Products();
             
             while(rs.next()){
-            products.setProdPrice(rs.getDouble(4));
+                products.setProdPrice(rs.getDouble(4));
         }
             
             total= products.getProdPrice()*quantity;
@@ -145,45 +148,23 @@ public class rentController extends HttpServlet {
             enddate = request.getParameter("to"); 
             pst.setDouble(1, total);
             pst.setInt(2, id);
-            
             pst.setString(3, size);
-            
             pst.setInt(4, userid);
-            
             pst.setString(5, status);
-            
-           pst.setString(6, startdate);
-           
+            pst.setString(6, startdate);
             pst.setString(7, enddate);
-           
-            
             pst.setInt(8, quantity);
-            
             pst.executeUpdate();  
-              pst.close(); //step7 close connection
-              con2.close();
+            
+            pst.close(); //step7 close connection
+            con2.close();
               
-             
-              
-              
-              
-//              try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet NewServlet</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet NewServlet at " + date.getTime() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
+            
             try (PrintWriter out = response.getWriter()) {
-             response.sendRedirect(request.getContextPath() + "/userIndex.jsp");
+                response.sendRedirect(request.getContextPath() + "/userIndex.jsp");
                 out.println("<script type=\"text/javascript\">");
-                     out.println("alert('Product Rented!');");
-                     out.println("</script>"); 
+                out.println("alert('Product Rented!');");
+                out.println("</script>"); 
                 }
         }
         
@@ -192,8 +173,8 @@ public class rentController extends HttpServlet {
             String newUser=request.getParameter("newUser");
             int quantity;
             String size;
-             pst2.setString(1,newUser);
-             ResultSet rs2 = pst2.executeQuery();
+            pst2.setString(1,newUser);
+            ResultSet rs2 = pst2.executeQuery();
 
             User users = new User();
             
@@ -208,8 +189,8 @@ public class rentController extends HttpServlet {
             con3.close();
             userid = users.getId();
             pst3.setInt(1,userid);
-             ResultSet rs3 = pst3.executeQuery();
-             ResultSet rs4;
+            ResultSet rs3 = pst3.executeQuery();
+            ResultSet rs4;
              
              while(rs3.next()){
                  rent rent = new rent();
@@ -224,7 +205,7 @@ public class rentController extends HttpServlet {
                  
                  pst4.setInt(1,prodid);
                  
-                rs4 = pst4.executeQuery();
+                 rs4 = pst4.executeQuery();
                 
                 while(rs4.next()){
                     
@@ -251,7 +232,7 @@ public class rentController extends HttpServlet {
              session.setAttribute("rent", rentAL);
              session.setAttribute("User", users);
              RequestDispatcher rd = request.getRequestDispatcher("/ManageRent.jsp");
-              rd.forward(request, response);
+             rd.forward(request, response);
         }
         
         else if(option.equals("ViewRent")&& id==1)
@@ -259,14 +240,14 @@ public class rentController extends HttpServlet {
             String newUser=request.getParameter("newUser");
             int quantity;
             String size;
-             ResultSet rs4;
-             pst2.setString(1,newUser);
-             ResultSet rs2 = pst2.executeQuery();
+            ResultSet rs4;
+            pst2.setString(1,newUser);
+            ResultSet rs2 = pst2.executeQuery();
 
             User users = new User();
             while(rs2.next()){
-             users.setId(rs2.getInt(1));
-             users.setUserName(rs2.getString(2));
+            users.setId(rs2.getInt(1));
+            users.setUserName(rs2.getString(2));
             } 
             
             
@@ -323,8 +304,8 @@ public class rentController extends HttpServlet {
 
             User users = new User();
             while(rs2.next()){
-             users.setId(rs2.getInt(1));
-             users.setUserName(rs2.getString(2));
+            users.setId(rs2.getInt(1));
+            users.setUserName(rs2.getString(2));
             } 
             session.setAttribute("User", users);
             pst5.setString(1, "APPROVED");
@@ -339,17 +320,17 @@ public class rentController extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
                 rd.include(request, response);
                 out.println("<script type=\"text/javascript\">");
-                     out.println("alert('Rent Status Updated');");
-                     out.println("</script>"); 
+                out.println("alert('Rent Status Updated');");
+                out.println("</script>"); 
                       
             }
             
             else{
                     RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
                     rd.include(request, response);
-                     out.println("<script type=\"text/javascript\">");
-                     out.println("alert('Rent Status Update Fail');");
-                     out.println("</script>"); 
+                    out.println("<script type=\"text/javascript\">");
+                    out.println("alert('Rent Status Update Fail');");
+                    out.println("</script>"); 
                      
             }
                      
@@ -360,12 +341,12 @@ public class rentController extends HttpServlet {
         {
             String newUser=request.getParameter("newUser");
             pst2.setString(1,newUser);
-             ResultSet rs2 = pst2.executeQuery();
+            ResultSet rs2 = pst2.executeQuery();
 
             User users = new User();
             while(rs2.next()){
-             users.setId(rs2.getInt(1));
-             users.setUserName(rs2.getString(2));
+                users.setId(rs2.getInt(1));
+                users.setUserName(rs2.getString(2));
             } 
             session.setAttribute("User", users);
             pst5.setString(1, "REJECTED");
@@ -380,17 +361,17 @@ public class rentController extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
                 rd.include(request, response);
                 out.println("<script type=\"text/javascript\">");
-                     out.println("alert('Rent Status Updated');");
-                     out.println("</script>"); 
+                out.println("alert('Rent Status Updated');");
+                out.println("</script>"); 
                       
             }
             
             else{
                     RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
                     rd.include(request, response);
-                     out.println("<script type=\"text/javascript\">");
-                     out.println("alert('Rent Status Update Fail');");
-                     out.println("</script>"); 
+                    out.println("<script type=\"text/javascript\">");
+                    out.println("alert('Rent Status Update Fail');");
+                    out.println("</script>"); 
                      
             }
                      
@@ -401,12 +382,12 @@ public class rentController extends HttpServlet {
         {
             String newUser=request.getParameter("newUser");
             pst2.setString(1,newUser);
-             ResultSet rs2 = pst2.executeQuery();
+            ResultSet rs2 = pst2.executeQuery();
 
             User users = new User();
             while(rs2.next()){
-             users.setId(rs2.getInt(1));
-             users.setUserName(rs2.getString(2));
+                users.setId(rs2.getInt(1));
+                users.setUserName(rs2.getString(2));
             } 
             session.setAttribute("User", users);
             pst5.setString(1, "COMPLETED");
@@ -421,17 +402,17 @@ public class rentController extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
                 rd.include(request, response);
                 out.println("<script type=\"text/javascript\">");
-                     out.println("alert('Rent Status Updated');");
-                     out.println("</script>"); 
+                out.println("alert('Rent Status Updated');");
+                out.println("</script>"); 
                       
             }
             
             else{
                     RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
                     rd.include(request, response);
-                     out.println("<script type=\"text/javascript\">");
-                     out.println("alert('Rent Status Update Fail');");
-                     out.println("</script>"); 
+                    out.println("<script type=\"text/javascript\">");
+                    out.println("alert('Rent Status Update Fail');");
+                    out.println("</script>"); 
                      
             }
                      
@@ -442,12 +423,12 @@ public class rentController extends HttpServlet {
         {
             String newUser=request.getParameter("newUser");
             pst2.setString(1,newUser);
-             ResultSet rs2 = pst2.executeQuery();
+            ResultSet rs2 = pst2.executeQuery();
 
             User users = new User();
             while(rs2.next()){
-             users.setId(rs2.getInt(1));
-             users.setUserName(rs2.getString(2));
+                users.setId(rs2.getInt(1));
+                users.setUserName(rs2.getString(2));
             } 
             session.setAttribute("User", users);
             pst6.setInt(1, id);
@@ -461,17 +442,17 @@ public class rentController extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
                 rd.include(request, response);
                 out.println("<script type=\"text/javascript\">");
-                     out.println("alert('Rent Record Delete');");
-                     out.println("</script>"); 
+                out.println("alert('Rent Record Delete');");
+                out.println("</script>"); 
                       
             }
             
             else{
                     RequestDispatcher rd = request.getRequestDispatcher("/adminIndex.jsp");
                     rd.include(request, response);
-                     out.println("<script type=\"text/javascript\">");
-                     out.println("alert('Rent Deletion Fail');");
-                     out.println("</script>"); 
+                    out.println("<script type=\"text/javascript\">");
+                    out.println("alert('Rent Deletion Fail');");
+                    out.println("</script>"); 
                      
             }
                      
@@ -482,7 +463,7 @@ public class rentController extends HttpServlet {
         {
             String newUser=request.getParameter("newUser");
             pst2.setString(1,newUser);
-             ResultSet rs2 = pst2.executeQuery();
+            ResultSet rs2 = pst2.executeQuery();
 
             User users = new User();
             while(rs2.next()){
@@ -501,30 +482,22 @@ public class rentController extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("/userIndex.jsp");
                 rd.include(request, response);
                 out.println("<script type=\"text/javascript\">");
-                     out.println("alert('Rent Record Delete');");
-                     out.println("</script>"); 
+                out.println("alert('Rent Record Delete');");
+                out.println("</script>"); 
                       
             }
             
             else{
                     RequestDispatcher rd = request.getRequestDispatcher("/userIndex.jsp");
                     rd.include(request, response);
-                     out.println("<script type=\"text/javascript\">");
-                     out.println("alert('Rent Deletion Fail');");
-                     out.println("</script>"); 
+                    out.println("<script type=\"text/javascript\">");
+                    out.println("alert('Rent Deletion Fail');");
+                    out.println("</script>"); 
                      
             }
                      
         }   
-        }
-        
-        
-        
-           
-       
-        
-        
-        
+        } 
     }
 
    

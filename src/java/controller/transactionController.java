@@ -98,9 +98,7 @@ public class transactionController extends HttpServlet {
         Connection con = DriverManager.getConnection(url, userName, password); 
       
       
-          
- 
-      
+        
         if(view.equals("user")){
             String query="SELECT * FROM rent WHERE (status='PAID' OR status='COMPLETED') AND userID = " +  userIDValue;    //Get the user transaction renting that had been paid
             Statement st = con.createStatement(); 
@@ -121,6 +119,7 @@ public class transactionController extends HttpServlet {
                             prodTitle = rsProduct.getString(2);
                             prodDescription = rsProduct.getString(3);
                             prodType = rsProduct.getString(5);
+                            
                             if(productID==tempProductID){
                                 product.add(new Products(prodTitle, prodDescription, prodType));
                             }
@@ -176,11 +175,13 @@ public class transactionController extends HttpServlet {
                     String query10="SELECT * FROM users WHERE id = " +  userID;
                     Statement st10 = con.createStatement(); 
                     ResultSet rs10 = st10.executeQuery(query10);
+                    
                     while(rsProduct.next()){
                         tempProductID=rsProduct.getInt(1);
                         prodTitle = rsProduct.getString(2);
                         prodDescription = rsProduct.getString(3);
                         prodType = rsProduct.getString(5);
+                        
                         if(productID==tempProductID){
                            product.add(new Products(prodTitle, prodDescription, prodType));
                         }
@@ -219,6 +220,7 @@ public class transactionController extends HttpServlet {
                 rentID = rs5.getInt(1);
                 totalprice = rs5.getDouble(2);
                 productID = rs5.getInt(3);
+                
                 if(productID!=0){
                     String queryProduct="SELECT * FROM products WHERE id="+productID;
                     Statement stProduct = con.createStatement(); 
@@ -226,11 +228,13 @@ public class transactionController extends HttpServlet {
                     String query7="SELECT * FROM payment WHERE rentID = "+ rentID; //admin view
                     Statement st7 = con.createStatement(); 
                     ResultSet rs7 = st7.executeQuery(query7);
+                    
                     while(rsProduct.next()){
                         tempProductID =rsProduct.getInt(1);
                         prodTitle = rsProduct.getString(2);
                         prodDescription = rsProduct.getString(3);
                         prodType = rsProduct.getString(5);
+                        
                         if(productID==tempProductID){
                             product1.add(new Products(prodTitle, prodDescription, prodType));
                         }
@@ -239,6 +243,7 @@ public class transactionController extends HttpServlet {
                     while(rs7.next()){
                         paidDate=rs7.getTimestamp(5);
                         rentIDPayment=rs7.getInt(6);
+                        
                         if(rentID==rentIDPayment){
                               payment1.add(new Payment(paidDate));
                         }
@@ -261,6 +266,7 @@ public class transactionController extends HttpServlet {
                 rentID = rs6.getInt(1);
                 totalprice = rs6.getDouble(2);
                 productID = rs6.getInt(3);
+                
                 if(productID!=0){
                     String queryProduct="SELECT * FROM products WHERE id="+productID;
                     Statement stProduct = con.createStatement(); 
@@ -268,6 +274,7 @@ public class transactionController extends HttpServlet {
                     String query8="SELECT * FROM payment WHERE rentID = "+ rentID;  //admin view
                     Statement st8 = con.createStatement(); 
                     ResultSet rs8 = st8.executeQuery(query8);
+                    
                     while(rsProduct.next()){
                         tempProductID =rsProduct.getInt(1);
                         prodTitle = rsProduct.getString(2);
