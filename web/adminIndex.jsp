@@ -52,11 +52,13 @@
                         <div class="main-menu">
                             <nav>
                                 <ul>
-                                    <li class="angle-shape"><form name="Home" action="HomeServlet" method="POST">                                   
-                                    <input type="hidden" name="userName" value="<%= user.getUserName() %>">
-                                    <input type="hidden" name="option" value="adminhome">
-                                    <input type="submit" value="Home">
-                                    </form></li>
+                                    <li class="angle-shape">
+                                        <form name="Home" action="HomeServlet" method="POST">                                   
+                                        <input type="hidden" name="userName" value="<%= user.getUserName() %>">
+                                        <input type="hidden" name="option" value="adminhome">
+                                        <input type="submit" value="Home">
+                                    </form>
+                                    </li>
                                     <li> <form name="View" action="ViewProductsServlet" method="POST" >
                                             <input type="hidden" name="action" value="adminview"> <input class="btn btn-light" type="submit" value="Manage Products"></form> 
                                         </li>
@@ -68,7 +70,6 @@
                                     </li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
-                                            <li><a href="">About us </a></li>
                                             <li> <form name="View" action="transactionController" method="POST">
                                                 <input type="hidden" name="view" value="admin">
                                                  <input type="hidden" name="userID" value=" <%=user.getId()%>">

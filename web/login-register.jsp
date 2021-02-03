@@ -142,7 +142,9 @@ function checkPass()
                                 <div class="login-form-container">
                                     <div class="login-register-form">
                                         <form action="LoginController" method="post">
+                                            <label><b>Username</b></label>
                                             <input type="text" name="userName" placeholder="Username">
+                                            <label><b>Password</b></label>
                                             <input type="password" name="userPassword" placeholder="Password">
                                             <div class="button-box">
                                                 <div class="login-toggle-btn">
