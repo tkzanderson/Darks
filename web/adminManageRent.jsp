@@ -194,6 +194,7 @@
                                         <td>
                                              <form name="approveForm" action="rentController">
                                                  <input type="hidden" name="option" value="approve" class="btn btn-info">
+                                                 <input type="hidden" name="newUser" value="<%= user.getUserName() %>" class="btn btn-info">
                                                  <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="APPROVE" class="btn btn-info">
                                             </form>
@@ -201,6 +202,7 @@
                                         <td>
                                              <form name="rejectForm" action="rentController">
                                                  <input type="hidden" name="option" value="reject" class="btn btn-info">
+                                                 <input type="hidden" name="newUser" value="<%= user.getUserName() %>" class="btn btn-info">
                                                  <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="REJECT" class="btn btn-danger">
                                             </form>
@@ -208,6 +210,7 @@
                                         <td>
                                             <form name="checkoutForm" action="rentController">
                                                 <input type="hidden" name="option" value="return" class="btn btn-info">
+                                                <input type="hidden" name="newUser" value="<%= user.getUserName() %>" class="btn btn-info">
                                                 <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="RETURN" class="btn" disabled>
                                             </form>
@@ -215,6 +218,7 @@
                                        <td>
                                             <form name="checkoutForm" action="rentController">
                                                 <input type="hidden" name="option" value="remove" class="btn btn-info">
+                                                <input type="hidden" name="newUser" value="<%= user.getUserName() %>" class="btn btn-info">
                                                 <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="REMOVE" class="btn" disabled>
                                             </form>
@@ -224,6 +228,7 @@
                                         <td>
                                              <form name="approveForm" action="rentController">
                                                  <input type="hidden" name="option" value="approve" class="btn btn-info">
+                                                 <input type="hidden" name="newUser" value="<%= user.getUserName() %>" class="btn btn-info">
                                                  <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="APPROVE" class="btn" disabled>
                                             </form>
@@ -231,6 +236,7 @@
                                             <td>
                                             <form name="rejectForm" action="rentController">
                                                  <input type="hidden" name="option" value="reject" class="btn btn-info">
+                                                 <input type="hidden" name="newUser" value="<%= user.getUserName() %>" class="btn btn-info">
                                                  <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="REJECT" class="btn btn-danger">
                                             </form>
@@ -238,6 +244,7 @@
                                             <td>
                                             <form name="checkoutForm" action="rentController">
                                                 <input type="hidden" name="option" value="return" class="btn btn-info">
+                                                <input type="hidden" name="newUser" value="<%= user.getUserName() %>" class="btn btn-info">
                                                 <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="RETURN" class="btn" disabled>
                                             </form>
@@ -245,6 +252,7 @@
                                        <td>
                                             <form name="checkoutForm" action="rentController">
                                                 <input type="hidden" name="option" value="remove" class="btn btn-info">
+                                                <input type="hidden" name="newUser" value="<%= user.getUserName() %>" class="btn btn-info">
                                                 <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="REMOVE" class="btn" disabled>
                                             </form>
@@ -255,6 +263,7 @@
                                             <td>
                                             <form name="approveForm" action="rentController">
                                                  <input type="hidden" name="option" value="approve" class="btn btn-info">
+                                                 <input type="hidden" name="newUser" value="<%= user.getUserName() %>" class="btn btn-info">
                                                  <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="APPROVE" class="btn btn-info">
                                             </form>
@@ -262,6 +271,7 @@
                                             <td>
                                             <form name="rejectForm" action="rentController">
                                                  <input type="hidden" name="option" value="reject" class="btn btn-info">
+                                                 <input type="hidden" name="newUser" value="<%= user.getUserName() %>" class="btn btn-info">
                                                  <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="REJECT" class="btn" disabled>
                                             </form>
@@ -269,6 +279,7 @@
                                             <td>
                                             <form name="checkoutForm" action="rentController">
                                                 <input type="hidden" name="option" value="return" class="btn btn-info">
+                                                <input type="hidden" name="newUser" value="<%= user.getUserName() %>" class="btn btn-info">
                                                 <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="RETURN" class="btn" disabled>
                                             </form>
@@ -277,6 +288,7 @@
                                                 <td>
                                             <form name="checkoutForm" action="rentController">
                                                 <input type="hidden" name="option" value="remove" class="btn btn-info">
+                                                <input type="hidden" name="newUser" value="<%= user.getUserName() %>" class="btn btn-info">
                                                 <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="REMOVE" class="btn btn-danger">
                                             </form>
@@ -287,6 +299,7 @@
                                             <td>
                                             <form name="approveForm" action="rentController">
                                                  <input type="hidden" name="option" value="approve" class="btn btn-info">
+                                                 <input type="hidden" name="newUser" value="<%= user.getUserName() %>" class="btn btn-info">
                                                  <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="APPROVE" class="btn" disabled>
                                             </form>
@@ -294,6 +307,7 @@
                                             <td>
                                             <form name="rejectForm" action="rentController">
                                                  <input type="hidden" name="option" value="reject" class="btn btn-info">
+                                                 <input type="hidden" name="newUser" value="<%= user.getUserName() %>" class="btn btn-info">
                                                  <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="REJECT" class="btn" disabled>
                                             </form>
@@ -301,6 +315,7 @@
                                             <td>
                                             <form name="checkoutForm" action="rentController">
                                                 <input type="hidden" name="option" value="return" class="btn btn-info">
+                                                <input type="hidden" name="newUser" value="<%= user.getUserName() %>" class="btn btn-info">
                                                 <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="RETURN" class="btn btn-info">
                                             </form>
@@ -308,6 +323,7 @@
                                             <td>
                                             <form name="checkoutForm" action="rentController">
                                                 <input type="hidden" name="option" value="remove" class="btn btn-info">
+                                                <input type="hidden" name="newUser" value="<%= user.getUserName() %>" class="btn btn-info">
                                                 <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
                                                  <input type="submit" value="REMOVE" class="btn" disabled>
                                             </form>
