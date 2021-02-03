@@ -84,7 +84,8 @@ else{
 
 }
 </script>
-<div class="wrapper">
+<div>
+    
     <header class="header-area sticky-bar">
         <div class="main-header-wrap">
             <div class="container">
@@ -155,14 +156,7 @@ else{
                             </nav>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-3">
-                        <div class="header-right-wrap pt-40">
-                            <div class="header-search">
-                                <a class="search-active" href=""><i class="sli sli-magnifier"></i></a>
-                            </div>
-                                  
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             <!-- main-search start -->
@@ -183,6 +177,7 @@ else{
             </div>
         </div>
     </header>
+    
     
     
     <!-- Content start here -->

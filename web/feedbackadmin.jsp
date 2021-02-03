@@ -46,55 +46,79 @@
 </head>
 
 <body>
-<div class="wrapper">
+<div >
+    
     <header class="header-area sticky-bar">
         <div class="main-header-wrap">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-2 col-lg-2">
                         <div class="logo pt-40">
-                            <a href="userIndex.jsp">
+                            <a href="adminIndex.jsp">
                                 <h1><b>Darks</b></h1>
                             </a>
                         </div>
                     </div>
-                    <div class="col-xl-7 col-lg-7 ">
+                    <div class="col-xl-15 col-lg-15">
                         <div class="main-menu">
                             <nav>
                                 <ul>
-                                    <li class="angle-shape"><a href="userIndex.jsp">Home </a></li>
                                     <li class="angle-shape">
-                                    <form name="View" action="ViewProductsServlet" method="POST">
-                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Products"></form></li>
-                                    <li><a href="">Promotion <span>hot</span> </a></li>
+                                        <form name="Home" action="HomeServlet" method="POST">                                   
+                                        <input type="hidden" name="userName" value="<%= user.getUserName() %>">
+                                        <input type="hidden" name="option" value="adminhome">
+                                        <input type="submit" value="Home">
+                                    </form>
+                                    </li>
+                                    <li> <form name="View" action="ViewProductsServlet" method="POST" >
+                                            <input type="hidden" name="action" value="adminview"> <input class="btn btn-light" type="submit" value="Manage Products"></form> 
+                                        </li>
+                                    <li>
+                                        <form name="View" action="ViewPromotionsServlet" method="POST" >
+                                             <input type="hidden" name="action" value="adminview">
+                                            <input class="btn btn-light" type="submit" value="Manage Promotions">
+                                        </form>
+                                    </li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
-                                            <li><a href="">About us </a></li>
-                                            <li><a href="">Transaction History </a></li>
-                                            <li><a href="wishlist.jsp">Wishlist</a></li>
-                                            <li><a href="">Renting Cart</a></li>
+                                            <li> <form name="View" action="transactionController" method="POST">
+                                                <input type="hidden" name="view" value="admin">
+                                                 <input type="hidden" name="userID" value=" <%=user.getId()%>">
+                                                <input type="submit" value="Transaction">
+                                           </form></li>
+                                            <li><form name="rent" action="rentController" method="POST">
+                                            <input type="hidden" name="newUser" value="<%= user.getUserName() %>">
+                                            <input type="hidden" name="option" value="ViewRent">
+                                            <input type="hidden" name="action" value="1">
+                                            <input type="submit" value="Manage Rent">
+                                                </form></li>
                                             <li>
                                                 <form name="feedback" action="FeedbackController" method="POST">
                                                     <input type="hidden" name="action" value="ADMIN">
                                                     <input type="submit" value="Feedback">
                                                 </form>
                                             </li>
-                                            <li><a href="">My Profile </a></li>
-                                            <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
+                                            <li><form name="profile" action="ProfileServlet" method="POST">
+                                            <input type="hidden" name="id" value="<%= user.getId()%>"><input type="hidden" name="action" value="display"><input type="submit" value="My Profile"></form></li>
+                                            <li><a href="admin-register.jsp">Register new admin</a></li> 
+                                            <li><form name="rent" action="chartController" method="POST">
+                                            <input type="hidden" name="newUser" value="<%= user.getUserName() %>">
+                                            <input type="submit" value="View Reports">
+                                                </form></li>
+
+                                            <li>
+                                                <form name="logout" action="LogoutServlet" method="POST">
+                                                    <input type="hidden" name="action" value="logout">
+                                                    <input type="submit" value="Logout">
+                                                </form>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
                             </nav>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-3">
-                        <div class="header-right-wrap pt-40">
-                            <div class="header-search">
-                                <a class="search-active" href=""><i class="sli sli-magnifier"></i></a>
-                            </div>
-                                  
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             <!-- main-search start -->
@@ -115,6 +139,7 @@
             </div>
         </div>
     </header>
+    
     
     
     <!-- Content start here -->

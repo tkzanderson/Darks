@@ -40,7 +40,7 @@
 </head>
 
 <body>
-<div class="wrapper">
+<div>
     <header class="header-area sticky-bar">
         <div class="main-header-wrap">
             <div class="container">
@@ -75,23 +75,25 @@
                                     </form></li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
-                                            <li><a href="">About us </a></li>
-                                            <li> <form name="View" action="transactionController" method="POST">
-                                                <input type="hidden" name="view" value="user">
-                                                 <input type="hidden" name="userID" value=" <%=user.getId()%>">
-                                                <input type="submit" value="Transaction">
-                                           </form></li>
+                                            <li>
+                                                <form name="View" action="transactionController" method="POST">
+                                                    <input type="hidden" name="view" value="user">
+                                                     <input type="hidden" name="userID" value=" <%=user.getId()%>">
+                                                    <input type="submit" value="Transaction">
+                                                </form>
+                                            </li>
                                             <li>
                                                 <form name="wish" action="WishlistController" method="POST">
                                                     <input type="hidden" name="output" value="VIEW">
                                                     <input type="submit" value="Wishlist">
                                                 </form>
                                             </li>
-                                            <li><form name="rent" action="rentController" method="POST">
-                                            <input type="hidden" name="newUser" value="<%= user.getUserName() %>">
-                                            <input type="hidden" name="option" value="ViewRent">
-                                            <input type="hidden" name="action" value="0">
-                                            <input type="submit" value="Manage Rent">
+                                            <li>
+                                                <form name="rent" action="rentController" method="POST">
+                                                    <input type="hidden" name="newUser" value="<%= user.getUserName() %>">
+                                                    <input type="hidden" name="option" value="ViewRent">
+                                                    <input type="hidden" name="action" value="0">
+                                                    <input type="submit" value="Manage Rent">
                                                 </form></li>
                                             <li>
                                                 <form name="feedback" action="FeedbackController" method="POST">
@@ -99,8 +101,13 @@
                                                     <input type="submit" value="Feedback">
                                                 </form>
                                             </li>
-                                            <li><form name="profile" action="ProfileServlet" method="POST">
-                                            <input type="hidden" name="id" value="<%= user.getId()%>"><input type="hidden" name="action" value="display"><input type="submit" value="My Profile"></form></li>
+                                            <li>
+                                                <form name="profile" action="ProfileServlet" method="POST">
+                                                    <input type="hidden" name="id" value="<%= user.getId()%>">
+                                                    <input type="hidden" name="action" value="display">
+                                                    <input type="submit" value="My Profile">
+                                                </form>
+                                            </li>
                                             <li>
                                                 <form name="logout" action="LogoutServlet" method="POST">
                                                     <input type="hidden" name="action" value="logout">
@@ -113,14 +120,7 @@
                             </nav>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-3">
-                        <div class="header-right-wrap pt-40">
-                            <div class="header-search">
-                                <a class="search-active" href=""><i class="sli sli-magnifier"></i></a>
-                            </div>
-                                  
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             <!-- main-search start -->

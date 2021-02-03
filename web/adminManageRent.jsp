@@ -66,7 +66,8 @@
 </head>
 
 <body>
-<div class="wrapper">
+<div >
+    
     <header class="header-area sticky-bar">
         <div class="main-header-wrap">
             <div class="container">
@@ -82,11 +83,13 @@
                         <div class="main-menu">
                             <nav>
                                 <ul>
-                                    <li class="angle-shape"><form name="Home" action="HomeServlet" method="POST">                                   
-                                    <input type="hidden" name="userName" value="<%= user.getUserName() %>">
-                                    <input type="hidden" name="option" value="adminhome">
-                                    <input type="submit" value="Home">
-                                    </form></li>
+                                    <li class="angle-shape">
+                                        <form name="Home" action="HomeServlet" method="POST">                                   
+                                        <input type="hidden" name="userName" value="<%= user.getUserName() %>">
+                                        <input type="hidden" name="option" value="adminhome">
+                                        <input type="submit" value="Home">
+                                    </form>
+                                    </li>
                                     <li> <form name="View" action="ViewProductsServlet" method="POST" >
                                             <input type="hidden" name="action" value="adminview"> <input class="btn btn-light" type="submit" value="Manage Products"></form> 
                                         </li>
@@ -98,7 +101,6 @@
                                     </li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
-                                            <li><a href="">About us </a></li>
                                             <li> <form name="View" action="transactionController" method="POST">
                                                 <input type="hidden" name="view" value="admin">
                                                  <input type="hidden" name="userID" value=" <%=user.getId()%>">
@@ -116,7 +118,8 @@
                                                     <input type="submit" value="Feedback">
                                                 </form>
                                             </li>
-                                            <li><a href="">My Profile </a></li>
+                                            <li><form name="profile" action="ProfileServlet" method="POST">
+                                            <input type="hidden" name="id" value="<%= user.getId()%>"><input type="hidden" name="action" value="display"><input type="submit" value="My Profile"></form></li>
                                             <li><a href="admin-register.jsp">Register new admin</a></li> 
                                             <li><form name="rent" action="chartController" method="POST">
                                             <input type="hidden" name="newUser" value="<%= user.getUserName() %>">
@@ -135,14 +138,7 @@
                             </nav>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-3">
-                        <div class="header-right-wrap pt-40">
-                            <div class="header-search">
-                                <a class="search-active" href=""><i class="sli sli-magnifier"></i></a>
-                            </div>
-                                  
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             <!-- main-search start -->
