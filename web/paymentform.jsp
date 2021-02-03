@@ -7,7 +7,7 @@
 <%@page import="bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%User users = (User)session.getAttribute("users");
+<%User user = (User)session.getAttribute("users");
 double total = (Double)session.getAttribute("total");
     
 int rentID = (Integer)session.getAttribute("rentID");
@@ -58,20 +58,56 @@ int rentID = (Integer)session.getAttribute("rentID");
                         <div class="main-menu">
                             <nav>
                                 <ul>
-                                    <li class="angle-shape"><a href="userIndex.jsp">Home </a></li>
+                                    <li class="angle-shape"><form name="Home" action="HomeServlet" method="POST">                                   
+                                    <input type="hidden" name="userName" value="<%= user.getUserName() %>">
+                                    <input type="hidden" name="option" value="userhome">
+                                    <input type="submit" value="Home">
+                                    </form></li>
                                     <li class="angle-shape">
                                     <form name="View" action="ViewProductsServlet" method="POST">
-                                    <input type="hidden" name="action" value="userview"><input type="submit" value="Products"></form></li>
-                                    <li><a href="">Promotion <span>hot</span> </a></li>
+                                    <input type="hidden" name="action" value="userview">
+                                    <input type="hidden" name="username" value="<%= user.getUserName() %>">
+                                    <input type="submit" value="Products">
+                                    </form></li>
+                                    <li class="angle-shape">
+                                    <form name="View" action="ViewPromotionsServlet" method="POST">
+                                    <input type="hidden" name="action" value="userview">
+                                    <input type="hidden" name="username" value="<%= user.getUserName() %>">
+                                    <input type="submit" value="Promotion">
+                                    </form></li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
-                                            <li><a href="">About us </a></li>
-                                            <li><a href="">Transaction History </a></li>
-                                            <li><a href="">Wishlist</a></li>
-                                            <li><a href="">Renting Cart</a></li>
-                                            <li><a href="feedbackcust.jsp">Feedback </a></li>
-                                            <li><a href="">My Profile </a></li>
-                                            <li><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></li>
+                                            <li> <form name="View" action="transactionController" method="POST">
+                                                <input type="hidden" name="view" value="user">
+                                                 <input type="hidden" name="userID" value=" <%=user.getId()%>">
+                                                <input type="submit" value="Transaction">
+                                           </form></li>
+                                            <li>
+                                                <form name="wish" action="WishlistController" method="POST">
+                                                    <input type="hidden" name="output" value="VIEW">
+                                                    <input type="submit" value="Wishlist">
+                                                </form>
+                                            </li>
+                                            <li><form name="rent" action="rentController" method="POST">
+                                            <input type="hidden" name="newUser" value="<%= user.getUserName() %>">
+                                            <input type="hidden" name="option" value="ViewRent">
+                                            <input type="hidden" name="action" value="0">
+                                            <input type="submit" value="Manage Rent">
+                                                </form></li>
+                                            <li>
+                                                <form name="feedback" action="FeedbackController" method="POST">
+                                                    <input type="hidden" name="action" value="CUSTOMER">
+                                                    <input type="submit" value="Feedback">
+                                                </form>
+                                            </li>
+                                            <li><form name="profile" action="ProfileServlet" method="POST">
+                                            <input type="hidden" name="id" value="<%= user.getId()%>"><input type="hidden" name="action" value="display"><input type="submit" value="My Profile"></form></li>
+                                            <li>
+                                                <form name="logout" action="LogoutServlet" method="POST">
+                                                    <input type="hidden" name="action" value="logout">
+                                                    <input type="submit" value="Logout">
+                                                </form>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -120,25 +156,25 @@ int rentID = (Integer)session.getAttribute("rentID");
                                 <div class="col-lg-12">
                                     <div class="billing-info mb-20">
                                         <label>Full Name <abbr class="required" title="required">*</abbr></label>
-                                        <input type="text" name="userName" value="<%=users.getUserName()%>" disabled>
+                                        <input type="text" name="userName" value="<%=user.getUserName()%>" disabled>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="billing-info mb-20">
                                         <label>Shipping Address <abbr class="required" title="required">*</abbr></label>
-                                        <textarea class="billing-address"  name="shippingAddress" disabled> <%=users.getShippingAddress()%> </textarea>
+                                        <textarea class="billing-address"  name="shippingAddress" disabled> <%=user.getShippingAddress()%> </textarea>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="billing-info mb-20">
                                         <label>Phone <abbr class="required" title="required">*</abbr></label>
-                                        <input type="text" name="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="<%=users.getPhoneNumber() %>" disabled>
+                                        <input type="text" name="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="<%=user.getPhoneNumber() %>" disabled>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="billing-info mb-20">
                                         <label>Email Address <abbr class="required" title="required">*</abbr></label>
-                                        <input type="text" name="email" value="<%=users.getEmail() %>" disabled>
+                                        <input type="text" name="email" value="<%=user.getEmail() %>" disabled>
                                     </div>
                                 </div>
                                 
@@ -177,7 +213,7 @@ int rentID = (Integer)session.getAttribute("rentID");
                              </div>
                            
                             <div class="Place-order mt-40">
-                                <input type="hidden" name="userID" value="<%= users.getId()%>">
+                                <input type="hidden" name="userID" value="<%= user.getId()%>">
                                 <input type="hidden" name="rentID" value="<%= rentID %>">
                                 <input type="submit" value="Confirm Payment" style="background-color: red; color: white">
                             </div>
