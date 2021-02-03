@@ -101,7 +101,6 @@ else{
                         </div>
                     </div>
                     <div class="col-xl-7 col-lg-7 ">
-                        <div class="col-xl-7 col-lg-7 ">
                         <div class="main-menu">
                             <nav>
                                 <ul>
@@ -124,7 +123,6 @@ else{
                                     </form></li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
-                                            <li><a href="">About us </a></li>
                                             <li> <form name="View" action="transactionController" method="POST">
                                                 <input type="hidden" name="view" value="user">
                                                  <input type="hidden" name="userID" value=" <%=user.getId()%>">
