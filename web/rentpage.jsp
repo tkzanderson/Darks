@@ -192,10 +192,10 @@
                                                             </label>-->
 
                                                              <label for="from">From</label> 
-                                                             <input type="text" id="from" name="from" required/> 
+                                                             <input type="text" id="from" name="from" required autocomplete="off"/> 
 
                                                             <label for="to">to</label> 
-                                                            <input type="text" id="to" name="to" required/>
+                                                            <input type="text" id="to" name="to" required autocomplete="off"/>
                                                             <input  type="hidden" name="action" value="<%= prod.getId() %>"/>
                                                             <input  type="hidden" name="newUser" value="<%= user.getUserName() %>"/>
                                                             <input  type="hidden" name="userID" value="<%= user.getId() %>"/>
