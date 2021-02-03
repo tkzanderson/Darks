@@ -145,9 +145,9 @@ public class ProfileServlet extends HttpServlet {
             con.close();
             
             
-            if("admin".equals(role)){  
+            if(role.equals("admin")){  
                 session.setAttribute("users", users);
-                RequestDispatcher rd = request.getRequestDispatcher("/adminProfile.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/adminprofile.jsp");
                 rd.include(request, response);
                 out.println("<script type=\"text/javascript\">");
                 out.println("alert('Your profile has been updated!');");
@@ -174,7 +174,7 @@ public class ProfileServlet extends HttpServlet {
             String shippingAddress = request.getParameter("shippingAddress");
             String phoneNumber = request.getParameter("phoneNumber");
             int userid = Integer.parseInt(request.getParameter("userid"));
-            
+           
             String query = "UPDATE users SET userPassword=? WHERE userPassword=?";
                 
             try {
@@ -201,9 +201,10 @@ public class ProfileServlet extends HttpServlet {
             users.setPhoneNumber(phoneNumber);
             
             
-            if("admin".equals(role)){  
+            if(role.equals("admin")){  
+                
                 session.setAttribute("users", users);
-                RequestDispatcher rd = request.getRequestDispatcher("/adminProfile.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/adminprofile.jsp");
                 rd.include(request, response);
                 out.println("<script type=\"text/javascript\">");
                 out.println("alert('Your password has been updated!');");
