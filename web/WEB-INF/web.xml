@@ -76,6 +76,10 @@
         <servlet-name>chartController</servlet-name>
         <servlet-class>controller.chartController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>controller.HomeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/RegisterController</url-pattern>
@@ -151,6 +155,10 @@
     <servlet-mapping>
         <servlet-name>chartController</servlet-name>
         <url-pattern>/chartController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/HomeServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

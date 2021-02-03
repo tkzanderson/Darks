@@ -53,7 +53,11 @@
                         <div class="main-menu">
                             <nav>
                                 <ul>
-                                    <li class="angle-shape"><a href="userIndex.jsp">Home </a></li>
+                                    <li class="angle-shape"><form name="Home" action="HomeServlet" method="POST">                                   
+                                    <input type="hidden" name="userName" value="<%= user.getUserName() %>">
+                                    <input type="hidden" name="option" value="userhome">
+                                    <input type="submit" value="Home">
+                                    </form></li>
                                     <li class="angle-shape">
                                     <form name="View" action="ViewProductsServlet" method="POST">
                                     <input type="hidden" name="action" value="userview">

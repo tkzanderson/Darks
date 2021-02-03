@@ -478,6 +478,46 @@ public class rentController extends HttpServlet {
         }   
         }
         
+        else if(option.equals("removeuser"))
+        {
+            String newUser=request.getParameter("newUser");
+            pst2.setString(1,newUser);
+             ResultSet rs2 = pst2.executeQuery();
+
+            User users = new User();
+            while(rs2.next()){
+             users.setId(rs2.getInt(1));
+             users.setUserName(rs2.getString(2));
+            } 
+            session.setAttribute("User", users);
+            pst6.setInt(1, id);
+            
+            int count = pst6.executeUpdate();
+            con4.close();
+
+        try (PrintWriter out = response.getWriter()) {
+            if(count>0)
+            {
+                RequestDispatcher rd = request.getRequestDispatcher("/userIndex.jsp");
+                rd.include(request, response);
+                out.println("<script type=\"text/javascript\">");
+                     out.println("alert('Rent Record Delete');");
+                     out.println("</script>"); 
+                      
+            }
+            
+            else{
+                    RequestDispatcher rd = request.getRequestDispatcher("/userIndex.jsp");
+                    rd.include(request, response);
+                     out.println("<script type=\"text/javascript\">");
+                     out.println("alert('Rent Deletion Fail');");
+                     out.println("</script>"); 
+                     
+            }
+                     
+        }   
+        }
+        
         
         
            

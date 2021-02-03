@@ -13,7 +13,7 @@
 
 <%
     ArrayList rentAL= (ArrayList) session.getAttribute("rent");
-    User users = (User) session.getAttribute("User");
+    User user = (User)session.getAttribute("User");
 %>  
 
 
@@ -73,7 +73,7 @@
                 <div class="row">
                     <div class="col-xl-2 col-lg-2">
                         <div class="logo pt-40">
-                            <a href="adminIndex.jsp">
+                            <a href="userIndex.jsp">
                                 <h1><b>Darks</b></h1>
                             </a>
                         </div>
@@ -82,19 +82,57 @@
                         <div class="main-menu">
                             <nav>
                                 <ul>
-                                    <li class="angle-shape"><a href="adminIndex.jsp">Home </a></li>
-                                     <li> <form name="View" action="ViewProductsServlet" method="POST" >
-                                            <input type="hidden" name="action" value="adminview"> <input class="btn btn-light" type="submit" value="Manage Products"></form> 
-                                        </li>
-                                    <li><a href="">Promotion <span>hot</span> </a></li>
+                                    <li class="angle-shape"><form name="Home" action="HomeServlet" method="POST">                                   
+                                    <input type="hidden" name="userName" value="<%= user.getUserName() %>">
+                                    <input type="hidden" name="option" value="userhome">
+                                    <input type="submit" value="Home">
+                                    </form></li>
+                                    <li class="angle-shape">
+                                    <form name="View" action="ViewProductsServlet" method="POST">
+                                    <input type="hidden" name="action" value="userview">
+                                    <input type="hidden" name="username" value="<%= user.getUserName() %>">
+                                    <input type="submit" value="Products">
+                                    </form></li>
+                                    <li class="angle-shape">
+                                    <form name="View" action="ViewPromotionsServlet" method="POST">
+                                    <input type="hidden" name="action" value="userview">
+                                    <input type="hidden" name="username" value="<%= user.getUserName() %>">
+                                    <input type="submit" value="Promotion">
+                                    </form></li>
                                     <li class="angle-shape">Pages
                                         <ul class="submenu">
                                             <li><a href="">About us </a></li>
-                                            <li><a href="">Transaction History </a></li>
-                                            <li><a href="">Manage Rent</a></li>
-                                            <li><a href="">Feedback </a></li>
-                                            <li><a href="">My Profile </a></li>
-                                            <li><a href="">Logout </a></li>
+                                            <li> <form name="View" action="transactionController" method="POST">
+                                                <input type="hidden" name="view" value="user">
+                                                 <input type="hidden" name="userID" value=" <%=user.getId()%>">
+                                                <input type="submit" value="Transaction">
+                                           </form></li>
+                                            <li>
+                                                <form name="wish" action="WishlistController" method="POST">
+                                                    <input type="hidden" name="output" value="VIEW">
+                                                    <input type="submit" value="Wishlist">
+                                                </form>
+                                            </li>
+                                            <li><form name="rent" action="rentController" method="POST">
+                                            <input type="hidden" name="newUser" value="<%= user.getUserName() %>">
+                                            <input type="hidden" name="option" value="ViewRent">
+                                            <input type="hidden" name="action" value="0">
+                                            <input type="submit" value="Manage Rent">
+                                                </form></li>
+                                            <li>
+                                                <form name="feedback" action="FeedbackController" method="POST">
+                                                    <input type="hidden" name="action" value="CUSTOMER">
+                                                    <input type="submit" value="Feedback">
+                                                </form>
+                                            </li>
+                                            <li><form name="profile" action="ProfileServlet" method="POST">
+                                            <input type="hidden" name="id" value="<%= user.getId()%>"><input type="hidden" name="action" value="display"><input type="submit" value="My Profile"></form></li>
+                                            <li>
+                                                <form name="logout" action="LogoutServlet" method="POST">
+                                                    <input type="hidden" name="action" value="logout">
+                                                    <input type="submit" value="Logout">
+                                                </form>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -165,8 +203,11 @@
                                              </form>
                                         </td>
                                         <td>
-                                             <form name="checkoutForm" >
-                                                 <input type="submit" value="Remove" class="btn btn-danger">
+                                             <form name="checkoutForm" action="rentController">
+                                                <input type="hidden" name="option" value="removeuser" class="btn btn-info">
+                                                <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
+                                                <input  type="hidden" name="newUser" value="<%= user.getUserName() %>"/>
+                                                 <input type="submit" value="REMOVE" class="btn btn-danger">
                                             </form>
                                         </td>
                                         <%}    
@@ -174,7 +215,7 @@
                                         else if(rent.getStatus().equals("APPROVED")){%>
                                         <td>
                                             <form name="checkoutForm" action="PaymentServlet" method="POST">
-                                                <input type="hidden" name="userID" value="<%= users.getId() %>">
+                                                <input type="hidden" name="userID" value="<%= user.getId() %>">
                                                 <input type="hidden" name="rentID" value="<%= rent.getId() %>">
                                             <input type="submit" value="Checkout" class="btn btn-primary"/>
                                              </form>
@@ -193,8 +234,11 @@
                                              </form>
                                         </td>
                                         <td>
-                                             <form name="checkoutForm" >
-                                                 <input type="submit" value="Remove" class="btn btn-danger">
+                                             <form name="checkoutForm" action="rentController">
+                                                <input type="hidden" name="option" value="removeuser" class="btn btn-info">
+                                                <input type="hidden" name="action" value="<%= rent.getId() %>" class="btn btn-info">
+                                                <input  type="hidden" name="newUser" value="<%= user.getUserName() %>"/>
+                                                 <input type="submit" value="REMOVE" class="btn btn-danger">
                                             </form>
                                         </td> 
                                         <%}
